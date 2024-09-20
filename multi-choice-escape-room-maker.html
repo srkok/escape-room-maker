@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-choice Escape Room Maker</title>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="./js/quiz-board-settings.component.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+  </head>
+  <body>
+    <a-scene cursor="rayOrigin: mouse" raycaster="objects:.raycastable">
+      <a-assets>
+        <!-- 地面のマス目用テンプレート -->
+        <a-mixin
+          id="quizGrid"
+          geometry="primitive: plane; height: 2; width: 4;"
+        ></a-mixin>
+        <a-mixin
+          id="gray"
+          material="color: gray"
+          animation__in="property: components.material.material.color; type: color; dur: 0; to: green; startEvents: mouseenter;"
+          animation__out="property: components.material.material.color; type: color; dur: 0; to: gray; startEvents: mouseleave;"
+        ></a-mixin>
+        <a-mixin
+          id="silver"
+          material="color: silver"
+          animation__in="property: components.material.material.color; type: color; dur: 0; to: green; startEvents: mouseenter;"
+          animation__out="property: components.material.material.color; type: color; dur: 0; to: silver; startEvents: mouseleave;"
+        ></a-mixin>
+      </a-assets>
+      <!-- 地面のマス目 -->
+      <a-entity position="0 0 -4" rotation="-90 0 0">
+        <a-plane
+          mixin="gray quizGrid"
+          position="0 0 0"
+          class="raycastable"
+          show-quiz-board-settings-popup
+        ></a-plane>
+        <a-plane
+          mixin="silver quizGrid"
+          position="4 0 0"
+          class="raycastable"
+          show-quiz-board-settings-popup
+        ></a-plane>
+        <a-plane
+          mixin="gray quizGrid"
+          position="8 0 0"
+          class="raycastable"
+          show-quiz-board-settings-popup
+        ></a-plane>
+        <a-plane
+          mixin="silver quizGrid"
+          position="12 0 0"
+          class="raycastable"
+          show-quiz-board-settings-popup
+        ></a-plane>
+      </a-entity>
+      <!-- 背景 -->
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+    <!-- クイズ設置用ポップアップ -->
+    <div id="overlay"></div>
+    <div id="quizSettingsModal">
+      <label for="outerColorPicker">outer color:</label>
+      <input type="color" id="outerColorPicker" />
+      <br />
+      <label for="innerColorPicker">inner color:</label>
+      <input type="color" id="innerColorPicker" />
+      <br />
+      <label for="quizText">text(only English):</label>
+      <input type="text" id="quizText" />
+      <br />
+      <button id="applyButton">apply</button>
+    </div>
+  </body>
+</html>
