@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Multi-choice Escape Room Maker</title>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="./js/hover-color-change.component.js"></script>
     <script src="./js/quiz-board-settings.component.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
   </head>
@@ -19,18 +20,16 @@
         <a-mixin
           id="gray"
           material="color: gray"
-          animation__in="property: components.material.material.color; type: color; dur: 0; to: green; startEvents: mouseenter;"
-          animation__out="property: components.material.material.color; type: color; dur: 0; to: gray; startEvents: mouseleave;"
+          hover-color-change="mouseenterColor: green; mouseleaveColor: gray"
         ></a-mixin>
         <a-mixin
           id="silver"
           material="color: silver"
-          animation__in="property: components.material.material.color; type: color; dur: 0; to: green; startEvents: mouseenter;"
-          animation__out="property: components.material.material.color; type: color; dur: 0; to: silver; startEvents: mouseleave;"
+          hover-color-change="mouseenterColor: green; mouseleaveColor: silver"
         ></a-mixin>
       </a-assets>
       <!-- 地面のマス目 -->
-      <a-entity position="0 0 -4" rotation="-90 0 0">
+      <a-entity id="quizGrids" position="0 0 -4" rotation="-90 0 0">
         <a-plane
           mixin="gray quizGrid"
           position="0 0 0"
@@ -71,6 +70,22 @@
       <label for="quizText">text(only English):</label>
       <input type="text" id="quizText" />
       <br />
+      <label for="quizTextColorPicker">text color:</label>
+      <input type="color" id="quizTextColorPicker" />
+      <br />
+      <label for="toggleVisibilityButton">Show/Hide at startup:</label>
+      <button id="toggleVisibilityButton">Show</button>
+      <br />
+      <label for="toggleClickabilityButton">Clickable at startup:</label>
+      <button id="toggleClickabilityButton">UnClickable</button>
+      <br />
+      <div id="actionSettings">
+        <label for="selectingColorPicker">color when selecting:</label>
+        <input type="color" id="selectingColorPicker" />
+        <br />
+        <label for="actionTargets">action target:</label>
+        <select id="actionTargets" multiple></select>
+      </div>
       <button id="applyButton">apply</button>
     </div>
   </body>
