@@ -6,6 +6,9 @@
     <title>Multi-choice Escape Room Maker</title>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="./js/hover-color-change.component.js"></script>
+    <script src="./js/wait-for-object-ready.js"></script>
+    <script src="./js/make-arrow.js"></script>
+    <script src="./js/save.js"></script>
     <script src="./js/quiz-board-settings.component.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
   </head>
@@ -88,5 +91,7 @@
       </div>
       <button id="applyButton">apply</button>
     </div>
+    <!-- ダウンローダー -->
+    <button id="downloadButton" onclick="downloadRegistry()">download</button>
   </body>
 </html>

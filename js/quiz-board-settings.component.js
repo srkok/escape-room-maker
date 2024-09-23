@@ -13,6 +13,15 @@ AFRAME.registerComponent("show-quiz-board-settings-popup", {
   },
 });
 
+/**
+ * newElを設定
+ * @param {Node} newEl 設定対象
+ * @param {String} geometry 形状
+ * @param {String} color 色
+ * @param {vector3} position 位置
+ * @param {vector3} rotation 回転
+ * @param {String} isVisible 可視性
+ */
 function setNewElementProperties(
   newEl,
   geometry,
@@ -30,14 +39,18 @@ function setNewElementProperties(
   }
 }
 
+/**
+ * newElにマウスカーソルが乗った/離れた際の色について設定する
+ * @param {Node} newEl 設定対象
+ * @param {String} defaultColor マウスが触れていない状態での色
+ * @param {String} highlightColor マウスが触れている状態での色
+ */
 function setActionSettingsProperties(newEl, defaultColor, highlightColor) {
-  /** newElにマウスカーソルが乗った/離れた際の色について設定 **/
   newEl.classList.add("raycastable");
   newEl.setAttribute(
     "hover-color-change",
     `mouseenterColor: ${highlightColor}; mouseleaveColor: ${defaultColor}`
   );
-  /** newElをクリックした際に与える対象の指定 **/
 }
 
 window.onload = () => {
@@ -129,11 +142,32 @@ window.onload = () => {
     selectedGrid.appendChild(newQuizTextEl);
     /** 矢印の生成 **/
     let selectedGridOptions = Array.from(actionTargets.selectedOptions);
+    let influenceTargets = [];
     selectedGridOptions.forEach((option) => {
-      // TODO:矢印の生成。
-      const index = option.value;
-      console.log("selected " + index);
+      let targetGridEl =
+        document.getElementById("quizGrids").children[option.value];
+      makeArrow(selectedGrid, targetGridEl);
+      influenceTargets.push(option.value);
     });
+    /** 状態保存 **/
+    selectedGrid.addEventListener(
+      "loaded",
+      updateRegistry(
+        selectedGrid.getAttribute("position").x / 4,
+        outerColorPicker.value,
+        innerColorPicker.value,
+        quizText.value,
+        quizTextColorPicker.value,
+        toggleVisibilityButton.textContent === "Show" ? true : false,
+        toggleClickabilityButton.textContent === "Clickable" ? true : false,
+        toggleClickabilityButton.textContent === "Clickable"
+          ? selectingColorPicker.value
+          : null,
+        toggleClickabilityButton.textContent === "Clickable"
+          ? influenceTargets
+          : null
+      )
+    );
     /** ポップアップ消去 **/
     quizSettingsModal.style.display = "none";
     overlay.style.display = "none";
