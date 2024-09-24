@@ -1,56 +1,55 @@
-const ARRAY_WIDTH = 0.8;
-const ARRAY_COLOR = "red";
-
 // 始点を親ノードとする矢印の生成
 async function makeArrow(startGridEl, endGridEl) {
   await Promise.all([
     waitForObjectReady(startGridEl),
     waitForObjectReady(endGridEl),
   ]);
-  let startGridIdx = startGridEl.object3D.position.x / 4;
-  let endGridIdx = endGridEl.object3D.position.x / 4;
+  const startGridIdx = startGridEl.object3D.position.x / 4;
+  const endGridIdx = endGridEl.object3D.position.x / 4;
   if (startGridIdx === endGridIdx) return; // TODO 描かないのでなく、一周回るような矢印を描くようにする
   /** 矢柄の構成 **/
   let newArrowShaftEl = document.createElement("a-entity");
-  newArrowShaftEl.setAttribute("material", "color", ARRAY_COLOR);
-  let newArrowShaftRelativePosition = {
+  newArrowShaftEl.setAttribute(
+    "material",
+    `color: ${ARROW_COLOR}; side: double`
+  );
+  const newArrowShaftRelativePosition = {
     x: (startGridIdx + endGridIdx) * 2 - startGridIdx * 4, // = (startGrid.position.x + endGrid.position.x ) / 2 - startGrid.position.x
-    y: 0,
-    z: 5, // TODO あとで微調整
+    y: ARROW_DISTANCE * startGridIdx,
+    z: ARROW_POSITION_Z[startGridIdx % 2], // 奇数なら下迂回、偶数なら上迂回
   };
-  let distance =
-    newArrowShaftRelativePosition.x *
-    (newArrowShaftRelativePosition.x > 0 ? 1 : -1);
-  let radiusInner = distance - ARRAY_WIDTH / 2;
-  let radiusOuter = distance + ARRAY_WIDTH / 2;
-  // 奇数なら下迂回、偶数なら上迂回
-  let thetaStart = 0;
-  if (startGridIdx % 2 === 0) {
-    thetaStart = "0";
-  } else {
-    thetaStart = "180";
-    newArrowShaftRelativePosition.z /= -4; // TODO あとで微調整
-  }
+  newArrowShaftEl.setAttribute("position", newArrowShaftRelativePosition);
+  newArrowShaftEl.setAttribute("rotation", "90 0 0");
+  const distance = Math.abs(newArrowShaftRelativePosition.x);
+  const radiusInner = distance - ARROW_WIDTH / 2;
+  const radiusOuter = distance + ARROW_WIDTH / 2;
   // XXX 値に応じて変動する一方で、コンソールにはunknown property errorが表示されている。A-Frame docsには、propertyの存在が明記されている。https://aframe.io/docs/1.6.0/primitives/a-ring.html
   newArrowShaftEl.setAttribute(
     "geometry",
-    `primitive: ring; radius-inner: ${radiusInner}; radius-outer: ${radiusOuter}; theta-start: ${thetaStart}; theta-length: 180;`
-  );
-  newArrowShaftEl.setAttribute("position", newArrowShaftRelativePosition);
-  newArrowShaftEl.setAttribute("rotation", "90 0 0");
+    `primitive: ring; radius-inner: ${radiusInner}; radius-outer: ${radiusOuter}; theta-start: ${
+      ["0", "180"][startGridIdx % 2]
+    }; theta-length: 180;`
+  ); // 奇数なら下迂回、偶数なら上迂回
   /** 矢尻の構成 **/
   let newArrowHeadEl = document.createElement("a-entity");
-  newArrowHeadEl.setAttribute("material", "color", ARRAY_COLOR);
+  newArrowHeadEl.setAttribute(
+    "material",
+    `color: ${ARROW_COLOR}; side: double`
+  );
   newArrowHeadEl.setAttribute("geometry", "primitive: triangle");
-  newArrowHeadEl.setAttribute("scale", "1.7 1.2 1.2");
-  newArrowHeadRelativePosition = {
+  newArrowHeadEl.setAttribute("scale", ARROW_HEAD_SCALE);
+  const newArrowHeadRelativePosition = {
     x: (endGridIdx - startGridIdx) * 2,
     y: 0,
     z: 0,
   };
   newArrowHeadEl.setAttribute("position", newArrowHeadRelativePosition);
-  if (startGridIdx % 2 === 0)
-    newArrowHeadEl.setAttribute("rotation", "0 0 180");
+  // 奇数なら上向き、偶数なら下向き
+  //if (startGridIdx % 2 === 0) newArrowHeadEl.setAttribute("rotation", "0 0 180");
+  newArrowHeadEl.setAttribute(
+    "rotation",
+    `0 0 ${["180", "0"][startGridIdx % 2]}`
+  );
   /** startGridElに矢印全体を追加 **/
   newArrowShaftEl.appendChild(newArrowHeadEl);
   startGridEl.appendChild(newArrowShaftEl);

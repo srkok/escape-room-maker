@@ -1,7 +1,6 @@
 /** hover-color-change.component.jsに依存してます。 **/
 
 let selectedGrid = null;
-const OPACITY_VALUE = 0.5;
 
 AFRAME.registerComponent("show-quiz-board-settings-popup", {
   events: {
@@ -18,8 +17,8 @@ AFRAME.registerComponent("show-quiz-board-settings-popup", {
  * @param {Node} newEl 設定対象
  * @param {String} geometry 形状
  * @param {String} color 色
- * @param {vector3} position 位置
- * @param {vector3} rotation 回転
+ * @param {vec3} position 位置
+ * @param {vec3} rotation 回転
  * @param {String} isVisible 可視性
  */
 function setNewElementProperties(
@@ -106,10 +105,10 @@ window.onload = () => {
     let newQuizBoardEl = document.createElement("a-entity");
     setNewElementProperties(
       newQuizBoardEl,
-      { primitive: "box", height: 2, width: 4, depth: 4 },
+      QUIZ_BOARD_OBJECT,
       outerColorPicker.value,
       { x: 0, y: 0, z: 2.1 },
-      { x: 0, y: 0, z: 0 },
+      ZERO_VEC3_OBJECT,
       toggleVisibilityButton.textContent
     );
     if (toggleClickabilityButton.textContent === "Clickable") {
@@ -124,7 +123,7 @@ window.onload = () => {
     let newQuizTextEl = document.createElement("a-entity");
     setNewElementProperties(
       newQuizTextEl,
-      { primitive: "plane", height: 3.5, width: 3.5 },
+      QUIZ_TEXT_OBJECT,
       innerColorPicker.value,
       { x: 0, y: -1.1, z: 2.1 },
       { x: 90, y: 0, z: 0 },
@@ -138,8 +137,8 @@ window.onload = () => {
         innerColorPicker.value,
         selectingColorPicker.value
       );
-    }
-    selectedGrid.appendChild(newQuizTextEl);
+    } // TODO いらない?検討。
+    selectedGrid.appendChild(newQuizTextEl); // TODO selectedGridにappendするの?確認。
     /** 矢印の生成 **/
     let selectedGridOptions = Array.from(actionTargets.selectedOptions);
     let influenceTargets = [];

@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Multi-choice Escape Room Maker</title>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <!-- 依存なし -->
+    <script src="./js/initial-settings.js"></script>
     <script src="./js/hover-color-change.component.js"></script>
     <script src="./js/wait-for-object-ready.js"></script>
-    <script src="./js/make-arrow.js"></script>
     <script src="./js/save.js"></script>
+    <!-- 依存あり -->
+    <script src="./js/add-quiz-grid.component.js"></script>
+    <script src="./js/make-arrow.js"></script>
     <script src="./js/quiz-board-settings.component.js"></script>
+    <script src="./js/load-progress.js"></script>
+    <script src="./js/file-loader.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
   </head>
   <body>
@@ -29,6 +35,11 @@
           id="silver"
           material="color: silver"
           hover-color-change="mouseenterColor: green; mouseleaveColor: silver"
+        ></a-mixin>
+        <a-mixin
+          id="black"
+          material="color: black"
+          hover-color-change="mouseenterColor: green; mouseleaveColor: black"
         ></a-mixin>
       </a-assets>
       <!-- 地面のマス目 -->
@@ -58,6 +69,14 @@
           show-quiz-board-settings-popup
         ></a-plane>
       </a-entity>
+      <!-- グリッド追加パネル -->
+      <a-plane
+        mixin="black quizGrid"
+        position="16 0 -4"
+        rotation="-90 0 0"
+        class="raycastable"
+        add-quiz-grid
+      ></a-plane>
       <!-- 背景 -->
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
@@ -92,6 +111,6 @@
       <button id="applyButton">apply</button>
     </div>
     <!-- ダウンローダー -->
-    <button id="downloadButton" onclick="downloadRegistry()">download</button>
+    <button id="downloadButton">download</button>
   </body>
 </html>

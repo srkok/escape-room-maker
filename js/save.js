@@ -1,6 +1,3 @@
-// 保存先
-const registry = {};
-
 /**
  * registryに現在のquizGridにおける設定を保存する関数
  * @param {String} name グリッド位置名称
@@ -56,7 +53,7 @@ function downloadRegistry() {
   downloadAnchor.remove();
 }
 
-/** 旧型 **
+/** 旧型(現在日時をファイル名に含めない) **
 function downloadRegistry() {
   const dataStr =
     "data:text/json;charset=utf-8," +
@@ -70,10 +67,7 @@ function downloadRegistry() {
 }
 /****/
 
-/** **
-window.onload = () => {
-  document
-    .getElementById("downloadButton")
-    .addEventListener("click", downloadRegistry());
-};
-/**  **/
+document.addEventListener("DOMContentLoaded", () => {
+  const downloadButton = document.getElementById("downloadButton");
+  downloadButton.addEventListener("click", downloadRegistry);
+});

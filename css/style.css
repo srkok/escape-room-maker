@@ -35,7 +35,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s; /* 背景色の変更にアニメーションを追加 */
+  /*transition: background-color 0.3s; /* 背景色の変更にアニメーションを追加 */
 }
 #downloadButton:hover {
   color: white;
