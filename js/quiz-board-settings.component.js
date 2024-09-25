@@ -12,46 +12,6 @@ AFRAME.registerComponent("show-quiz-board-settings-popup", {
   },
 });
 
-/**
- * newElを設定
- * @param {Node} newEl 設定対象
- * @param {String} geometry 形状
- * @param {String} color 色
- * @param {vec3} position 位置
- * @param {vec3} rotation 回転
- * @param {String} isVisible 可視性
- */
-function setNewElementProperties(
-  newEl,
-  geometry,
-  color,
-  position,
-  rotation,
-  isVisible
-) {
-  newEl.setAttribute("geometry", geometry);
-  newEl.setAttribute("material", "color", color);
-  newEl.setAttribute("position", position);
-  newEl.setAttribute("rotation", rotation);
-  if (isVisible === "Hide") {
-    newEl.setAttribute("material", "opacity", OPACITY_VALUE);
-  }
-}
-
-/**
- * newElにマウスカーソルが乗った/離れた際の色について設定する
- * @param {Node} newEl 設定対象
- * @param {String} defaultColor マウスが触れていない状態での色
- * @param {String} highlightColor マウスが触れている状態での色
- */
-function setActionSettingsProperties(newEl, defaultColor, highlightColor) {
-  newEl.classList.add("raycastable");
-  newEl.setAttribute(
-    "hover-color-change",
-    `mouseenterColor: ${highlightColor}; mouseleaveColor: ${defaultColor}`
-  );
-}
-
 window.onload = () => {
   const overlay = document.getElementById("overlay");
   const quizSettingsModal = document.getElementById("quizSettingsModal");
@@ -101,53 +61,13 @@ window.onload = () => {
     /** 既存要素の削除 **/
     // FIXME 今は「全削除->新しく生成」だが、「あるなら変更、ないなら生成」に変更すべき？
     selectedGrid.innerHTML = "";
-    /** クイズボード生成 **/
-    let newQuizBoardEl = document.createElement("a-entity");
-    setNewElementProperties(
-      newQuizBoardEl,
-      QUIZ_BOARD_OBJECT,
-      outerColorPicker.value,
-      { x: 0, y: 0, z: 2.1 },
-      ZERO_VEC3_OBJECT,
-      toggleVisibilityButton.textContent
-    );
-    if (toggleClickabilityButton.textContent === "Clickable") {
-      setActionSettingsProperties(
-        newQuizBoardEl,
-        outerColorPicker.value,
-        selectingColorPicker.value
-      );
-    }
-    selectedGrid.appendChild(newQuizBoardEl);
-    /** クイズテキスト生成 **/
-    let newQuizTextEl = document.createElement("a-entity");
-    setNewElementProperties(
-      newQuizTextEl,
-      QUIZ_TEXT_OBJECT,
-      innerColorPicker.value,
-      { x: 0, y: -1.1, z: 2.1 },
-      { x: 90, y: 0, z: 0 },
-      toggleVisibilityButton.textContent
-    );
-    newQuizTextEl.setAttribute("text", "value: " + quizText.value);
-    newQuizTextEl.setAttribute("text", "color", quizTextColorPicker.value);
-    if (toggleClickabilityButton.textContent === "Clickable") {
-      setActionSettingsProperties(
-        newQuizTextEl,
-        innerColorPicker.value,
-        selectingColorPicker.value
-      );
-    } // TODO いらない?検討。
-    selectedGrid.appendChild(newQuizTextEl); // TODO selectedGridにappendするの?確認。
-    /** 矢印の生成 **/
-    let selectedGridOptions = Array.from(actionTargets.selectedOptions);
     let influenceTargets = [];
-    selectedGridOptions.forEach((option) => {
-      let targetGridEl =
-        document.getElementById("quizGrids").children[option.value];
-      makeArrow(selectedGrid, targetGridEl);
-      influenceTargets.push(option.value);
-    });
+    if (toggleClickabilityButton.textContent === "Clickable") {
+      let selectedGridOptions = Array.from(actionTargets.selectedOptions);
+      selectedGridOptions.forEach((option) => {
+        influenceTargets.push(option.value);
+      });
+    }
     /** 状態保存 **/
     selectedGrid.addEventListener(
       "loaded",
@@ -167,6 +87,8 @@ window.onload = () => {
           : null
       )
     );
+    /** make quiz board */
+    setQuizBoard(selectedGrid);
     /** ポップアップ消去 **/
     quizSettingsModal.style.display = "none";
     overlay.style.display = "none";
@@ -178,3 +100,41 @@ window.onload = () => {
     overlay.style.display = "none";
   });
 };
+
+/** クイズボード生成 **
+    let newQuizBoardEl = document.createElement("a-entity");
+    setNewElementProperties(
+      newQuizBoardEl,
+      QUIZ_BOARD_OBJECT,
+      outerColorPicker.value,
+      QUIZ_BOARD_RELATIVE_POSITION_OBJECT,
+      ZERO_VEC3_OBJECT,
+      toggleVisibilityButton.textContent === "Show"
+    );
+    /****/
+/** アニメーション設定 **
+      setActionSettingsProperties(
+        newQuizBoardEl,
+        outerColorPicker.value,
+        selectingColorPicker.value
+      );
+      /** 矢印の生成 **/
+/*
+        let targetGridEl =
+          document.getElementById("quizGrids").children[option.value];
+        makeArrow(selectedGrid, targetGridEl);*/
+/*
+    selectedGrid.appendChild(newQuizBoardEl);
+    /** クイズテキスト生成 **
+    let newQuizTextEl = document.createElement("a-entity");
+    setNewElementProperties(
+      newQuizTextEl,
+      QUIZ_TEXT_OBJECT,
+      innerColorPicker.value,
+      QUIZ_TEXT_RELATIVE_POSITION_OBJECT,
+      { x: 90, y: 0, z: 0 },
+      toggleVisibilityButton.textContent === "Show"
+    );
+    newQuizTextEl.setAttribute("text", "value: " + quizText.value);
+    newQuizTextEl.setAttribute("text", "color", quizTextColorPicker.value);
+    selectedGrid.appendChild(newQuizTextEl); // TODO selectedGridにappendするの?確認。*/

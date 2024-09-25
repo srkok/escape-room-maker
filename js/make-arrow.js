@@ -4,8 +4,8 @@ async function makeArrow(startGridEl, endGridEl) {
     waitForObjectReady(startGridEl),
     waitForObjectReady(endGridEl),
   ]);
-  const startGridIdx = startGridEl.object3D.position.x / 4;
-  const endGridIdx = endGridEl.object3D.position.x / 4;
+  const startGridIdx = startGridEl.object3D.position.x / QUIZ_GRID_OBJECT.width;
+  const endGridIdx = endGridEl.object3D.position.x / QUIZ_GRID_OBJECT.width;
   if (startGridIdx === endGridIdx) return; // TODO 描かないのでなく、一周回るような矢印を描くようにする
   /** 矢柄の構成 **/
   let newArrowShaftEl = document.createElement("a-entity");
@@ -14,7 +14,9 @@ async function makeArrow(startGridEl, endGridEl) {
     `color: ${ARROW_COLOR}; side: double`
   );
   const newArrowShaftRelativePosition = {
-    x: (startGridIdx + endGridIdx) * 2 - startGridIdx * 4, // = (startGrid.position.x + endGrid.position.x ) / 2 - startGrid.position.x
+    x:
+      ((startGridIdx + endGridIdx) * QUIZ_GRID_OBJECT.width) / 2 -
+      startGridIdx * QUIZ_GRID_OBJECT.width, // = (startGrid.position.x + endGrid.position.x ) / 2 - startGrid.position.x
     y: ARROW_DISTANCE * startGridIdx,
     z: ARROW_POSITION_Z[startGridIdx % 2], // 奇数なら下迂回、偶数なら上迂回
   };
@@ -39,7 +41,7 @@ async function makeArrow(startGridEl, endGridEl) {
   newArrowHeadEl.setAttribute("geometry", "primitive: triangle");
   newArrowHeadEl.setAttribute("scale", ARROW_HEAD_SCALE);
   const newArrowHeadRelativePosition = {
-    x: (endGridIdx - startGridIdx) * 2,
+    x: ((endGridIdx - startGridIdx) * QUIZ_GRID_OBJECT.width) / 2,
     y: 0,
     z: 0,
   };

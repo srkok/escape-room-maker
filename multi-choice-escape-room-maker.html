@@ -11,6 +11,8 @@
     <script src="./js/wait-for-object-ready.js"></script>
     <script src="./js/save.js"></script>
     <!-- 依存あり -->
+    <script src="./js/make-element-util.js"></script>
+    <script src="./js/init-quiz-maker.js"></script>
     <script src="./js/add-quiz-grid.component.js"></script>
     <script src="./js/make-arrow.js"></script>
     <script src="./js/quiz-board-settings.component.js"></script>
@@ -20,63 +22,10 @@
   </head>
   <body>
     <a-scene cursor="rayOrigin: mouse" raycaster="objects:.raycastable">
-      <a-assets>
-        <!-- 地面のマス目用テンプレート -->
-        <a-mixin
-          id="quizGrid"
-          geometry="primitive: plane; height: 2; width: 4;"
-        ></a-mixin>
-        <a-mixin
-          id="gray"
-          material="color: gray"
-          hover-color-change="mouseenterColor: green; mouseleaveColor: gray"
-        ></a-mixin>
-        <a-mixin
-          id="silver"
-          material="color: silver"
-          hover-color-change="mouseenterColor: green; mouseleaveColor: silver"
-        ></a-mixin>
-        <a-mixin
-          id="black"
-          material="color: black"
-          hover-color-change="mouseenterColor: green; mouseleaveColor: black"
-        ></a-mixin>
-      </a-assets>
       <!-- 地面のマス目 -->
-      <a-entity id="quizGrids" position="0 0 -4" rotation="-90 0 0">
-        <a-plane
-          mixin="gray quizGrid"
-          position="0 0 0"
-          class="raycastable"
-          show-quiz-board-settings-popup
-        ></a-plane>
-        <a-plane
-          mixin="silver quizGrid"
-          position="4 0 0"
-          class="raycastable"
-          show-quiz-board-settings-popup
-        ></a-plane>
-        <a-plane
-          mixin="gray quizGrid"
-          position="8 0 0"
-          class="raycastable"
-          show-quiz-board-settings-popup
-        ></a-plane>
-        <a-plane
-          mixin="silver quizGrid"
-          position="12 0 0"
-          class="raycastable"
-          show-quiz-board-settings-popup
-        ></a-plane>
-      </a-entity>
+      <a-entity id="quizGrids" rotation="-90 0 0"></a-entity>
       <!-- グリッド追加パネル -->
-      <a-plane
-        mixin="black quizGrid"
-        position="16 0 -4"
-        rotation="-90 0 0"
-        class="raycastable"
-        add-quiz-grid
-      ></a-plane>
+      <a-entity id="addQuizGrid"></a-entity>
       <!-- 背景 -->
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
@@ -111,6 +60,32 @@
       <button id="applyButton">apply</button>
     </div>
     <!-- ダウンローダー -->
-    <button id="downloadButton">download</button>
+    <button id="downloadButton">Download</button>
+    <!-- アップローダー -->
+    <label for="jsonFileInput" class="upload-button">Upload JSON File</label>
+    <input type="file" id="jsonFileInput" accept=".json" />
   </body>
 </html>
+
+<!--<a-assets>
+        <!-- 地面のマス目用テンプレート --
+        <a-mixin
+          id="quizGrid"
+          geometry="primitive: plane; height: 2; width: 4;"
+        ></a-mixin>
+        <a-mixin
+          id="gray"
+          material="color: gray"
+          hover-color-change="mouseenterColor: green; mouseleaveColor: gray"
+        ></a-mixin>
+        <a-mixin
+          id="silver"
+          material="color: silver"
+          hover-color-change="mouseenterColor: green; mouseleaveColor: silver"
+        ></a-mixin>
+        <a-mixin
+          id="black"
+          material="color: black"
+          hover-color-change="mouseenterColor: green; mouseleaveColor: black"
+        ></a-mixin>
+      </a-assets>-->
