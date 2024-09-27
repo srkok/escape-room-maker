@@ -1,11 +1,12 @@
-// 始点を親ノードとする矢印の生成
-async function makeArrow(startGridEl, endGridEl) {
-  await Promise.all([
-    waitForObjectReady(startGridEl),
-    waitForObjectReady(endGridEl),
-  ]);
+/**
+ * 始点を親ノードとする矢印の生成
+ * @param {Object} startGridEl 矢印を追加する親要素
+ * @param {vec3} endGridIdx 矢印が指定する場所
+ * @returns
+ */
+async function makeArrow(startGridEl, endGridIdx) {
+  await Promise.all([waitForObjectReady(startGridEl)]);
   const startGridIdx = startGridEl.object3D.position.x / QUIZ_GRID_OBJECT.width;
-  const endGridIdx = endGridEl.object3D.position.x / QUIZ_GRID_OBJECT.width;
   if (startGridIdx === endGridIdx) return; // TODO 描かないのでなく、一周回るような矢印を描くようにする
   /** 矢柄の構成 **/
   let newArrowShaftEl = document.createElement("a-entity");

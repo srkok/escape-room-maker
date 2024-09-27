@@ -53,10 +53,13 @@ function initializeQuizGrid(newQuizGridEl, name) {
     ZERO_VEC3_OBJECT,
     true
   );
+  newQuizGridEl.setAttribute("text", `value: Grid ${name}`);
+  newQuizGridEl.setAttribute("text", "align: center");
   newQuizGridEl.classList.add("raycastable");
-  newQuizGridEl.setAttribute(
-    "hover-color-change",
-    `mouseenterColor: ${QUIZ_GRID_HIGHLIGHT_COLOR}; mouseleaveColor: ${newQuizGridColor}`
+  setActionSettingsProperties(
+    newQuizGridEl,
+    newQuizGridColor,
+    QUIZ_GRID_HIGHLIGHT_COLOR
   );
   newQuizGridEl.setAttribute("show-quiz-board-settings-popup", "");
 }
@@ -74,7 +77,16 @@ function initializeAddQuizGrid(position) {
     { x: -90, y: 0, z: 0 },
     true
   );
-  addQuizGridEl.classList.add("raycastable");
+  addQuizGridEl.setAttribute(
+    "text",
+    "value: The goal will be placed here.\nClick to Add Grid"
+  );
+  addQuizGridEl.setAttribute("text", "align: center");
+  setActionSettingsProperties(
+    addQuizGridEl,
+    QUIZ_ADD_GRID_DEFAULT_COLOR,
+    QUIZ_GRID_HIGHLIGHT_COLOR
+  );
   addQuizGridEl.setAttribute("add-quiz-grid", "");
 }
 
@@ -106,7 +118,7 @@ async function setQuizBoard(selectGridEl) {
     );
     /** set arrows **/
     for (let target of registry[selectedGridIdx].influenceTargets) {
-      makeArrow(selectGridEl, quizGrids.children[Number(target)]);
+      makeArrow(selectGridEl, Number(target));
     }
   }
   selectGridEl.appendChild(newQuizBoardEl);

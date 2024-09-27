@@ -47,12 +47,18 @@ window.onload = () => {
       /** 作用先の選択肢を列挙 **/
       actionTargets.innerHTML = "";
       let grids = document.getElementById("quizGrids").children;
+      console.log(`grids length: ${grids.length}`);
       for (let i = 0; i < grids.length; i++) {
         let option = document.createElement("option");
         option.value = i;
         option.textContent = `Grid ${i}`;
         actionTargets.appendChild(option);
       }
+      /** Goalについての指定 **/
+      let option = document.createElement("option");
+      option.value = grids.length;
+      option.textContent = "Goal";
+      actionTargets.appendChild(option);
       actionSettings.style.display = "block";
     }
   });
@@ -89,6 +95,11 @@ window.onload = () => {
     );
     /** make quiz board */
     setQuizBoard(selectedGrid);
+    /** 初期状態を常にUnClickableに。ちょっとした仕様の解釈違いを防ぐため。 **/
+    /** これがないと、次にadd quiz grid後に設定メニューに入った時、追加したハズのgridが選択肢に追加されていない。 **/
+    /** 一度Unclickableにした後再度Clickableにすると正しく追加されているが、一目見てバグにしか見えないので、逐一UnClickableに戻す形とする。 **/
+    if (toggleClickabilityButton.textContent === "Clickable")
+      toggleClickabilityButton.click();
     /** ポップアップ消去 **/
     quizSettingsModal.style.display = "none";
     overlay.style.display = "none";
