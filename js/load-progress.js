@@ -2,7 +2,6 @@ async function loadProgress() {
   const quizGrids = document.getElementById("quizGrids");
   quizGrids.innerHTML = "";
   await Promise.all([waitForObjectReady(quizGrids)]);
-  console.log(quizGrids.children);
   /** set quiz grids */
   const indexOfAddQuizGrid = Math.max(...Object.keys(registry).map(Number)) + 1;
   for (let idx = 0; idx < indexOfAddQuizGrid; idx++) {
