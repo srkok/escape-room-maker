@@ -22,3 +22,5 @@ const ZERO_VEC3_OBJECT = { x: 0, y: 0, z: 0 };
 const ZER_VEC3_STRING = "0 0 0";
 
 let registry = {}; // 状態保存先
+
+const ALERT_DISTANCE = 2.5;

@@ -9,9 +9,9 @@
     <script src="./initial-settings.js"></script>
     <script src="./hover-color-change.component.js"></script>
     <script src="./wait-for-object-ready.js"></script>
-    <script src="./goal-alert-popup.component.js"></script>
     <!-- 依存あり -->
     <script src="./make-element-util.js"></script>
+    <script src="./goal-alert-popup.component.js"></script>
     <script src="./scene-maker.js"></script>
     <script src="./file-loader.js"></script>
     <link rel="stylesheet" type="text/css" href="./style.css" />
@@ -23,7 +23,8 @@
     </div>
 
     <a-scene cursor="rayOrigin: mouse" raycaster="objects:.raycastable">
-      <a-entity id="quizGrids" position="0 0 -4" rotation="-90 0 0"></a-entity>
+      <a-entity id="quizGrids" rotation="-90 0 0"></a-entity>
+      <a-camere id="player"></a-camere>
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
   </body>

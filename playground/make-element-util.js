@@ -40,35 +40,34 @@ function setActionSettingsProperties(newEl, defaultColor, highlightColor) {
 
 async function toggleVisible(element) {
   await waitForObjectReady(element);
-  //console.log(element.getAttribute("scale"));
   if (isEqual(element.getAttribute("scale"), ZERO_VEC3_OBJECT)) {
     element.setAttribute("scale", { x: 1, y: 1, z: 1 });
   } else {
     element.setAttribute("scale", ZERO_VEC3_OBJECT);
   }
+}
 
-  function isEqual(objA, objB) {
-    if (objA === objB) return true; // 同じ参照の場合
-    if (
-      typeof objA !== "object" ||
-      objA === null ||
-      typeof objB !== "object" ||
-      objB === null
-    ) {
-      return false; // オブジェクトでない場合
-    }
-
-    const keysA = Object.keys(objA);
-    const keysB = Object.keys(objB);
-
-    if (keysA.length !== keysB.length) return false; // プロパティ数が異なる場合
-
-    for (const key of keysA) {
-      if (!keysB.includes(key) || !isEqual(objA[key], objB[key])) {
-        return false; // プロパティの値を再帰的に比較
-      }
-    }
-
-    return true; // すべてのプロパティが一致
+function isEqual(objA, objB) {
+  if (objA === objB) return true; // 同じ参照の場合
+  if (
+    typeof objA !== "object" ||
+    objA === null ||
+    typeof objB !== "object" ||
+    objB === null
+  ) {
+    return false; // オブジェクトでない場合
   }
+
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) return false; // プロパティ数が異なる場合
+
+  for (const key of keysA) {
+    if (!keysB.includes(key) || !isEqual(objA[key], objB[key])) {
+      return false; // プロパティの値を再帰的に比較
+    }
+  }
+
+  return true; // すべてのプロパティが一致
 }

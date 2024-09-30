@@ -1,5 +1,6 @@
 function sceneMaker(dataObject) {
   const quizGrids = document.getElementById("quizGrids");
+  quizGrids.setAttribute("position", QUIZ_GRIDS_POSITION_OBJECT);
 
   /** 一度すべてのquizBlocksを生成し終える **/
   for (const name in dataObject) {
@@ -44,12 +45,9 @@ function sceneMaker(dataObject) {
     ZERO_VEC3_OBJECT,
     false
   );
-  newGoalGridEl.setAttribute(
-    "text",
-    "value: Goal\nIt is not working right now."
-  );
+  newGoalGridEl.setAttribute("text", "value: Goal\nStep on this square!");
   newGoalGridEl.setAttribute("text", "align: center");
-  //newGoalGridEl.setAttribute("goal-alert-popup", "");
+  newGoalGridEl.setAttribute("goal-alert-popup", "");
   quizGrids.appendChild(newGoalGridEl);
   /** 全てのquizBlocksを生成し終えたのち、相互作用の設定に移る **/
   for (const name in dataObject) {

@@ -1,12 +1,25 @@
-/*
 AFRAME.registerComponent("goal-alert-popup", {
-  tick: {
-    // プレイヤ現在座標の取得
-    // Goal Gridが表示状態で、プレイヤ現在座標がGoal Grid内に存在する場合
-    //if () {
-    // ポップアップを表示する
-    // このコンポーネントを削除する。何度も鳴ると五月蠅いので。
-    //}
+  init: async function () {
+    await waitForObjectReady(this.el);
+    // 正方形 (this.el) の絶対位置を取得
+    this.absolutePosition = this.el.object3D.position
+      .clone()
+      .add(QUIZ_GRIDS_POSITION_OBJECT);
+  },
+  tick: function () {
+    // Goalが不可視の時動作しない
+    if (isEqual(this.el.getAttribute("scale"), ZERO_VEC3_OBJECT)) return;
+
+    // プレイヤー (カメラ) の位置を取得
+    const playerPosition = document.querySelector("[camera]").object3D.position;
+
+    // プレイヤーと正方形の距離を計算
+    const distanceToPlayer = playerPosition.distanceTo(this.absolutePosition);
+
+    // 距離が一定以下になったらアラートを表示
+    if (distanceToPlayer < ALERT_DISTANCE) {
+      alert("Congratulations!");
+      this.el.removeAttribute("goal-alert-popup"); // コンポーネントを削除
+    }
   },
 });
-*/
