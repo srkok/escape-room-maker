@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maze Escape Room Maker</title>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script type="text/javascript">
+      const INITIAL_GRID_ROWS = 3;
+      const INITIAL_GRID_COLUMNS = 4;
+      const MAZE_GRID_OBJECT = { primitive: "plane", height: 4, width: 4 };
+      const MAZE_GRID_COLOR = "silver";
+      const MAZE_GRID_HIGHLIGHT_COLOR = "green";
+      const MAZE_WALL_OBJECT = { primitive: "plane", height: 4, width: 0.5 };
+      const MAZE_WALL_COLOR = "gray";
+      const MAZE_WALL_HIGHLIGHT_COLOR = "green";
+
+      const ZERO_VEC3_OBJECT = { x: 0, y: 0, z: 0 };
+      function zeroMatrix(row, column) {
+        return Array.from({ length: row }, () => Array(column).fill(0));
+      }
+    </script>
+    <script type="text/javascript">
+      AFRAME.registerComponent("hover-color-change", {
+        schema: {
+          mouseenterColor: { type: "color" },
+          mouseleaveColor: { type: "color" },
+        },
+        events: {
+          mouseenter: function () {
+            this.el.setAttribute(
+              "material",
+              "color",
+              this.data.mouseenterColor
+            );
+          },
+          mouseleave: function () {
+            this.el.setAttribute(
+              "material",
+              "color",
+              this.data.mouseleaveColor
+            );
+          },
+        },
+      });
+    </script>
+    <script type="text/javascript">
+      function setNewElementProperties(
+        newEl,
+        geometry,
+        color,
+        position,
+        rotation
+      ) {
+        newEl.setAttribute("geometry", geometry);
+        newEl.setAttribute("material", "color", color);
+        newEl.setAttribute("position", position);
+        newEl.setAttribute("rotation", rotation);
+      }
+      function setActionSettingsProperties(
+        newEl,
+        defaultColor,
+        highlightColor
+      ) {
+        newEl.classList.add("raycastable");
+        newEl.setAttribute(
+          "hover-color-change",
+          `mouseenterColor: ${highlightColor}; mouseleaveColor: ${defaultColor}`
+        );
+      }
+    </script>
+    <script type="text/javascript">
+      window.addEventListener("DOMContentLoaded", () => {
+        const mazeGrids = document.getElementById("mazeGrids");
+        const mazeWalls = document.getElementById("mazeWalls");
+        for (let i = 0; i < INITIAL_GRID_ROWS; i++) {
+          for (let j = 0; j < INITIAL_GRID_COLUMNS; j++) {
+            /** make grid **/
+            let newGridEl = document.createElement("a-entity");
+            setNewElementProperties(
+              newGridEl,
+              MAZE_GRID_OBJECT,
+              MAZE_GRID_COLOR,
+              {
+                x: j * (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width),
+                y: i * (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width),
+                z: 0,
+              },
+              ZERO_VEC3_OBJECT
+            );
+            setActionSettingsProperties(
+              newGridEl,
+              MAZE_GRID_COLOR,
+              MAZE_GRID_HIGHLIGHT_COLOR
+            );
+            mazeGrids.appendChild(newGridEl);
+            /** make wall **/
+            let newRightWallEl = document.createElement("a-entity");
+            setNewElementProperties(
+              newRightWallEl,
+              MAZE_WALL_OBJECT,
+              MAZE_WALL_COLOR,
+              {
+                x:
+                  j * (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width) +
+                  (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width) / 2,
+                y: i * (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width),
+                z: 0,
+              },
+              ZERO_VEC3_OBJECT
+            );
+            setActionSettingsProperties(
+              newRightWallEl,
+              MAZE_WALL_COLOR,
+              MAZE_WALL_HIGHLIGHT_COLOR
+            );
+            mazeWalls.appendChild(newRightWallEl);
+            let newAboveWallEl = document.createElement("a-entity");
+            setNewElementProperties(
+              newAboveWallEl,
+              MAZE_WALL_OBJECT,
+              MAZE_WALL_COLOR,
+              {
+                x: j * (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width),
+                y:
+                  i * (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width) +
+                  (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width) / 2,
+                z: 0,
+              },
+              { x: 0, y: 0, z: 90 }
+            );
+            setActionSettingsProperties(
+              newAboveWallEl,
+              MAZE_WALL_COLOR,
+              MAZE_WALL_HIGHLIGHT_COLOR
+            );
+            mazeWalls.appendChild(newAboveWallEl);
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <a-scene cursor="rayOrigin: mouse" raycaster="objects:.raycastable">
+      <a-entity id="mazeGrids" position="0 0 -4" rotation="-90 0 0"></a-entity>
+      <a-entity id="mazeWalls" position="0 0 -4" rotation="-90 0 0"></a-entity>
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>

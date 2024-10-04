@@ -53,20 +53,6 @@ function downloadRegistry() {
   downloadAnchor.remove();
 }
 
-/** 旧型(現在日時をファイル名に含めない) **
-function downloadRegistry() {
-  const dataStr =
-    "data:text/json;charset=utf-8," +
-    encodeURIComponent(JSON.stringify(registry));
-  const downloadAnchor = document.createElement("a");
-  downloadAnchor.setAttribute("href", dataStr);
-  downloadAnchor.setAttribute("download", "registry.json");
-  document.body.appendChild(downloadAnchor);
-  downloadAnchor.click();
-  downloadAnchor.remove();
-}
-/****/
-
 document.addEventListener("DOMContentLoaded", () => {
   const downloadButton = document.getElementById("downloadButton");
   downloadButton.addEventListener("click", downloadRegistry);

@@ -78,7 +78,7 @@ window.onload = () => {
     selectedGrid.addEventListener(
       "loaded",
       updateRegistry(
-        selectedGrid.getAttribute("position").x / 4,
+        selectedGrid.getAttribute("position").x / QUIZ_GRID_OBJECT.width,
         outerColorPicker.value,
         innerColorPicker.value,
         quizText.value,
@@ -111,41 +111,3 @@ window.onload = () => {
     overlay.style.display = "none";
   });
 };
-
-/** クイズボード生成 **
-    let newQuizBoardEl = document.createElement("a-entity");
-    setNewElementProperties(
-      newQuizBoardEl,
-      QUIZ_BOARD_OBJECT,
-      outerColorPicker.value,
-      QUIZ_BOARD_RELATIVE_POSITION_OBJECT,
-      ZERO_VEC3_OBJECT,
-      toggleVisibilityButton.textContent === "Show"
-    );
-    /****/
-/** アニメーション設定 **
-      setActionSettingsProperties(
-        newQuizBoardEl,
-        outerColorPicker.value,
-        selectingColorPicker.value
-      );
-      /** 矢印の生成 **/
-/*
-        let targetGridEl =
-          document.getElementById("quizGrids").children[option.value];
-        makeArrow(selectedGrid, targetGridEl);*/
-/*
-    selectedGrid.appendChild(newQuizBoardEl);
-    /** クイズテキスト生成 **
-    let newQuizTextEl = document.createElement("a-entity");
-    setNewElementProperties(
-      newQuizTextEl,
-      QUIZ_TEXT_OBJECT,
-      innerColorPicker.value,
-      QUIZ_TEXT_RELATIVE_POSITION_OBJECT,
-      { x: 90, y: 0, z: 0 },
-      toggleVisibilityButton.textContent === "Show"
-    );
-    newQuizTextEl.setAttribute("text", "value: " + quizText.value);
-    newQuizTextEl.setAttribute("text", "color", quizTextColorPicker.value);
-    selectedGrid.appendChild(newQuizTextEl); // TODO selectedGridにappendするの?確認。*/
