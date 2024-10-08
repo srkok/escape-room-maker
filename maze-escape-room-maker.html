@@ -5,16 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maze Escape Room Maker</title>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <!--依存ナシ-->
     <script type="text/javascript">
       const INITIAL_GRID_ROWS = 3;
       const INITIAL_GRID_COLUMNS = 4;
       const MAZE_GRID_OBJECT = { primitive: "plane", height: 4, width: 4 };
       const MAZE_GRID_COLOR = "silver";
       const MAZE_GRID_HIGHLIGHT_COLOR = "green";
-      const MAZE_WALL_OBJECT = { primitive: "plane", height: 4, width: 0.5 };
+      const MAZE_WALL_OBJECT = {
+        primitive: "plane",
+        height: MAZE_GRID_OBJECT.height,
+        width: 0.5,
+      };
       const MAZE_WALL_COLOR = "gray";
       const MAZE_WALL_HIGHLIGHT_COLOR = "green";
+      const MAZE_WALL_RIGHT_RELATIVE_POSITION = {
+        x: (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width) / 2,
+        y: 0,
+        z: 0,
+      };
+      const MAZE_WALL_ABOVE_RELATIVE_POSITION = {
+        x: 0,
+        y: (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width) / 2,
+        z: 0,
+      };
+      const MAZE_WALL_VISUALIZATION_OBJECT = {
+        primitive: "box",
+        height: 4,
+        width: MAZE_WALL_OBJECT.width,
+        depth: MAZE_GRID_OBJECT.height,
+      };
+      const MAZE_WALL_VISUALIZATION_RELATIVE_POSITION = {
+        x: 0,
+        y: 0,
+        z: MAZE_WALL_VISUALIZATION_OBJECT.height / 2,
+      };
 
+      let registry = { "escape room type": "maze" };
+
+      const OPACITY_VALUE = 0.5;
       const ZERO_VEC3_OBJECT = { x: 0, y: 0, z: 0 };
       function zeroMatrix(row, column) {
         return Array.from({ length: row }, () => Array(column).fill(0));
@@ -27,23 +56,66 @@
           mouseleaveColor: { type: "color" },
         },
         events: {
-          mouseenter: function () {
+          mouseenter: function (event) {
             this.el.setAttribute(
               "material",
               "color",
               this.data.mouseenterColor
             );
+            event.stopPropagation();
           },
-          mouseleave: function () {
+          mouseleave: function (event) {
             this.el.setAttribute(
               "material",
               "color",
               this.data.mouseleaveColor
             );
+            event.stopPropagation();
           },
         },
       });
     </script>
+    <script type="text/javascript">
+      function isEqual(objA, objB) {
+        if (objA === objB) return true; // 同じ参照の場合
+        if (
+          typeof objA !== "object" ||
+          objA === null ||
+          typeof objB !== "object" ||
+          objB === null
+        ) {
+          return false; // オブジェクトでない場合
+        }
+
+        const keysA = Object.keys(objA);
+        const keysB = Object.keys(objB);
+
+        if (keysA.length !== keysB.length) return false; // プロパティ数が異なる場合
+
+        for (const key of keysA) {
+          if (!keysB.includes(key) || !isEqual(objA[key], objB[key])) {
+            return false; // プロパティの値を再帰的に比較
+          }
+        }
+
+        return true; // すべてのプロパティが一致
+      }
+    </script>
+    <script type="text/javascript">
+      // object情報更新の待機
+      function waitForObjectReady(obj) {
+        return new Promise((resolve) => {
+          if (obj.hasLoaded) {
+            // すでにロードされている場合はすぐに解決
+            resolve();
+          } else {
+            // ロードが完了するのを待つ
+            obj.addEventListener("loaded", resolve);
+          }
+        });
+      }
+    </script>
+    <!--依存アリ-->
     <script type="text/javascript">
       function setNewElementProperties(
         newEl,
@@ -68,7 +140,43 @@
           `mouseenterColor: ${highlightColor}; mouseleaveColor: ${defaultColor}`
         );
       }
+      async function toggleVisible(element) {
+        await waitForObjectReady(element);
+        if (isEqual(element.getAttribute("scale"), ZERO_VEC3_OBJECT)) {
+          element.setAttribute("scale", { x: 1, y: 1, z: 1 });
+        } else {
+          element.setAttribute("scale", ZERO_VEC3_OBJECT);
+        }
+      }
     </script>
+    <script type="text/javascript">
+      AFRAME.registerComponent("toggle-wall-make", {
+        schema: {
+          direction: { type: "string" },
+        },
+        init: function () {
+          this.isVisible = false;
+        },
+        events: {
+          click: function (event) {
+            //console.log(`${this.data.direction} wall clicked!`);
+            toggleVisible(this.el.children[0]);
+            this.isVisible = !this.isVisible;
+            // Identify the parent
+            const row =
+              this.el.parentElement.getAttribute("position").x /
+              (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width);
+            const column =
+              this.el.parentElement.getAttribute("position").y /
+              (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width);
+            console.log(`parent grid row: ${row}, column: ${column}`);
+            // save registry
+            event.stopPropagation();
+          },
+        },
+      });
+    </script>
+    <!-- wallをgridと独立させる版 --
     <script type="text/javascript">
       window.addEventListener("DOMContentLoaded", () => {
         const mazeGrids = document.getElementById("mazeGrids");
@@ -139,11 +247,100 @@
         }
       });
     </script>
+    <!-- wallをgridの子要素とする版-->
+    <script type="text/javascript">
+      window.addEventListener("DOMContentLoaded", () => {
+        const mazeGrids = document.getElementById("mazeGrids");
+        for (let i = 0; i < INITIAL_GRID_ROWS; i++) {
+          for (let j = 0; j < INITIAL_GRID_COLUMNS; j++) {
+            /** make grid **/
+            let newGridEl = document.createElement("a-entity");
+            setNewElementProperties(
+              newGridEl,
+              MAZE_GRID_OBJECT,
+              MAZE_GRID_COLOR,
+              {
+                x: j * (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width),
+                y: i * (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width),
+                z: 0,
+              },
+              ZERO_VEC3_OBJECT
+            );
+            //setActionSettingsProperties(newGridEl, MAZE_GRID_COLOR, MAZE_GRID_HIGHLIGHT_COLOR);
+
+            /** make wall **/
+            let newRightWallEl = document.createElement("a-entity");
+            setNewElementProperties(
+              newRightWallEl,
+              MAZE_WALL_OBJECT,
+              MAZE_WALL_COLOR,
+              MAZE_WALL_RIGHT_RELATIVE_POSITION,
+              ZERO_VEC3_OBJECT
+            );
+            setActionSettingsProperties(
+              newRightWallEl,
+              MAZE_WALL_COLOR,
+              MAZE_WALL_HIGHLIGHT_COLOR
+            );
+            newRightWallEl.setAttribute("toggle-wall-make", "direction: right");
+            let newRightWallVisualization = document.createElement("a-entity");
+            setNewElementProperties(
+              newRightWallVisualization,
+              MAZE_WALL_VISUALIZATION_OBJECT,
+              MAZE_WALL_COLOR,
+              MAZE_WALL_VISUALIZATION_RELATIVE_POSITION,
+              ZERO_VEC3_OBJECT
+            );
+            newRightWallVisualization.setAttribute(
+              "material",
+              "opacity",
+              OPACITY_VALUE
+            );
+            newRightWallVisualization.setAttribute("scale", ZERO_VEC3_OBJECT);
+            newRightWallEl.appendChild(newRightWallVisualization);
+            newGridEl.appendChild(newRightWallEl);
+
+            let newAboveWallEl = document.createElement("a-entity");
+            setNewElementProperties(
+              newAboveWallEl,
+              MAZE_WALL_OBJECT,
+              MAZE_WALL_COLOR,
+              MAZE_WALL_ABOVE_RELATIVE_POSITION,
+              { x: 0, y: 0, z: 90 }
+            );
+            setActionSettingsProperties(
+              newAboveWallEl,
+              MAZE_WALL_COLOR,
+              MAZE_WALL_HIGHLIGHT_COLOR
+            );
+            newAboveWallEl.setAttribute("toggle-wall-make", "direction: above");
+            let newAboveWallVisualization = document.createElement("a-entity");
+            setNewElementProperties(
+              newAboveWallVisualization,
+              MAZE_WALL_VISUALIZATION_OBJECT,
+              MAZE_WALL_COLOR,
+              MAZE_WALL_VISUALIZATION_RELATIVE_POSITION,
+              ZERO_VEC3_OBJECT
+            );
+            newAboveWallVisualization.setAttribute(
+              "material",
+              "opacity",
+              OPACITY_VALUE
+            );
+            newAboveWallVisualization.setAttribute("scale", ZERO_VEC3_OBJECT);
+            newAboveWallEl.appendChild(newAboveWallVisualization);
+            newGridEl.appendChild(newAboveWallEl);
+
+            mazeGrids.appendChild(newGridEl);
+          }
+        }
+      });
+    </script>
   </head>
   <body>
     <a-scene cursor="rayOrigin: mouse" raycaster="objects:.raycastable">
       <a-entity id="mazeGrids" position="0 0 -4" rotation="-90 0 0"></a-entity>
-      <a-entity id="mazeWalls" position="0 0 -4" rotation="-90 0 0"></a-entity>
+      <!--<a-entity id="mazeWalls" position="0 0 -4" rotation="-90 0 0"></a-entity>-->
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
   </body>
