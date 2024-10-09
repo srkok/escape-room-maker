@@ -1,0 +1,39 @@
+#downloadButton {
+  position: fixed;
+  z-index: 3; /*scene上に描画*/
+  bottom: 10px;
+  left: 10px;
+  width: 175px; /* ボタンの幅を固定 */
+  height: 40px; /* ボタンの高さを固定 */
+  font-size: 16px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  /*transition: background-color 0.3s; /* 背景色の変更にアニメーションを追加 */
+}
+#downloadButton:hover {
+  color: white;
+  background-color: red;
+}
+.upload-button {
+  position: fixed;
+  z-index: 3;
+  bottom: 60px;
+  left: 10px;
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.upload-button:hover {
+  color: white;
+  background-color: red;
+}
+#jsonFileInput {
+  display: none;
+}
