@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A-Frame JSON Upload</title>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <!-- 依存なし -->
+    <script src="./js/initial-settings.js"></script>
+    <script src="./js/hover-color-change.component.js"></script>
+    <script src="./js/wait-for-object-ready.js"></script>
+    <!-- 依存あり -->
+    <script src="./js/make-element-util.js"></script>
+    <script src="./js/goal-alert-popup.component.js"></script>
+    <script src="./js/scene-multi-choice-maker.js"></script>
+    <script src="./js/file-loader.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="overlay">
+      <label for="fileInput">JSONファイルを選択してください</label>
+      <input type="file" id="fileInput" accept=".json" />
+    </div>
+
+    <a-scene cursor="rayOrigin: mouse" raycaster="objects:.raycastable">
+      <a-entity id="quizGrids" rotation="-90 0 0"></a-entity>
+      <a-camere id="player"></a-camere>
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>

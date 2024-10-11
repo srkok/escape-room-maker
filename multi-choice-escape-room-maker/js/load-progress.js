@@ -31,7 +31,8 @@ async function loadProgress() {
   await Promise.all([waitForObjectReady(quizGrids)]);
   /** set quiz boards */
   for (const name in registry) {
-    if (!isNaN(Number(name))) {
+    // Number(name)
+    if (!isNaN(name)) {
       setQuizBoard(quizGrids.children[Number(name)]);
     }
   }
