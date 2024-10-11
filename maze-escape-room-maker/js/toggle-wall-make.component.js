@@ -2,26 +2,36 @@ AFRAME.registerComponent("toggle-wall-make", {
   schema: {
     direction: { type: "string" },
   },
-  init: function () {
+  init: async function () {
     this.isVisible = false;
     // Identify the parent
+    const parentEl = this.el.parentNode;
+    await waitForObjectReady(parentEl);
     this.parentRow =
-      this.el.parentElement.getAttribute("position").x /
+      parentEl.getAttribute("position").x /
       (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width);
     this.parentColumn =
-      this.el.parentElement.getAttribute("position").y /
+      parentEl.getAttribute("position").y /
       (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width);
+    if (this.data.direction === "below") this.target = "isBelowWall";
     if (this.data.direction === "right") this.target = "isRightWall";
-    if (this.data.direction === "above") this.target = "isAboveWall";
   },
   events: {
     click: function (event) {
+      // reverse visibility
       this.isVisible = !this.isVisible;
       toggleVisible(this.el.children[0]);
 
       // save registry
       registry.board[this.parentRow][this.parentColumn][this.target] =
         this.isVisible;
+
+      //j4d
+      console.log(
+        `grid ${this.parentRow} ${this.parentColumn} 's ${this.target} is ${
+          this.isVisible ? "Visualized." : "UnVisualized."
+        }`
+      );
 
       event.stopPropagation();
     },

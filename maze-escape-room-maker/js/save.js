@@ -4,22 +4,22 @@
  * @param {Number} column 列指定
  * @param {String} partsName パーツ指定
  * @param {String} addon 動作指定
+ * @param {Boolean} isBelowWall 下壁の有無
  * @param {Boolean} isRightWall 右壁の有無
- * @param {Boolean} isAboveWall 上壁の有無
  */
 function updateRegistry(
   row,
   column,
   partsName,
   addon,
-  isRightWall,
-  isAboveWall
+  isBelowWall,
+  isRightWall
 ) {
   registry.board[row][column] = {
     partsName,
     addon,
+    isBelowWall,
     isRightWall,
-    isAboveWall,
   };
 }
 

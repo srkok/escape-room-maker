@@ -9,10 +9,12 @@
     <script src="./js/initial-settings.js"></script>
     <script src="./js/hover-color-change.component.js"></script>
     <script src="./js/wait-for-object-ready.js"></script>
+    <script src="./js/wall-collision-detector.component.js"></script>
     <!-- 依存あり -->
     <script src="./js/make-element-util.js"></script>
     <script src="./js/goal-alert-popup.component.js"></script>
     <script src="./js/scene-multi-choice-maker.js"></script>
+    <script src="./js/scene-maze-maker.js"></script>
     <script src="./js/file-loader.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
   </head>
@@ -24,7 +26,15 @@
 
     <a-scene cursor="rayOrigin: mouse" raycaster="objects:.raycastable">
       <a-entity id="quizGrids" rotation="-90 0 0"></a-entity>
-      <a-camere id="player"></a-camere>
+      <a-entity id="mazeGrids" rotation="-90 0 -90"></a-entity>
+      <a-entity
+        id="player"
+        camera
+        wasd-controls
+        look-controls
+        position="0 1.6 0"
+        movement-controls
+      ></a-entity>
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
   </body>

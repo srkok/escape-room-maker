@@ -12,8 +12,7 @@ window.onload = function () {
           if (data.escapeRoomType === "multiChoice") {
             sceneMultiChoiceMaker(data);
           } else if (data.escapeRoomType === "maze") {
-            //sceneMazeMaker(data);
-            console.log("maze: 工事中");
+            sceneMazeMaker(data);
           } else if (data.escapeRoomType === "raceAndJump") {
             //sceneRaceAndJumpMaker(data);
             console.log("race and jump: 工事中");
