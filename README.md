@@ -2,16 +2,13 @@
 
 - 多肢選択肢クイズ脱出室開発空間の完成.(UI に変更の余地あり)
 - playground の拡張.
+- drag_and_drop の実装(砂場レベル).
 
 やること：
 
 - 迷路脱出室開発空間の製作.
   - 動作指定用ブロックビルディング環境の考察.
-  - パーツメーカー <- どうする?
-  - 参考になりそうな拡張
-    - <https://github.com/extraymond/aframe-mouse-dragndrop>
-    - <https://github.com/jesstelford/aframe-click-drag-component>
-      - [用例](https://jesstelford.github.io/aframe-click-drag-component/)
+  - 動作対象指定, 矢印引っ張る? その引っ張り方は?
 
 やるかもしれないこと：
 
@@ -19,3 +16,7 @@
   - 何もないところをクリックしたときに, 前作ったのがそのままなのは別にいいと思う.
   - 既に編集したやつをクリックしたときに, 全然関係ないのが表示されるのは少し面倒だと思う.
   - popup の registerComponent にて, クリック後, registry に既に name があれば, そこからバックアップを各種 Picker などに呼び出したのち, Modal を表示させる.
+
+やらないこと：
+
+- パーツメーカー

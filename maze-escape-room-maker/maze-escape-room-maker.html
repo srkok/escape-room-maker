@@ -12,9 +12,12 @@
     <script src="./js/is-equal.js"></script>
     <script src="./js/wait-for-object-ready.js"></script>
     <script src="./js/save.js"></script>
+    <script src="./js/editmode.js"></script>
     <!--依存アリ-->
     <script src="./js/make-element-util.js"></script>
     <script src="./js/toggle-wall-make.component.js"></script>
+    <!--<script src="./js/code-block-slot.component.js"></script>-->
+    <!--<script src="./js/dragndrop.component.js"></script>-->
     <script src="./js/init-maze-maker.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
   </head>
@@ -22,7 +25,38 @@
     <a-scene cursor="rayOrigin: mouse" raycaster="objects:.raycastable">
       <a-entity id="mazeGrids"></a-entity>
       <a-entity id="rig" position="0 1.6 0" movement-controls="fly:true">
-        <a-camera id="camera" look-controls wasd-controls></a-camera>
+        <a-entity id="camera" camera look-controls wasd-controls></a-entity>
+      </a-entity>
+      <a-entity id="edit-space" position="-60 0 20">
+        <a-entity id="edit-rig" position="0 1.6 0">
+          <a-entity
+            id="edit-camera"
+            camera="active: false"
+            look-controls
+            wasd-controls
+          ></a-entity>
+        </a-entity>
+        <a-plane
+          position="-2 0 -4"
+          rotation="-90 0 0"
+          width="4"
+          height="4"
+          color="green"
+        ></a-plane>
+        <a-plane
+          position="-2 2 -6"
+          width="4"
+          height="4"
+          color="green"
+        ></a-plane>
+        <a-plane
+          position="2 0 -4"
+          rotation="-90 0 0"
+          width="4"
+          height="4"
+          color="gray"
+        ></a-plane>
+        <a-plane position="2 2 -6" width="4" height="4" color="gray"></a-plane>
       </a-entity>
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>

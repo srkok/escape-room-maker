@@ -18,7 +18,12 @@ function initMazeMaker(row, column) {
         },
         ZERO_VEC3_OBJECT
       );
-      //setActionSettingsProperties(newGridEl, MAZE_GRID_COLOR, MAZE_GRID_HIGHLIGHT_COLOR);
+      setActionSettingsProperties(
+        newGridEl,
+        MAZE_GRID_COLOR,
+        MAZE_GRID_HIGHLIGHT_COLOR
+      );
+      newGridEl.setAttribute("move-edit-mode", "");
 
       /** make wall **/
       let newBelowWallEl = document.createElement("a-entity");
