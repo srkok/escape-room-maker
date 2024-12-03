@@ -23,7 +23,9 @@ function initMazeMaker(row, column) {
         MAZE_GRID_COLOR,
         MAZE_GRID_HIGHLIGHT_COLOR
       );
-      newGridEl.setAttribute("move-edit-mode", "");
+      newGridEl.setAttribute("text", `value: Grid ${i} ${j}; align: center`);
+      newGridEl.setAttribute("rotation", "0 0 90");
+      //newGridEl.setAttribute("move-edit-mode", ""); // 不要?
 
       /** make wall **/
       let newBelowWallEl = document.createElement("a-entity");
@@ -32,7 +34,7 @@ function initMazeMaker(row, column) {
         MAZE_WALL_OBJECT,
         MAZE_WALL_COLOR,
         MAZE_WALL_BELOW_RELATIVE_POSITION,
-        ZERO_VEC3_OBJECT
+        { x: 0, y: 0, z: 90 }
       );
       setActionSettingsProperties(
         newBelowWallEl,
@@ -63,7 +65,7 @@ function initMazeMaker(row, column) {
         MAZE_WALL_OBJECT,
         MAZE_WALL_COLOR,
         MAZE_WALL_RIGHT_RELATIVE_POSITION,
-        { x: 0, y: 0, z: 90 }
+        ZERO_VEC3_OBJECT
       );
       setActionSettingsProperties(
         newRightWallEl,

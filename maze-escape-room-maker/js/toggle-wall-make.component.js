@@ -26,12 +26,13 @@ AFRAME.registerComponent("toggle-wall-make", {
       registry.board[this.parentRow][this.parentColumn][this.target] =
         this.isVisible;
 
-      //j4d
+      /**
       console.log(
         `grid ${this.parentRow} ${this.parentColumn} 's ${this.target} is ${
           this.isVisible ? "Visualized." : "UnVisualized."
         }`
       );
+      /**/
 
       event.stopPropagation();
     },

@@ -21,7 +21,11 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
   </head>
   <body>
-    <a-scene cursor="rayOrigin: mouse" raycaster="objects:.raycastable">
+    <a-scene
+      cursor="rayOrigin: mouse"
+      raycaster="objects:.raycastable"
+      xr-mode-ui="enabled: false"
+    >
       <!-- 地面のマス目 -->
       <a-entity id="quizGrids" rotation="-90 0 0"></a-entity>
       <!-- グリッド追加パネル -->

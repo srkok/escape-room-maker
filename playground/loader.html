@@ -24,7 +24,11 @@
       <input type="file" id="fileInput" accept=".json" />
     </div>
 
-    <a-scene cursor="rayOrigin: mouse" raycaster="objects:.raycastable">
+    <a-scene
+      cursor="rayOrigin: mouse"
+      raycaster="objects:.raycastable"
+      xr-mode-ui="enabled: false"
+    >
       <a-entity id="quizGrids" rotation="-90 0 0"></a-entity>
       <a-entity id="mazeGrids" rotation="-90 0 -90"></a-entity>
       <a-entity
