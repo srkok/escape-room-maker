@@ -1,170 +1,250 @@
-const HUD_BACKSCREEN_OBJECT = { primitive: "plane", height: 1.5, width: 1.2 };
-const HUD_BACKSCREEN_POSITION = { x: 0.7, y: -0.05, z: -1 };
-const HUD_TAB_OBJECT = {
-  primitive: "plane",
-  height: 0.1,
-  width: HUD_BACKSCREEN_OBJECT.width / 3,
+const EDITMODE_PARTS = {
+  all: {
+    position: { x: 0, y: 5, z: 0 },
+    rotation: { x: 0, y: 0, z: 0 },
+  },
+  octahedron: {
+    geometry: { primitive: "octahedron" },
+    color: "royalblue",
+    position: { x: 0, y: 1.6, z: 0 },
+    rotation: { x: 0, y: 0, z: 0 },
+  },
+  goalflag: {
+    base: {
+      geometry: { primitive: "cylinder", height: 0.5, radius: 0.8 },
+      color: "gray",
+      position: { x: 3, y: 0, z: 0 },
+      rotation: { x: 0, y: 0, z: 0 },
+    },
+    pole: {
+      geometry: { primitive: "cylinder", height: 4, radius: 0.2 },
+      color: "white",
+      position: { x: 0, y: 2, z: 0 },
+      rotation: { x: 0, y: 0, z: 0 },
+    },
+    flag: {
+      geometry: { primitive: "box", height: 1.2, width: 1.2, depth: 0.4 },
+      color: "red",
+      position: { x: 0.7, y: 1.2, z: 0 },
+      rotation: { x: 0, y: 0, z: 0 },
+    },
+  },
+  spiketrap: {
+    base: {
+      geometry: { primitive: "plane", height: 4, width: 4 },
+      color: "gray",
+      position: { x: 7, y: 0.1, z: 0 },
+      rotation: { x: -90, y: 0, z: 0 },
+    },
+    spike: {
+      geometry: { primitive: "cone" },
+      color: "gray",
+      rotation: { x: 90, y: 0, z: 0 },
+    },
+    num_spikes_per_side: 4,
+  },
+  textblock: {
+    outer: {
+      geometry: { primitive: "box", height: 0.4, width: 1, depth: 0.3 },
+      color: "black",
+      position: {
+        enable: { x: 10, y: 2, z: 0 },
+        disable: { x: 10, y: 0, z: 0 },
+      },
+      rotation: { x: 0, y: 0, z: 0 },
+    },
+    inner: {
+      geometry: { primitive: "plane", height: 0.3, width: 0.8 },
+      color: "white",
+      position: { x: 0, y: 0, z: 0.16 },
+      rotation: { x: 0, y: 0, z: 0 },
+      text: {
+        enable: "value: enable; align: center; width: 5; color: black",
+        disable: "value: disable; align: center; width: 5; color: black",
+      },
+    },
+  },
 };
-const HUD_WHAT_COLOR = "deeppink";
-const HUD_DO_COLOR = "blue";
-const HUD_WHERE_COLOR = "green";
-const HUD_HIGHLIGHT_COLOR = "red";
-const HUD_OPACITY = 0.8;
 
-function showWhat() {
-  const backScreen = document.getElementById("backScreen");
-  backScreen.innerHTML = "";
-  backScreen.setAttribute("material", "color", HUD_WHAT_COLOR);
-  // TODO drag可能なoctahedronとかtrapとかgoalとかを置く
-  let newOctahedron = document.createElement("a-entity");
-  setNewElementProperties(
-    newOctahedron,
-    { primitive: "octahedron", radius: 0.15 },
-    "royalblue",
-    { x: -0.1, y: 0.4, z: 0.1 },
-    { x: 0, y: -15, z: 0 }
-  );
-  backScreen.appendChild(newOctahedron);
-}
-
-function showDo() {
-  const backScreen = document.getElementById("backScreen");
-  backScreen.innerHTML = "";
-  backScreen.setAttribute("material", "color", HUD_DO_COLOR);
-  // TODO drag可能なvisibleとかunvisibleとかを置く
-  // set block visible
-  let blockVisible = document.createElement("a-entity");
-  setNewElementProperties(
-    blockVisible,
-    { primitive: "box", height: 0.1, width: 0.5, depth: 0.1 },
-    "black",
-    { x: 0, y: 0.5, z: 0 },
-    { x: 0, y: 0, z: 0 }
-  );
-  let blockVisibleText = document.createElement("a-entity");
-  blockVisibleText.setAttribute(
-    "text",
-    "value: visible; align: center: width: 1"
-  );
-  blockVisibleText.setAttribute("position", { x: 0.4, y: -0.02, z: 0.1 }); // FIXME いちいち設定しないといけないの意味わかんないんだよな。automaticなやつあるやろ絶対。
-  blockVisible.appendChild(blockVisibleText);
-  backScreen.appendChild(blockVisible);
-  // set block unvisible
-  let blockUnVisible = document.createElement("a-entity");
-  setNewElementProperties(
-    blockUnVisible,
-    { primitive: "box", height: 0.1, width: 0.5, depth: 0.1 },
-    "black",
-    { x: 0, y: 0.2, z: 0 },
-    { x: 0, y: 0, z: 0 }
-  );
-  let blockUnVisibleText = document.createElement("a-entity");
-  blockUnVisibleText.setAttribute(
-    "text",
-    "value: unvisible; align: center: width: 1"
-  );
-  blockUnVisibleText.setAttribute("position", { x: 0.37, y: -0.01, z: 0.1 }); // FIXME いちいち設定しないといけないの意味わかんないんだよな。automaticなやつあるやろ絶対。
-  blockUnVisible.appendChild(blockUnVisibleText);
-  backScreen.appendChild(blockUnVisible);
-}
-
-function showWhere() {
-  const backScreen = document.getElementById("backScreen");
-  backScreen.innerHTML = "";
-  backScreen.setAttribute("material", "color", HUD_WHERE_COLOR);
-  // TODO drag可能な2D mazeとかを置く
-}
-
-AFRAME.registerComponent("change-edit-mode", {
+AFRAME.registerComponent("repop-model", {
   schema: {
-    mode: { type: "string" },
+    model: { type: "string" },
+  },
+  init: function () {
+    this.scene = document.querySelector("a-scene");
+    if (this.data.model === "octahedron") {
+      this.handleclick = makeOctahedronModel;
+    } else if (this.data.model === "goalflag") {
+      this.handleclick = makeGoalFlagModel;
+    } else if (this.data.model === "spiketrap") {
+      this.handleclick = makeSpikeTrapModel;
+    } else if (this.data.model === "textblock_enable") {
+      this.handleclick = makeTextBlockModelEnable;
+    } else if (this.data.model === "textblock_disable") {
+      this.handleclick = makeTextBlockModelDisable;
+    } else {
+      this.handleclick = () => {
+        console.log("ERROR model.");
+      };
+    }
   },
   events: {
     click: function () {
-      //console.log(`change ${this.data.mode} mode.`);
-      if (this.data.mode === "what") {
-        showWhat();
-      } else if (this.data.mode === "do") {
-        showDo();
-      } else if (this.data.mode === "where") {
-        showWhere();
-      } else {
-        console.log("ERROR mode.");
-      }
+      // 動かした場合repop
+      this.scene.appendChild(this.handleclick(EDITMODE_PARTS.all.position));
+      // 動かしたものを再度動かしてもrepopしないようにする
+      this.el.removeAttribute("repop-model");
     },
   },
 });
 
-function showHUD() {
-  const HUDEl = document.getElementById("headUpDisplay");
-  // set tab what
-  let tabWhat = document.createElement("a-entity");
+function makeOctahedronModel(position) {
+  let newOctahedronEl = document.createElement("a-entity");
   setNewElementProperties(
-    tabWhat,
-    HUD_TAB_OBJECT,
-    HUD_WHAT_COLOR,
-    {
-      x: HUD_BACKSCREEN_POSITION.x - HUD_BACKSCREEN_OBJECT.width / 3,
-      y: HUD_BACKSCREEN_OBJECT.height / 2,
-      z: -1,
-    },
-    ZERO_VEC3_OBJECT
+    newOctahedronEl,
+    EDITMODE_PARTS.octahedron.geometry,
+    EDITMODE_PARTS.octahedron.color,
+    sumObjectsByKey({ ...EDITMODE_PARTS.octahedron.position }, position),
+    EDITMODE_PARTS.octahedron.rotation
   );
-  tabWhat.setAttribute("text", "value: what; align: center; width: 1");
-  setActionSettingsProperties(tabWhat, HUD_WHAT_COLOR, HUD_HIGHLIGHT_COLOR);
-  tabWhat.setAttribute("change-edit-mode", "mode: what");
-  HUDEl.appendChild(tabWhat);
-
-  // set tab do
-  let tabDo = document.createElement("a-entity");
-  setNewElementProperties(
-    tabDo,
-    HUD_TAB_OBJECT,
-    HUD_DO_COLOR,
-    {
-      x: HUD_BACKSCREEN_POSITION.x,
-      y: HUD_BACKSCREEN_OBJECT.height / 2,
-      z: -1,
-    },
-    ZERO_VEC3_OBJECT
-  );
-  tabDo.setAttribute("text", "value: do; align: center; width: 1");
-  setActionSettingsProperties(tabDo, HUD_DO_COLOR, HUD_HIGHLIGHT_COLOR);
-  tabDo.setAttribute("change-edit-mode", "mode: do");
-  HUDEl.appendChild(tabDo);
-
-  // set tab where
-  let tabWhere = document.createElement("a-entity");
-  setNewElementProperties(
-    tabWhere,
-    HUD_TAB_OBJECT,
-    HUD_WHERE_COLOR,
-    {
-      x: HUD_BACKSCREEN_POSITION.x + HUD_BACKSCREEN_OBJECT.width / 3,
-      y: HUD_BACKSCREEN_OBJECT.height / 2,
-      z: -1,
-    },
-    ZERO_VEC3_OBJECT
-  );
-  tabWhere.setAttribute("text", "value: where; align: center; width: 1");
-  setActionSettingsProperties(tabWhere, HUD_WHERE_COLOR, HUD_HIGHLIGHT_COLOR);
-  tabWhere.setAttribute("change-edit-mode", "mode: where");
-  HUDEl.appendChild(tabWhere);
-
-  // set backScreen
-  let backScreen = document.createElement("a-entity");
-  backScreen.setAttribute("id", "backScreen");
-  setNewElementProperties(
-    backScreen,
-    HUD_BACKSCREEN_OBJECT,
-    HUD_WHAT_COLOR, // 任意.
-    HUD_BACKSCREEN_POSITION,
-    ZERO_VEC3_OBJECT
-  );
-  backScreen.setAttribute("material", "opacity", HUD_OPACITY);
-  HUDEl.appendChild(backScreen);
-  //初回起動時はwhat選択画面が表示
-  showWhat();
+  newOctahedronEl.classList.add("raycastable");
+  newOctahedronEl.setAttribute("dragndrop", "");
+  newOctahedronEl.setAttribute("repop-model", "model: octahedron");
+  return newOctahedronEl;
 }
 
-document.addEventListener("DOMContentLoaded", showHUD);
+function makeGoalFlagModel(position) {
+  let newBaseEl = document.createElement("a-entity");
+  setNewElementProperties(
+    newBaseEl,
+    EDITMODE_PARTS.goalflag.base.geometry,
+    EDITMODE_PARTS.goalflag.base.color,
+    sumObjectsByKey({ ...EDITMODE_PARTS.goalflag.base.position }, position),
+    EDITMODE_PARTS.goalflag.base.rotation
+  );
+  newBaseEl.classList.add("raycastable");
+  newBaseEl.setAttribute("dragndrop", "");
+  newBaseEl.setAttribute("repop-model", "model: goalflag");
+  let newPoleEl = document.createElement("a-entity");
+  setNewElementProperties(
+    newPoleEl,
+    EDITMODE_PARTS.goalflag.pole.geometry,
+    EDITMODE_PARTS.goalflag.pole.color,
+    EDITMODE_PARTS.goalflag.pole.position,
+    EDITMODE_PARTS.goalflag.pole.rotation
+  );
+  let newFlagEl = document.createElement("a-entity");
+  setNewElementProperties(
+    newFlagEl,
+    EDITMODE_PARTS.goalflag.flag.geometry,
+    EDITMODE_PARTS.goalflag.flag.color,
+    EDITMODE_PARTS.goalflag.flag.position,
+    EDITMODE_PARTS.goalflag.flag.rotation
+  );
+  newPoleEl.appendChild(newFlagEl);
+  newBaseEl.appendChild(newPoleEl);
+  return newBaseEl;
+}
+
+function makeSpikeTrapModel(position) {
+  let newSpikeTrapEl = document.createElement("a-entity");
+  setNewElementProperties(
+    newSpikeTrapEl,
+    EDITMODE_PARTS.spiketrap.base.geometry,
+    EDITMODE_PARTS.spiketrap.base.color,
+    sumObjectsByKey({ ...EDITMODE_PARTS.spiketrap.base.position }, position),
+    EDITMODE_PARTS.spiketrap.base.rotation
+  );
+  newSpikeTrapEl.setAttribute("material", "side: double");
+  const radius_bottom =
+    EDITMODE_PARTS.spiketrap.base.geometry.height /
+    (EDITMODE_PARTS.spiketrap.num_spikes_per_side * 2);
+  for (let i = 0; i < EDITMODE_PARTS.spiketrap.num_spikes_per_side; i++) {
+    for (let j = 0; j < EDITMODE_PARTS.spiketrap.num_spikes_per_side; j++) {
+      let newSpikeEl = document.createElement("a-entity");
+      setNewElementProperties(
+        newSpikeEl,
+        {
+          ...EDITMODE_PARTS.spiketrap.spike.geometry,
+          radiusBottom: radius_bottom,
+        },
+        EDITMODE_PARTS.spiketrap.spike.color,
+        {
+          x:
+            i * radius_bottom * 2 -
+            radius_bottom * (EDITMODE_PARTS.spiketrap.num_spikes_per_side - 1),
+          y:
+            j * radius_bottom * 2 -
+            radius_bottom * (EDITMODE_PARTS.spiketrap.num_spikes_per_side - 1),
+          z: 0.5,
+        },
+        EDITMODE_PARTS.spiketrap.spike.rotation
+      );
+      newSpikeTrapEl.appendChild(newSpikeEl);
+    }
+  }
+  newSpikeTrapEl.classList.add("raycastable");
+  newSpikeTrapEl.setAttribute("dragndrop", "");
+  newSpikeTrapEl.setAttribute("repop-model", "model: spiketrap");
+  return newSpikeTrapEl;
+}
+
+// textの内容に依らずmodelを返却する関数
+function makeTextBlockModel(text, position) {
+  // make model
+  let newBlockEl = document.createElement("a-entity");
+  setNewElementProperties(
+    newBlockEl,
+    EDITMODE_PARTS.textblock.outer.geometry,
+    EDITMODE_PARTS.textblock.outer.color,
+    position,
+    EDITMODE_PARTS.textblock.outer.rotation
+  );
+  let newBlockTextEl = document.createElement("a-entity");
+  setNewElementProperties(
+    newBlockTextEl,
+    EDITMODE_PARTS.textblock.inner.geometry,
+    EDITMODE_PARTS.textblock.inner.color,
+    EDITMODE_PARTS.textblock.inner.position,
+    EDITMODE_PARTS.textblock.inner.rotation
+  );
+  newBlockTextEl.setAttribute("text", text);
+  newBlockEl.appendChild(newBlockTextEl);
+  return newBlockEl;
+}
+
+// textの内容がenableのmodelを返却する関数
+function makeTextBlockModelEnable(position) {
+  let newEl = makeTextBlockModel(
+    EDITMODE_PARTS.textblock.inner.text.enable,
+    sumObjectsByKey(EDITMODE_PARTS.textblock.outer.position.enable, position)
+  );
+  // set functions
+  newEl.classList.add("raycastable");
+  newEl.setAttribute("dragndrop", "");
+  newEl.setAttribute("repop-model", "model: textblock_enable");
+  return newEl;
+}
+
+// textの内容がdisableのmodelを返却する関数
+function makeTextBlockModelDisable(position) {
+  let newEl = makeTextBlockModel(
+    EDITMODE_PARTS.textblock.inner.text.disable,
+    sumObjectsByKey(EDITMODE_PARTS.textblock.outer.position.disable, position)
+  );
+  // set functions
+  newEl.classList.add("raycastable");
+  newEl.setAttribute("dragndrop", "");
+  newEl.setAttribute("repop-model", "model: textblock_disable");
+  return newEl;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 初期配置
+  const sceneEl = document.querySelector("a-scene");
+  sceneEl.appendChild(makeOctahedronModel(EDITMODE_PARTS.all.position));
+  sceneEl.appendChild(makeGoalFlagModel(EDITMODE_PARTS.all.position));
+  sceneEl.appendChild(makeSpikeTrapModel(EDITMODE_PARTS.all.position));
+  sceneEl.appendChild(makeTextBlockModelEnable(EDITMODE_PARTS.all.position));
+  sceneEl.appendChild(makeTextBlockModelDisable(EDITMODE_PARTS.all.position));
+});

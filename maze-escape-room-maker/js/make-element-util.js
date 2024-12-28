@@ -21,3 +21,14 @@ async function toggleVisible(element) {
     element.setAttribute("scale", ZERO_VEC3_OBJECT);
   }
 }
+
+function sumObjectsByKey(...objects) {
+  return objects.reduce((acc, obj) => {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        acc[key] = (acc[key] || 0) + obj[key];
+      }
+    }
+    return acc;
+  }, {});
+}

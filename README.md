@@ -3,15 +3,16 @@
 - 多肢選択肢クイズ脱出室開発空間の完成.(UI に変更の余地あり)
 - playground の拡張.
 - drag_and_drop の実装(砂場レベル).
-- mazeER の HUD レイアウト実装.
+- mazeER の drag & drop レイアウト実装.
 
 やること：
 
 - 迷路脱出室開発空間の製作.
+  - maze の大きさの拡張ボタン.
+    - 下、左にプラスボタンを置き、クリックすると maze の row, column が +1 になるようにする.
   - 動作指定用ブロックビルディング環境の製作.
-    - HUD から drag & drop できるようにする.
-    - HUD what 内に trap と goal のオブジェクトを作成し置く. <- img じゃだめ?
-    - HUD where 内に 2D maze を置く.
+    - drag & drop から配置可能位置に配置できるようにする.
+    - grid name を drag & drop できるようにする.
   - 作業状態の save.
     - 何を save する? どう save する?
   - 呼び出し.(future)
