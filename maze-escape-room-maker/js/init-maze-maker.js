@@ -5,7 +5,7 @@ function initMazeMaker(row, column) {
   mazeGrids.innerHTML = "";
   for (let i = 0; i < row; i++) {
     for (let j = 0; j < column; j++) {
-      /** make grid **/
+      // make grid
       let newGridEl = document.createElement("a-entity");
       setNewElementProperties(
         newGridEl,
@@ -16,10 +16,17 @@ function initMazeMaker(row, column) {
           y: j * (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width),
           z: 0,
         },
-        ZERO_VEC3_OBJECT
+        { x: 0, y: 0, z: 90 }
       );
       newGridEl.setAttribute("text", `value: Grid ${i} ${j}; align: center`);
-      newGridEl.setAttribute("rotation", "0 0 90");
+      // make gridname's textblock
+      document.querySelector("a-scene").appendChild(
+        makeTextBlockModelGridName(i, j, {
+          x: j * (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width),
+          y: 0.1,
+          z: i * (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width) - 4,
+        })
+      );
 
       /** make wall **/
       let newBelowWallEl = document.createElement("a-entity");
