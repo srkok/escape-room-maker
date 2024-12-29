@@ -12,23 +12,31 @@ function initMazeMaker(row, column) {
         MAZE_GRID_OBJECT,
         MAZE_GRID_COLOR,
         {
-          x: i * (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width),
-          y: j * (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width),
-          z: 0,
+          x: j * (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width),
+          y: 0,
+          z: i * (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width),
         },
-        { x: 0, y: 0, z: 90 }
+        { x: -90, y: 0, z: 0 }
       );
       newGridEl.setAttribute("text", `value: Grid ${i} ${j}; align: center`);
+      newGridEl.classList.add("code-block-slot");
+      newGridEl.setAttribute(
+        "code-block-slot",
+        `operation: show-settings-initialvisibility;`
+      );
       // make gridname's textblock
       document.querySelector("a-scene").appendChild(
-        makeTextBlockModelGridName(i, j, {
-          x: j * (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width),
-          y: 0.1,
-          z: i * (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width) - 4,
-        })
+        makeTextBlockModel(
+          EDITMODE_PARTS.textblock.inner.text.gridname(i, j),
+          sumObjectsByKey(EDITMODE_PARTS.textblock.outer.position.gridname, {
+            x: j * (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width),
+            y: 0.1,
+            z: i * (MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width) - 4,
+          })
+        )
       );
-
-      /** make wall **/
+      /*
+      // make wall
       let newBelowWallEl = document.createElement("a-entity");
       setNewElementProperties(
         newBelowWallEl,
@@ -90,9 +98,9 @@ function initMazeMaker(row, column) {
       newRightWallVisualization.setAttribute("scale", ZERO_VEC3_OBJECT);
       newRightWallEl.appendChild(newRightWallVisualization);
       newGridEl.appendChild(newRightWallEl);
-
+/** */
       mazeGrids.appendChild(newGridEl);
-      /** save registry **/
+      // save registry
       updateRegistry(i, j, null, null, false, false); // FIXME
     }
   }

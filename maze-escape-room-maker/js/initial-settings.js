@@ -2,7 +2,7 @@ const INITIAL_GRID_ROWS = 3;
 const INITIAL_GRID_COLUMNS = 4;
 
 const MAZE_GRIDS_POSITION = { x: 0, y: 0, z: -4 };
-const MAZE_GRIDS_ROTATION = { x: -90, y: 0, z: -90 };
+const MAZE_GRIDS_ROTATION = { x: 0, y: 0, z: 0 };
 const MAZE_GRID_OBJECT = { primitive: "plane", height: 4, width: 4 };
 const MAZE_GRID_COLOR = "silver";
 const MAZE_GRID_HIGHLIGHT_COLOR = "green";

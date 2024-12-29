@@ -14,12 +14,12 @@ const EDITMODE_PARTS = {
       geometry: { primitive: "circle", radius: 1.5 },
       color: "yellow",
       position: { x: 3, y: 1.6, z: 0 },
-      rotation: { x: 0, y: 0, z: 0 },
+      rotation: { x: -90, y: 0, z: 0 },
       opacity: 0.1,
       text: "value: start; align: center; width: 5; color: black",
     },
     ring: {
-      geometry: { primitive: "ring", radiusOuter: 1.5, radiusInner: 1.3 },
+      geometry: { primitive: "torus", radius: 1.5, radiusTubular: 0.1 },
       color: "blue",
       position: { x: 0, y: 0, z: 0 },
       rotation: { x: 0, y: 0, z: 0 },
@@ -94,7 +94,7 @@ AFRAME.registerComponent("repop-model", {
     },
     text: {
       type: "string",
-      default: "value: no_text",
+      default: JSON.stringify({ value: "no_text" }),
     },
   },
   init: function () {
@@ -105,15 +105,8 @@ AFRAME.registerComponent("repop-model", {
       this.handleclick = makeGoalFlagModel;
     } else if (this.data.model === "spiketrap") {
       this.handleclick = makeSpikeTrapModel;
-      /** ここから不要？textblockの一致をみるなら*/
-    } else if (this.data.model === "textblock_enable") {
-      this.handleclick = makeTextBlockModelEnable;
-    } else if (this.data.model === "textblock_disable") {
-      this.handleclick = makeTextBlockModelDisable;
-      /** ここまで不要？textblockの一致をみるなら*
     } else if (this.data.model.includes("textblock")) {
       this.handleclick = makeTextBlockModel;
-      /** */
     } else {
       this.handleclick = () => {
         console.log("ERROR model.");
@@ -123,10 +116,12 @@ AFRAME.registerComponent("repop-model", {
   events: {
     click: function () {
       // 動かした場合repop
-      if (false) {
-        //this.data.model.includes("textblock")
+      if (this.data.model.includes("textblock")) {
         this.scene.appendChild(
-          this.handleclick(this.data.text, JSON.parse(this.data.position))
+          this.handleclick(
+            JSON.parse(this.data.text),
+            JSON.parse(this.data.position)
+          )
         );
       } else {
         this.scene.appendChild(
@@ -176,7 +171,6 @@ function makeStartPortalModel(position) {
     EDITMODE_PARTS.startportal.ring.position,
     EDITMODE_PARTS.startportal.ring.rotation
   );
-  newRingEl.setAttribute("material", "side: double");
   newEl.appendChild(newRingEl);
   newEl.classList.add("raycastable");
   newEl.setAttribute("dragndrop", "");
@@ -260,7 +254,6 @@ function makeSpikeTrapModel(position) {
   return newSpikeTrapEl;
 }
 
-// textの内容に依らずmodelを返却する関数
 function makeTextBlockModel(text, position) {
   // make model
   let newBlockEl = document.createElement("a-entity");
@@ -281,9 +274,49 @@ function makeTextBlockModel(text, position) {
   );
   newBlockTextEl.setAttribute("text", text);
   newBlockEl.appendChild(newBlockTextEl);
+  // set funcs
+  let textblock_textvalue = newBlockTextEl.getAttribute("text").value;
+  newBlockEl.classList.add("raycastable");
+  newBlockEl.setAttribute("dragndrop", "");
+  newBlockEl.setAttribute(
+    "repop-model",
+    `
+     model: ${"textblock_" + textblock_textvalue};
+     text: ${JSON.stringify(newBlockTextEl.getAttribute("text"))};
+     position: ${JSON.stringify(position)};
+    `
+  );
   return newBlockEl;
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  // 初期配置
+  const sceneEl = document.querySelector("a-scene");
+  sceneEl.appendChild(makeOctahedronModel(EDITMODE_PARTS.all.position));
+  sceneEl.appendChild(makeStartPortalModel(EDITMODE_PARTS.all.position));
+  sceneEl.appendChild(makeGoalFlagModel(EDITMODE_PARTS.all.position));
+  sceneEl.appendChild(makeSpikeTrapModel(EDITMODE_PARTS.all.position));
+  sceneEl.appendChild(
+    makeTextBlockModel(
+      EDITMODE_PARTS.textblock.inner.text.enable,
+      sumObjectsByKey(
+        EDITMODE_PARTS.textblock.outer.position.enable,
+        EDITMODE_PARTS.all.position
+      )
+    )
+  );
+  sceneEl.appendChild(
+    makeTextBlockModel(
+      EDITMODE_PARTS.textblock.inner.text.disable,
+      sumObjectsByKey(
+        EDITMODE_PARTS.textblock.outer.position.disable,
+        EDITMODE_PARTS.all.position
+      )
+    )
+  );
+});
+
+/*
 // textの内容がenableのmodelを返却する関数
 function makeTextBlockModelEnable(position) {
   let newEl = makeTextBlockModel(
@@ -291,9 +324,9 @@ function makeTextBlockModelEnable(position) {
     sumObjectsByKey(EDITMODE_PARTS.textblock.outer.position.enable, position) //
   );
   // set functions
-  newEl.classList.add("raycastable");
-  newEl.setAttribute("dragndrop", "");
-  newEl.setAttribute("repop-model", "model: textblock_enable"); //
+  //  newEl.classList.add("raycastable");
+  //  newEl.setAttribute("dragndrop", "");
+  //  newEl.setAttribute("repop-model", "model: textblock_enable"); //
   return newEl;
 }
 
@@ -304,9 +337,9 @@ function makeTextBlockModelDisable(position) {
     sumObjectsByKey(EDITMODE_PARTS.textblock.outer.position.disable, position)
   );
   // set functions
-  newEl.classList.add("raycastable");
-  newEl.setAttribute("dragndrop", "");
-  newEl.setAttribute("repop-model", "model: textblock_disable");
+  //  newEl.classList.add("raycastable");
+  //  newEl.setAttribute("dragndrop", "");
+  //  newEl.setAttribute("repop-model", "model: textblock_disable");
   return newEl;
 }
 
@@ -316,20 +349,9 @@ function makeTextBlockModelGridName(i, j, position) {
     sumObjectsByKey(EDITMODE_PARTS.textblock.outer.position.gridname, position)
   );
   // set func
-  newEl.classList.add("raycastable");
-  newEl.setAttribute("dragndrop", "");
+  //  newEl.classList.add("raycastable");
+  //newEl.setAttribute("dragndrop", "");
   //newEl.setAttribute("repop-model", `model: textblock_grid${i}${j}`);
   return newEl;
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  // 初期配置
-  const sceneEl = document.querySelector("a-scene");
-  sceneEl.appendChild(makeOctahedronModel(EDITMODE_PARTS.all.position));
-  sceneEl.appendChild(makeGoalFlagModel(EDITMODE_PARTS.all.position));
-  sceneEl.appendChild(makeSpikeTrapModel(EDITMODE_PARTS.all.position));
-  //FIXME
-  sceneEl.appendChild(makeTextBlockModelEnable(EDITMODE_PARTS.all.position)); //FIXME
-  sceneEl.appendChild(makeTextBlockModelDisable(EDITMODE_PARTS.all.position)); //FIXME
-  sceneEl.appendChild(makeStartPortalModel(EDITMODE_PARTS.all.position));
-});
+/** */
