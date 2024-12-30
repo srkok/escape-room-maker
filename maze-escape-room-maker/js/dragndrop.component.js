@@ -23,7 +23,7 @@ AFRAME.registerComponent("track-cursor", {
         this.el.addState("dragging");
         /** 交差イベントの停止 **/
         if (this.targetEl) {
-          this.targetEl.emit("diverging");
+          this.targetEl.dispatchEvent(new Event("diverging"));
         }
       }
     });
@@ -44,26 +44,28 @@ AFRAME.registerComponent("track-cursor", {
     const slotElements = document.querySelectorAll(".code-block-slot");
     /** 最も近いcode-block-slot要素の特定 **/
     this.targetEl = null;
+    let targetWorldPosition = new THREE.Vector3();
     let closestDistance = Infinity;
     slotElements.forEach((el) => {
-      const targetPosition = sumObjectsByKey(
-        MAZE_GRIDS_POSITION,
-        el.object3D.position
-      );
-      const distance = currentPosition.distanceTo(targetPosition);
+      const elWorldPosition = new THREE.Vector3();
+      el.object3D.getWorldPosition(elWorldPosition);
+      const distance = currentPosition.distanceTo(elWorldPosition);
       if (distance < closestDistance) {
         this.targetEl = el;
+        targetWorldPosition = elWorldPosition;
         closestDistance = distance;
       }
     });
     //console.log(`nearlest grid is ${this.targetEl.getAttribute("text").value}`);
     // 交差していればblockをslotに嵌め, 交差イベント発行
     if (this.targetEl && closestDistance < INTERSECTING_THRESHOLD) {
-      this.el.setAttribute(
-        "position",
-        sumObjectsByKey(MAZE_GRIDS_POSITION, this.targetEl.object3D.position)
+      this.el.setAttribute("position", targetWorldPosition);
+      this.targetEl.dispatchEvent(new Event("intersecting"));
+      this.targetEl.dispatchEvent(
+        new Event(this.el.getAttribute("geometry").primitive, {
+          bubbles: false,
+        })
       );
-      this.targetEl.emit("intersecting");
     } else {
       // 交差していなければ現targetを初期化
       this.targetEl = null;
