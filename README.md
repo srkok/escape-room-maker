@@ -2,7 +2,7 @@
 
 - 多肢選択肢クイズ脱出室開発空間の完成.(UI に変更の余地あり)
 - playground の拡張.
-- drag_and_drop の実装(砂場レベル).
+- drag_and_drop の実装.
 - mazeER の drag & drop レイアウト実装.
 - mazeER の大きさ拡張ボタンの実装.
 
