@@ -66,7 +66,9 @@ const EDITMODE_PARTS = {
       position: {
         enable: { x: 13, y: 2, z: 0 },
         disable: { x: 13, y: 0, z: 0 },
-        gridname: { x: 0, y: 0, z: 0 },
+        gridname: { x: 0, y: 0.1, z: -4 },
+        wallname_below: { x: 0, y: 2.4, z: -1.7 },
+        wallname_right: { x: 0, y: 0.1, z: -4 },
       },
       rotation: { x: 0, y: 0, z: 0 },
     },
@@ -80,6 +82,8 @@ const EDITMODE_PARTS = {
         disable: "value: disable; align: center; width: 5; color: black",
         gridname: (i, j) =>
           `value: Grid ${i} ${j}; align: center; width: 5; color: black`,
+        wallname: (i, j, direction) =>
+          `value: Grid ${i} ${j} 's\n${direction} Wall; align: center; width: 3; color: black`,
       },
     },
   },
@@ -98,7 +102,6 @@ AFRAME.registerComponent("repop-model", {
     },
   },
   init: function () {
-    this.scene = document.querySelector("a-scene");
     if (this.data.model === "octahedron") {
       this.handleclick = makeOctahedronModel;
     } else if (this.data.model === "goalflag") {
@@ -117,17 +120,19 @@ AFRAME.registerComponent("repop-model", {
     click: function () {
       // 動かした場合repop
       if (this.data.model.includes("textblock")) {
-        this.scene.appendChild(
+        this.el.parentEl.appendChild(
           this.handleclick(
             JSON.parse(this.data.text),
             JSON.parse(this.data.position)
           )
         );
       } else {
-        this.scene.appendChild(
+        this.el.sceneEl.appendChild(
           this.handleclick(JSON.parse(this.data.position))
         );
       }
+      // あとで消す用. initMazeMaker起動時(行列数拡張時or再開時)に消える.
+      this.el.classList.add("delete-me");
       // 動かしたものを再度動かしてもrepopしないようにする
       this.el.removeAttribute("repop-model");
     },

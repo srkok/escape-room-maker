@@ -1,39 +1,40 @@
-const INITIAL_GRID_ROWS = 3;
-const INITIAL_GRID_COLUMNS = 4;
+// FIXME const->let?
+let INITIAL_GRID_ROWS = 3;
+let INITIAL_GRID_COLUMNS = 4;
 
-const MAZE_GRIDS_POSITION = { x: 0, y: 0, z: -4 };
-const MAZE_GRIDS_ROTATION = { x: 0, y: 0, z: 0 };
-const MAZE_GRID_OBJECT = { primitive: "plane", height: 4, width: 4 };
-const MAZE_GRID_COLOR = "silver";
-const MAZE_GRID_HIGHLIGHT_COLOR = "green";
+/** FIXME delete *
+const MAZE_GRID_OBJECT = { primitive: "plane", height: 4, width: 4 }; //o
+const MAZE_GRID_COLOR = "silver"; //o
+const MAZE_GRID_HIGHLIGHT_COLOR = "green"; //x
 const MAZE_WALL_OBJECT = {
   primitive: "plane",
   height: MAZE_GRID_OBJECT.height,
   width: 0.5,
-};
-const MAZE_WALL_COLOR = "gray";
-const MAZE_WALL_HIGHLIGHT_COLOR = "green";
+}; //o
+const MAZE_WALL_COLOR = "gray"; //o
+const MAZE_WALL_HIGHLIGHT_COLOR = "green"; //x
 const MAZE_WALL_RIGHT_RELATIVE_POSITION = {
   x: (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width) / 2,
   y: 0,
   z: 0,
-};
+}; //o
 const MAZE_WALL_BELOW_RELATIVE_POSITION = {
   x: 0,
   y: -(MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width) / 2,
   z: 0,
-};
+}; //o
 const MAZE_WALL_VISUALIZATION_OBJECT = {
   primitive: "box",
   height: 4,
   width: MAZE_WALL_OBJECT.width,
   depth: MAZE_GRID_OBJECT.height,
-};
+}; //o
 const MAZE_WALL_VISUALIZATION_RELATIVE_POSITION = {
   x: 0,
   y: 0,
   z: MAZE_WALL_VISUALIZATION_OBJECT.height / 2,
-};
+}; //o
+/**/
 
 let registry = {
   escapeRoomType: "maze",

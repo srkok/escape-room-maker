@@ -32,3 +32,13 @@ function sumObjectsByKey(...objects) {
     return acc;
   }, {});
 }
+
+function removeElementsByClass(className) {
+  // 指定されたクラス名を持つすべての要素を取得
+  const elements = document.querySelectorAll(`.${className}`);
+
+  // 各要素を順番に削除
+  elements.forEach((element) => {
+    element.remove();
+  });
+}

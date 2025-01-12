@@ -19,6 +19,7 @@
     <script src="./js/dragndrop.component.js"></script>
     <script src="./js/editmode.js"></script>
     <script src="./js/init-maze-maker.js"></script>
+    <script src="./js/expand-maze-matrix.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
   </head>
   <body>
@@ -27,14 +28,10 @@
       raycaster="objects:.raycastable"
       xr-mode-ui="enabled: false"
     >
-      <!----
-      <a-assets>
-        <img id="conesimg" src="./imgs/cones.png" />
-        <img id="goalimg" src="./imgs/goal.png" />
-        <img id="mazeimg" src="./imgs/maze.png" />
-      </a-assets>
-    <!---->
       <a-entity id="mazeGrids"></a-entity>
+      <a-entity id="dragContainer"></a-entity>
+      <a-entity id="mazeGridsAddRowButton"></a-entity>
+      <a-entity id="mazeGridsAddColumnButton"></a-entity>
       <a-entity id="editmodeParts"></a-entity>
       <!-- rigのpos,rotをいじるとdragndropに悪影響 -->
       <a-entity id="rig"
@@ -46,7 +43,6 @@
           look-controls
           wasd-controls
           ><!--rotation="0 -45 0" いじるとdragndropに悪影響？ -->
-          <!--<a-entity id="headUpDisplay"></a-entity>-->
         </a-entity>
       </a-entity>
 

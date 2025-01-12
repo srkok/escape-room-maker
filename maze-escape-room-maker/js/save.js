@@ -1,9 +1,10 @@
 /**
- *
+ * registryにdataを保存する関数
  * @param {Number} row 行指定
  * @param {Number} column 列指定
  * @param {String} partsName パーツ指定
  * @param {String} addon 動作指定
+ * @param {String} actionTarget 動作対象指定
  * @param {Boolean} isBelowWall 下壁の有無
  * @param {Boolean} isRightWall 右壁の有無
  */
@@ -12,12 +13,14 @@ function updateRegistry(
   column,
   partsName,
   addon,
+  actionTarget,
   isBelowWall,
   isRightWall
 ) {
   registry.board[row][column] = {
     partsName,
     addon,
+    actionTarget,
     isBelowWall,
     isRightWall,
   };

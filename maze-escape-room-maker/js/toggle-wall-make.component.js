@@ -8,11 +8,11 @@ AFRAME.registerComponent("toggle-wall-make", {
     const parentEl = this.el.parentNode;
     await waitForObjectReady(parentEl);
     this.parentRow =
-      parentEl.getAttribute("position").x /
-      (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width);
+      parentEl.getAttribute("position").z /
+      (MAZE_GRID_SETTINGS.object.width + MAZE_WALL_GRID_WIDTH);
     this.parentColumn =
-      parentEl.getAttribute("position").y /
-      (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width);
+      parentEl.getAttribute("position").x /
+      (MAZE_GRID_SETTINGS.object.width + MAZE_WALL_GRID_WIDTH);
     if (this.data.direction === "below") this.target = "isBelowWall";
     if (this.data.direction === "right") this.target = "isRightWall";
   },
@@ -33,6 +33,7 @@ AFRAME.registerComponent("toggle-wall-make", {
         }`
       );
       /**/
+      //console.log(registry.board[this.parentRow][this.parentColumn]);
 
       event.stopPropagation();
     },
