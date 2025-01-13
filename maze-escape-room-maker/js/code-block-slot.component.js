@@ -1,9 +1,3 @@
-/** usage:
- * document.addEventListener("DOMContentLoaded", () => {
- *  your_object.classList.add("code-block-slot");
-    your_object.setAttribute("code-block-slot", "operation: zzz");
-  });
- */
 const CODE_BLOCK_SETMENU = {
   outer: {
     geometry: {
@@ -58,21 +52,28 @@ AFRAME.registerComponent("code-block-slot", {
     operation: { type: "string", default: "show-debug-explain" },
   },
   init: function () {
-    this.el.addEventListener("intersecting", () => {
-      this.el.appendChild(makeSettings("initialVisibility"));
-    });
+    this.shape = this.el.getAttribute("geometry").primitive;
+    if (this.shape === "plane") {
+      this.source = this.el.getAttribute("text").value;
+    } else if (this.shape === "box") {
+      this.source = this.el.parentEl.parentEl.getAttribute("text").value;
+    }
+    this.el.classList.add("code-block-slot"); // collision detector in dragndrop
+    //this.el.addEventListener("intersecting", () => {});
     this.el.addEventListener("diverging", () => {
       this.el.removeAttribute(this.data.operation);
       // TODO octaheが離れた場合、actionTarget settingが消えてほしい.
+      //      console.log(this.el.children);
     });
     this.el.addEventListener("octahedron", () => {
-      if (this.el.getAttribute("geometry").primitive === "plane") {
+      if (this.shape === "plane") {
+        this.el.appendChild(makeSettings("initialVisibility"));
         this.el.appendChild(makeSettings("actionTarget"));
       }
     });
-    this.el.addEventListener("box", () => {
-      if (this.el.getAttribute("geometry").primitive === "box") {
-        console.log("box ni box ga okareta naa."); // j4d.
+    this.el.addEventListener("normal_object", () => {
+      if (this.shape === "plane") {
+        this.el.appendChild(makeSettings("initialVisibility"));
       }
     });
   },
@@ -142,7 +143,7 @@ function makeSettings(menu) {
   }
   return newEl;
 }
-
+/*
 AFRAME.registerComponent("show-settings-initialvisibility", {
   init: function () {
     // set outer box
@@ -190,6 +191,7 @@ AFRAME.registerComponent("show-settings-initialvisibility", {
     // TODO registryより削除
   },
 });
+/** */
 
 /** just for debugging. */
 AFRAME.registerComponent("show-debug-explain", {

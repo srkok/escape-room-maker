@@ -4,23 +4,26 @@
  * @param {Number} column 列指定
  * @param {String} partsName パーツ指定
  * @param {String} addon 動作指定
- * @param {String} actionTarget 動作対象指定
- * @param {Boolean} isBelowWall 下壁の有無
- * @param {Boolean} isRightWall 右壁の有無
+ * @param {Array} actionTargets 動作対象指定
+ * @param {Boolean} isInitVisibility 起動時のパーツの可視性
+ * @param {Boolean} isBelowWall 起動時の下壁の可視性
+ * @param {Boolean} isRightWall 起動時の右壁の可視性
  */
 function updateRegistry(
   row,
   column,
   partsName,
   addon,
-  actionTarget,
+  actionTargets,
+  isInitVisibility,
   isBelowWall,
   isRightWall
 ) {
   registry.board[row][column] = {
     partsName,
     addon,
-    actionTarget,
+    actionTargets,
+    isInitVisibility,
     isBelowWall,
     isRightWall,
   };

@@ -1,3 +1,9 @@
+// あとでテキストの内容を検討できるように.
+const INIT_VISIBILITY_TEXT = {
+  enable: "enable",
+  disable: "disable",
+};
+
 const EDITMODE_PARTS = {
   all: {
     position: { x: 0, y: 5, z: 0 },
@@ -78,8 +84,8 @@ const EDITMODE_PARTS = {
       position: { x: 0, y: 0, z: 0.16 },
       rotation: { x: 0, y: 0, z: 0 },
       text: {
-        enable: "value: enable; align: center; width: 5; color: black",
-        disable: "value: disable; align: center; width: 5; color: black",
+        enable: `value: ${INIT_VISIBILITY_TEXT.enable}; align: center; width: 5; color: black`,
+        disable: `value: ${INIT_VISIBILITY_TEXT.disable}; align: center; width: 5; color: black`,
         gridname: (i, j) =>
           `value: Grid ${i} ${j}; align: center; width: 5; color: black`,
         wallname: (i, j, direction) =>
@@ -149,6 +155,7 @@ function makeOctahedronModel(position) {
     EDITMODE_PARTS.octahedron.rotation
   );
   newOctahedronEl.classList.add("raycastable");
+  newOctahedronEl.classList.add("octahedron");
   newOctahedronEl.setAttribute("dragndrop", "");
   newOctahedronEl.setAttribute("repop-model", "model: octahedron");
   return newOctahedronEl;
@@ -178,6 +185,7 @@ function makeStartPortalModel(position) {
   );
   newEl.appendChild(newRingEl);
   newEl.classList.add("raycastable");
+  newEl.classList.add("startportal");
   newEl.setAttribute("dragndrop", "");
   // repopfunc is unnecessary.
   return newEl;
@@ -193,6 +201,7 @@ function makeGoalFlagModel(position) {
     EDITMODE_PARTS.goalflag.base.rotation
   );
   newBaseEl.classList.add("raycastable");
+  newBaseEl.classList.add("goalflag");
   newBaseEl.setAttribute("dragndrop", "");
   newBaseEl.setAttribute("repop-model", "model: goalflag");
   let newPoleEl = document.createElement("a-entity");
@@ -254,6 +263,7 @@ function makeSpikeTrapModel(position) {
     }
   }
   newSpikeTrapEl.classList.add("raycastable");
+  newSpikeTrapEl.classList.add("spiketrap");
   newSpikeTrapEl.setAttribute("dragndrop", "");
   newSpikeTrapEl.setAttribute("repop-model", "model: spiketrap");
   return newSpikeTrapEl;
@@ -282,6 +292,7 @@ function makeTextBlockModel(text, position) {
   // set funcs
   let textblock_textvalue = newBlockTextEl.getAttribute("text").value;
   newBlockEl.classList.add("raycastable");
+  newBlockEl.classList.add("textblock");
   newBlockEl.setAttribute("dragndrop", "");
   newBlockEl.setAttribute(
     "repop-model",

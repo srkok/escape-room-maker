@@ -94,10 +94,7 @@ function initMazeMaker(row, column) {
       );
       newGridEl.setAttribute("text", `value: Grid ${i} ${j}; align: center`);
       newGridEl.classList.add("code-block-slot");
-      newGridEl.setAttribute(
-        "code-block-slot",
-        `operation: show-settings-initialvisibility;`
-      );
+      newGridEl.setAttribute("code-block-slot", `operation: ;`); // "show-settings-initialvisibility"?
       // make gridname's textblock
       dragContainer.appendChild(
         makeTextBlockModel(
@@ -222,7 +219,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // make registry
   for (let row = 0; row < INITIAL_GRID_ROWS; row++) {
     for (let column = 0; column < INITIAL_GRID_COLUMNS; column++) {
-      updateRegistry(row, column, null, null, null, false, false);
+      updateRegistry(
+        row,
+        column,
+        null,
+        null,
+        [null, null],
+        false,
+        false,
+        false
+      );
     }
   }
   initMazeMaker(INITIAL_GRID_ROWS, INITIAL_GRID_COLUMNS);

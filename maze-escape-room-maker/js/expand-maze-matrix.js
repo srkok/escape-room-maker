@@ -1,4 +1,3 @@
-// TODO 行・列拡張ボタンの実装
 const MAZE_ADD_MATRIX_BUTTON_SETTINGS = {
   rowButton: {
     object: { primitive: "triangle" },
@@ -53,7 +52,8 @@ AFRAME.registerComponent("expand-maze-matrix", {
             column,
             null,
             null,
-            null,
+            [null, null],
+            false,
             false,
             false
           );
@@ -67,7 +67,8 @@ AFRAME.registerComponent("expand-maze-matrix", {
             registry.board[row].length - 1,
             null,
             null,
-            null,
+            [null, null],
+            false,
             false,
             false
           );

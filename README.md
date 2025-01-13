@@ -2,20 +2,21 @@
 
 - 多肢選択肢クイズ脱出室開発空間の完成.(UI に変更の余地あり)
 - playground の拡張.
-- drag_and_drop の実装.
+- drag_and_drop の実装(砂場レベル).
 - mazeER の drag & drop レイアウト実装.
 - mazeER の大きさ拡張ボタンの実装.
+  - 作業状態の save.
+    - object/textblock 配置時に、saveRegistry が動くようにした.
 
 やること：
 
 - 迷路脱出室開発空間の製作.
   - 動作指定用ブロックビルディング環境の製作.
-    - 挙動がおかしい. 要修正.
     - octahedron を動かしたとき、actionTarget menu が消失するようにしたい.
     - initVisibility は動かなくてもいいかな.
     - 入力後、矢印オブジェクトが発生するようにする?(future)
   - 作業状態の save.
-    - object/textblock 配置時に、saveRegistry が動くようにする.
+    - object/textblock をどかしたときに、registry から削除する.
   - 作業状態の load.
     - registry に従って object なり設定項目なりも湧くようにする.
 - 迷路脱出室 playground の製作.
