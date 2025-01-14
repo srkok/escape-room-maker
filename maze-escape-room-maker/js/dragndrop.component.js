@@ -15,16 +15,21 @@ AFRAME.registerSystem("track-cursor", {
 AFRAME.registerComponent("track-cursor", {
   init: function () {
     this.targetEl = null;
+    this.source = undefined;
+    this.action = undefined;
+    this.savedSlot = undefined;
     this.el.addEventListener("mousedown", (e) => {
       if (this.el.is("cursor-hovered")) {
         this.el.sceneEl.camera.el.setAttribute("look-controls", {
           enabled: false,
         });
         this.el.addState("dragging");
-        /** 交差イベントの停止 **/
         if (this.targetEl) {
-          this.targetEl.dispatchEvent(new Event("diverging"));
-          // TODO delete registry
+          this.handleMouseDown();
+          this.targetEl = null;
+          this.source = undefined;
+          this.action = undefined;
+          this.savedSlot = undefined;
         }
       }
     });
@@ -37,6 +42,63 @@ AFRAME.registerComponent("track-cursor", {
         this.handleMouseUp();
       }
     });
+  },
+  /** mouseを離す前の動作指定 **/
+  handleMouseDown: function () {
+    if (
+      this.targetEl.getAttribute("geometry").primitive === "plane" &&
+      !this.el.classList.contains("textblock")
+    ) {
+      this.targetEl.dispatchEvent(new Event("objects_diverging"));
+      // objects move away from Grid
+      this.saveRegistryUsingDragAndDrop(
+        this.source,
+        null,
+        null,
+        [null, null],
+        false
+      );
+    } else if (
+      !(this.targetEl.getAttribute("geometry").primitive === "plane") &&
+      this.el.classList.contains("textblock")
+    ) {
+      // textblock move away from slot
+      let targets = ["any", "any"];
+      let initVisibility = "any";
+      const thisTextValue = this.el.children[0].getAttribute("text").value;
+      if (
+        this.action.includes("init visibility") &&
+        Object.values(INIT_VISIBILITY_TEXT).includes(thisTextValue)
+      ) {
+        // InitVisibility textblock move away from initVisibility slot
+        initVisibility = false;
+        if (this.targetEl.parentEl) {
+          this.deleteTextBlockDataOfGrid(
+            this.targetEl.parentEl.parentEl,
+            "initial_visibility"
+          );
+        }
+      } else if (
+        this.action.includes("action target") &&
+        !Object.values(INIT_VISIBILITY_TEXT).includes(thisTextValue)
+      ) {
+        // Grid/Wall textblock move away from actionTarget slot
+        targets[this.savedSlot] = null;
+        if (this.targetEl.parentEl) {
+          this.deleteTextBlockDataOfGrid(
+            this.targetEl.parentEl.parentEl,
+            `action_target_${this.savedSlot + 1}`
+          );
+        }
+      }
+      this.saveRegistryUsingDragAndDrop(
+        this.source,
+        "any",
+        "any",
+        targets,
+        initVisibility
+      );
+    }
   },
   /** mouseを離した後の動作指定 **/
   handleMouseUp: function () {
@@ -59,24 +121,37 @@ AFRAME.registerComponent("track-cursor", {
     });
     // 交差していればblockをslotに嵌め, 交差イベント発行
     if (this.targetEl && closestDistance < INTERSECTING_THRESHOLD) {
-      /**
-       * this.targetEl: slot element
-       * this.source: "Grid i j" string
-       * this.action: "init visibility:" or "actionTarget:" or extras.
-       */
       this.el.setAttribute("position", targetWorldPosition);
+      this.source = undefined; // "Grid i j" string
+      this.action = undefined; // "init visibility:" or "action target:" or extras.
+      this.savedSlot = undefined; // actionTargets slot index of registry.
       //this.targetEl.dispatchEvent(new Event("intersecting"));
       if (this.el.classList.contains("octahedron")) {
         this.targetEl.dispatchEvent(new Event("octahedron"));
         // Grid にしか置けない
         if (this.targetEl.getAttribute("geometry").primitive === "plane") {
           this.source = this.targetEl.getAttribute("text").value;
+          // もし既にtextblockがmenu上に存在していれば、当て嵌める
+          let initVisibility = "any";
+          let actionTargets = ["any", "any"];
+          Array.from(this.targetEl.children).forEach((child) => {
+            if (child.classList.contains("initial_visibility")) {
+              initVisibility =
+                child.getAttribute("text").value === INIT_VISIBILITY_TEXT.enable
+                  ? true
+                  : false;
+            } else if (child.classList.contains("action_target_1")) {
+              actionTargets[0] = child.getAttribute("text").value;
+            } else if (child.classList.contains("action_target_2")) {
+              actionTargets[1] = child.getAttribute("text").value;
+            }
+          });
           this.saveRegistryUsingDragAndDrop(
             this.source,
             "octahedron",
             "toggleVisible",
-            ["any", "any"],
-            "any"
+            actionTargets,
+            initVisibility
           );
         } else {
           console.log("You can't put octahedron on slot.");
@@ -96,21 +171,31 @@ AFRAME.registerComponent("track-cursor", {
             if (Object.values(INIT_VISIBILITY_TEXT).includes(thisTextValue)) {
               initVisibility =
                 thisTextValue === INIT_VISIBILITY_TEXT.enable ? true : false;
+              this.saveTextBlockDataToGrid(
+                this.targetEl.parentEl.parentEl,
+                thisTextValue,
+                "initial_visibility"
+              );
             } else {
               console.log("You can't put Grid/Wall_Pos on initVis_menu.");
             }
           } else if (this.action.includes("action target")) {
+            // 動かしているtextblockが、Grid/Wall情報だった場合
             if (!Object.values(INIT_VISIBILITY_TEXT).includes(thisTextValue)) {
-              // select save slot on registry
-              const targetPos = this.targetEl.getAttribute("position");
-              const leftSlotPos =
-                CODE_BLOCK_SETMENU.slot.position.menu_actionTarget1;
-              const rightSlotPos =
-                CODE_BLOCK_SETMENU.slot.position.menu_actionTarget2;
-              if (isEqual(targetPos, leftSlotPos)) {
-                targets[0] = thisTextValue;
-              } else if (isEqual(targetPos, rightSlotPos)) {
-                targets[1] = thisTextValue;
+              // select save slot
+              const slotPositionsObj = CODE_BLOCK_SETMENU.slot.position;
+              for (let i = 0; i < Object.keys(slotPositionsObj).length; i++) {
+                const slotPos = slotPositionsObj[`menu_actionTarget${i + 1}`];
+                if (isEqual(this.targetEl.getAttribute("position"), slotPos)) {
+                  targets[i] = thisTextValue;
+                  this.savedSlot = i;
+                  this.saveTextBlockDataToGrid(
+                    this.targetEl.parentEl.parentEl,
+                    thisTextValue,
+                    `action_target_${i + 1}`
+                  );
+                  break; // 2つ以上のslotと一致することはない.
+                }
               }
             } else {
               console.log(
@@ -126,37 +211,28 @@ AFRAME.registerComponent("track-cursor", {
             initVisibility
           );
         } else {
-          console.log("no save.");
+          console.log("You can't put textblock on Grid.");
         }
-        /*
-        if (this.action.includes("actionTarget")) {
-          if (
-            this.targetEl.getAttribute("position") ===
-            CODE_BLOCK_SETMENU.slot.position.menu_actionTarget1
-          ) {
-            targets[0] = null; // dare wo ugokasu?
-          } else if (
-            this.targetEl.getAttribute("position") ===
-            CODE_BLOCK_SETMENU.slot.position.menu_actionTarget2
-          ) {
-            targets[1] = null; // dare wo ugokasu?
-          }
-        } else if (this.action.includes("init visibility")) {
-          initVisibility = false; // dounaru?
-        }
-        /** */
-        //this.actionTarget = this.el.children[0].getAttribute("text").value;
-        /** */
       } else {
         this.targetEl.dispatchEvent(new Event("normal_object"));
         if (this.targetEl.getAttribute("geometry").primitive === "plane") {
           this.source = this.targetEl.getAttribute("text").value;
+          let initVisibility = "any";
+          // もし既にtextblockがmenu上に存在していれば、当て嵌める
+          Array.from(this.targetEl.children).forEach((child) => {
+            if (child.classList.contains("initial_visibility")) {
+              initVisibility =
+                child.getAttribute("text").value === INIT_VISIBILITY_TEXT.enable
+                  ? true
+                  : false;
+            }
+          });
           this.saveRegistryUsingDragAndDrop(
             this.source,
             this.el.classList.item(1),
             this.el.classList.item(1),
             ["any", "any"],
-            "any"
+            initVisibility
           );
         } else {
           console.log("You can't put objects on slot.");
@@ -166,6 +242,29 @@ AFRAME.registerComponent("track-cursor", {
       // 交差していなければ現targetを初期化
       this.targetEl = null;
     }
+  },
+  /** 現在menu slot位置に置いてあるtextblockのtext情報を, 子要素として保存する関数
+   * @param {Element} gridEl 保存場所となるGrid element
+   * @param {String} textData 保存するtextblock data string
+   * @param {Class} data_class 保存先, "initial_visibility" or "action_target_1" or "action_target_2"
+   */
+  saveTextBlockDataToGrid: function (gridEl, textData, data_class) {
+    let newEl = document.createElement("a-entity");
+    newEl.setAttribute("text", `value: ${textData}`);
+    newEl.classList.add("textblockdata");
+    newEl.classList.add(data_class);
+    gridEl.appendChild(newEl);
+  },
+  /** gridElの子要素のうち, クラスにdata_classを含む要素を全て削除する関数
+   * @param {Element} gridEl 対象のGrid element
+   * @param {Class} data_class 対象のclass name string
+   */
+  deleteTextBlockDataOfGrid: function (gridEl, data_class) {
+    Array.from(gridEl.children).forEach((child) => {
+      if (child.classList.contains(data_class)) {
+        child.remove();
+      }
+    });
   },
   /**
    * dragndrop の動作結果に従う registry への save. "any"を引数とすれば, 該当項目を変更しない.
@@ -182,7 +281,6 @@ AFRAME.registerComponent("track-cursor", {
     actionTargets,
     initVisibility
   ) {
-    //console.log(this.source, this.action, this.actionTargets);
     const regex = /Grid (\d+) (\d+)/;
     const match = source.match(regex);
     const row = Number(match[1]);
@@ -190,12 +288,16 @@ AFRAME.registerComponent("track-cursor", {
     const currentState = registry.board[row][column];
     let targets = [null, null];
     let isInitVisibility = null;
+
+    console.log("before save registry:");
+    console.log(currentState);
+
     if (typeof actionTargets === "string") {
       targets[0] = currentState.actionTargets[0];
       targets[1] = currentState.actionTargets[1];
     } else {
       for (let i = 0; i < actionTargets.length; i++) {
-        if (actionTargets[i].includes("any")) {
+        if (actionTargets[i] && actionTargets[i].includes("any")) {
           targets[i] = currentState.actionTargets[i];
         } else {
           targets[i] = actionTargets[i];
@@ -214,17 +316,20 @@ AFRAME.registerComponent("track-cursor", {
       isInitVisibility = currentState.isInitVisibility;
     }
 
-    console.log(currentState);
     updateRegistry(
       row,
       column,
-      partsName.includes("any") ? currentState.partsName : partsName,
-      addon.includes("any") ? currentState.addon : addon,
+      partsName && partsName.includes("any")
+        ? currentState.partsName
+        : partsName,
+      addon && addon.includes("any") ? currentState.addon : addon,
       targets,
       isInitVisibility,
       currentState.isBelowWall,
       currentState.isRightWall
     );
+
+    console.log("after save registry:");
     console.log(registry.board[row][column]);
   },
 });

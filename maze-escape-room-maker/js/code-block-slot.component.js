@@ -60,10 +60,17 @@ AFRAME.registerComponent("code-block-slot", {
     }
     this.el.classList.add("code-block-slot"); // collision detector in dragndrop
     //this.el.addEventListener("intersecting", () => {});
-    this.el.addEventListener("diverging", () => {
+    this.el.addEventListener("objects_diverging", () => {
       this.el.removeAttribute(this.data.operation);
-      // TODO octaheが離れた場合、actionTarget settingが消えてほしい.
-      //      console.log(this.el.children);
+      // delete menu boxes
+      let menuBoxEls = Array.from(this.el.children).filter(
+        (child) =>
+          !child.classList.contains("raycastable") &&
+          !child.classList.contains("textblockdata")
+      );
+      menuBoxEls.forEach((child) => {
+        child.remove();
+      });
     });
     this.el.addEventListener("octahedron", () => {
       if (this.shape === "plane") {

@@ -74,7 +74,7 @@ const EDITMODE_PARTS = {
         disable: { x: 13, y: 0, z: 0 },
         gridname: { x: 0, y: 0.1, z: -4 },
         wallname_below: { x: 0, y: 2.4, z: -1.7 },
-        wallname_right: { x: 0, y: 0.1, z: -4 },
+        wallname_right: { x: 0, y: 0.15, z: -4 },
       },
       rotation: { x: 0, y: 0, z: 0 },
     },
