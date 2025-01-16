@@ -207,10 +207,10 @@ AFRAME.registerComponent("show-debug-explain", {
   },
 });
 
-/** delete? *
+/** if Static Declarations
 document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelector(".code-block-slot")
-    .setAttribute("code-block-slot", "targetId: box; operation: spin");
+    .setAttribute("code-block-slot", "");
 });
 /****/

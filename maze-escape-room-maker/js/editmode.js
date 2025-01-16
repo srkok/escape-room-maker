@@ -12,14 +12,14 @@ const EDITMODE_PARTS = {
   octahedron: {
     geometry: { primitive: "octahedron" },
     color: "royalblue",
-    position: { x: 0, y: 1.6, z: 0 },
+    position: { x: 0, y: 0, z: 0 },
     rotation: { x: 0, y: 0, z: 0 },
   },
   startportal: {
     background: {
       geometry: { primitive: "circle", radius: 1.5 },
       color: "yellow",
-      position: { x: 3, y: 1.6, z: 0 },
+      position: { x: 3, y: 0, z: 0 },
       rotation: { x: -90, y: 0, z: 0 },
       opacity: 0.1,
       text: "value: start; align: center; width: 5; color: black",
@@ -306,7 +306,7 @@ function makeTextBlockModel(text, position) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 初期配置
+  // Initial placement
   const sceneEl = document.querySelector("a-scene");
   sceneEl.appendChild(makeOctahedronModel(EDITMODE_PARTS.all.position));
   sceneEl.appendChild(makeStartPortalModel(EDITMODE_PARTS.all.position));

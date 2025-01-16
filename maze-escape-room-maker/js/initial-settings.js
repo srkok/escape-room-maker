@@ -1,48 +1,84 @@
-// FIXME const->let?
 let INITIAL_GRID_ROWS = 3;
 let INITIAL_GRID_COLUMNS = 4;
 
-/** FIXME delete *
-const MAZE_GRID_OBJECT = { primitive: "plane", height: 4, width: 4 }; //o
-const MAZE_GRID_COLOR = "silver"; //o
-const MAZE_GRID_HIGHLIGHT_COLOR = "green"; //x
-const MAZE_WALL_OBJECT = {
-  primitive: "plane",
-  height: MAZE_GRID_OBJECT.height,
-  width: 0.5,
-}; //o
-const MAZE_WALL_COLOR = "gray"; //o
-const MAZE_WALL_HIGHLIGHT_COLOR = "green"; //x
-const MAZE_WALL_RIGHT_RELATIVE_POSITION = {
-  x: (MAZE_GRID_OBJECT.width + MAZE_WALL_OBJECT.width) / 2,
-  y: 0,
-  z: 0,
-}; //o
-const MAZE_WALL_BELOW_RELATIVE_POSITION = {
-  x: 0,
-  y: -(MAZE_GRID_OBJECT.height + MAZE_WALL_OBJECT.width) / 2,
-  z: 0,
-}; //o
-const MAZE_WALL_VISUALIZATION_OBJECT = {
-  primitive: "box",
-  height: 4,
-  width: MAZE_WALL_OBJECT.width,
-  depth: MAZE_GRID_OBJECT.height,
-}; //o
-const MAZE_WALL_VISUALIZATION_RELATIVE_POSITION = {
-  x: 0,
-  y: 0,
-  z: MAZE_WALL_VISUALIZATION_OBJECT.height / 2,
-}; //o
-/**/
+const OPACITY_VALUE = 0.5;
+const ZERO_VEC3_OBJECT = { x: 0, y: 0, z: 0 };
 
+const MAZE_GRIDS_POSITION = { x: 0, y: 0, z: -4 };
+const MAZE_GRIDS_ROTATION = { x: 0, y: 0, z: 0 };
+
+const MAZE_GRID_SETTINGS = {
+  object: { primitive: "plane", height: 4, width: 4 },
+  color: "silver",
+  text: (i, j) => `value: Grid ${i} ${j}; align: center`,
+  rotation: { x: -90, y: 0, z: 0 },
+};
+
+const MAZE_WALL_GRID_WIDTH = 0.5; // settingsでposition設定がobject.withに依存するため,ここで定義.
+const MAZE_WALL_GRID_SETTINGS = {
+  right: {
+    object: {
+      primitive: "plane",
+      height: MAZE_GRID_SETTINGS.object.height,
+      width: MAZE_WALL_GRID_WIDTH,
+    },
+    color: "gray",
+    highlightColor: "green",
+    position: {
+      x: (MAZE_GRID_SETTINGS.object.width + MAZE_WALL_GRID_WIDTH) / 2,
+      y: 0,
+      z: 0,
+    },
+    rotation: { x: 0, y: 0, z: 0 },
+  },
+  below: {
+    object: {
+      primitive: "plane",
+      height: MAZE_WALL_GRID_WIDTH,
+      width: MAZE_GRID_SETTINGS.object.height,
+    },
+    color: "gray",
+    highlightColor: "green",
+    position: {
+      x: 0,
+      y: -(MAZE_GRID_SETTINGS.object.width + MAZE_WALL_GRID_WIDTH) / 2,
+      z: 0,
+    },
+    rotation: { x: 0, y: 0, z: 0 },
+  },
+};
+
+const MAZE_WALL_VISUALIZATION_HEIGHT = 4; // settingsでposition設定がobject.heightに依存するため,ここで定義.
+const MAZE_WALL_VISUALIZATION_SETTINGS = {
+  right: {
+    object: {
+      primitive: "box",
+      height: MAZE_WALL_VISUALIZATION_HEIGHT,
+      width: MAZE_WALL_GRID_SETTINGS.right.object.width,
+      depth: MAZE_WALL_GRID_SETTINGS.right.object.height,
+    },
+    color: "gray",
+    position: { x: 0, y: 0, z: MAZE_WALL_VISUALIZATION_HEIGHT / 2 },
+    rotation: { x: 0, y: 0, z: 0 }, //
+    opacity: OPACITY_VALUE,
+  },
+  below: {
+    object: {
+      primitive: "box",
+      height: MAZE_WALL_VISUALIZATION_HEIGHT,
+      width: MAZE_WALL_GRID_SETTINGS.below.object.width,
+      depth: MAZE_WALL_GRID_SETTINGS.below.object.height,
+    },
+    color: "gray",
+    position: { x: 0, y: 0, z: MAZE_WALL_VISUALIZATION_HEIGHT / 2 },
+    rotation: { x: 90, y: 0, z: 0 },
+    opacity: OPACITY_VALUE,
+  },
+};
 let registry = {
   escapeRoomType: "maze",
   board: nullMatrix(INITIAL_GRID_ROWS, INITIAL_GRID_COLUMNS),
 };
-
-const OPACITY_VALUE = 0.5;
-const ZERO_VEC3_OBJECT = { x: 0, y: 0, z: 0 };
 
 /**
  * 全要素nullの行列生成関数

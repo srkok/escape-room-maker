@@ -11,14 +11,17 @@
   - object/textblock を除いたとき, menu が消えるようにした.
   - object 配置時に, 既に menu 上に textblock があれば saveRegistry が動くようにした.
 - 動作指定用ブロックビルディング環境の製作.
-
-やること：
-
 - 迷路脱出室開発空間の製作.
   - init による object/textblock の repop.
   - 作業状態の load.
     - registry に従って object なり設定項目なりも湧くようにする.
     - registry を読んで initMazeMaker 動かすだけなので, すぐ終わりそう.
+
+やること：
+
+- 多肢選択肢クイズ開発空間の改良.
+  - 矢印が見にくいらしい.
+  - 矢印の color を, (現)red 固定 -> outerColorPicker に依存させる?
 - 迷路脱出室 playground の製作.
 
 やるかもしれないこと：

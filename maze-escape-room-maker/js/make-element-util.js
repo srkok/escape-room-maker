@@ -42,3 +42,12 @@ function removeElementsByClass(className) {
     element.remove();
   });
 }
+
+// 数値の反転を返却する関数
+function invertObjectValues(obj) {
+  const invertedObj = {};
+  for (const key in obj) {
+    invertedObj[key] = -obj[key];
+  }
+  return invertedObj;
+}

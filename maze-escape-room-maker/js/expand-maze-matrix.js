@@ -116,15 +116,3 @@ function makeExpandMazeMatrixButton(direction) {
     console.error("ERROR! missing direction.");
   }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  const mazeGridsAddRowButton = document.getElementById(
-    "mazeGridsAddRowButton"
-  );
-  const mazeGridsAddColumnButton = document.getElementById(
-    "mazeGridsAddColumnButton"
-  );
-
-  mazeGridsAddRowButton.appendChild(makeExpandMazeMatrixButton("row"));
-  mazeGridsAddColumnButton.appendChild(makeExpandMazeMatrixButton("column"));
-});

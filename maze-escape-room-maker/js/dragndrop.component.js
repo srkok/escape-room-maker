@@ -1,5 +1,5 @@
 /**
- * これは以下を改造したものです。
+ * これは以下を改造したものです.
  * https://github.com/extraymond/aframe-mouse-dragndrop/blob/master/src/index.js
  */
 if (window.AFRAME == null) {
@@ -14,10 +14,26 @@ AFRAME.registerSystem("track-cursor", {
 
 AFRAME.registerComponent("track-cursor", {
   init: function () {
-    this.targetEl = null;
-    this.source = undefined;
+    // FIXME initMazeMakerに対応するように, 初期値をregistryに従い変更.
+    this.targetEl = null; //element
+    this.source = undefined; //string
     this.action = undefined;
-    this.savedSlot = undefined;
+    this.savedSlot = undefined; //number
+    this.el.addEventListener("initMazeMaker", () => this.handleMouseUp());
+    /*
+    // row, columnの特定
+    if (this.el.getAttribute("geometry").primitive === "box") {
+      console.log(this.el.children[0].getAttribute("text").value);
+      if (this.el.children[0].getAttribute("text").value.includes("Wall")) {
+        // this.sourceはこの括弧内で正規表現により行けそう.
+        // this.savedSlotはこの括弧内で正規表現により行けそう.
+      } else if (
+        this.el.children[0].getAttribute("text").value.includes("Grid")
+      ) {
+        // this.sourceはこの括弧内で正規表現により行けそう.
+      }
+    }
+      /** */
     this.el.addEventListener("mousedown", (e) => {
       if (this.el.is("cursor-hovered")) {
         this.el.sceneEl.camera.el.setAttribute("look-controls", {
@@ -289,9 +305,6 @@ AFRAME.registerComponent("track-cursor", {
     let targets = [null, null];
     let isInitVisibility = null;
 
-    console.log("before save registry:");
-    console.log(currentState);
-
     if (typeof actionTargets === "string") {
       targets[0] = currentState.actionTargets[0];
       targets[1] = currentState.actionTargets[1];
@@ -328,9 +341,6 @@ AFRAME.registerComponent("track-cursor", {
       currentState.isBelowWall,
       currentState.isRightWall
     );
-
-    console.log("after save registry:");
-    console.log(registry.board[row][column]);
   },
 });
 

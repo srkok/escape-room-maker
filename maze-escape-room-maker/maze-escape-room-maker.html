@@ -20,6 +20,7 @@
     <script src="./js/editmode.js"></script>
     <script src="./js/init-maze-maker.js"></script>
     <script src="./js/expand-maze-matrix.js"></script>
+    <script src="./js/load.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
   </head>
   <body>
@@ -50,43 +51,8 @@
     </a-scene>
     <!-- ダウンローダー -->
     <button id="downloadButton">Download</button>
+    <!-- アップローダー -->
+    <label for="jsonFileInput" class="upload-button">Upload JSON File</label>
+    <input type="file" id="jsonFileInput" accept=".json" />
   </body>
 </html>
-
-<!--
-<a-entity id="edit-space" position="-60 0 20">
-        <a-entity id="edit-rig" position="0 1.6 0">
-          <a-entity id="edit-camera" camera="active: false" look-controls>
-            <!-- head-up display --
-            <a-entity
-              id="acceptButton"
-              geometry="primitive: plane; height: 0.2; width: 0.4;"
-              position="1.1 -0.7 -1"
-              material="color: blue; opacity: 0.5"
-              text="value: accept!; align: center; width: 1"
-            ></a-entity>
-          </a-entity>
-        </a-entity>
-        <a-plane
-          position="-2 0 -4"
-          rotation="-90 0 0"
-          width="4"
-          height="4"
-          color="green"
-        ></a-plane>
-        <a-plane
-          position="-2 2 -6"
-          width="4"
-          height="4"
-          color="green"
-        ></a-plane>
-        <a-plane
-          position="2 0 -4"
-          rotation="-90 0 0"
-          width="4"
-          height="4"
-          color="gray"
-        ></a-plane>
-        <a-plane position="2 2 -6" width="4" height="4" color="gray"></a-plane>
-      </a-entity>
--->
