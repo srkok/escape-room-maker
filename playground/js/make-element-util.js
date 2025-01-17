@@ -71,3 +71,33 @@ function isEqual(objA, objB) {
 
   return true; // すべてのプロパティが一致
 }
+
+/**
+ * sum of obj's values each keys
+ * @param  {...any} objects
+ * @returns object {(key: obj1.key + obj2.key + ...)*num_of_obj_keys}
+ */
+
+function sumObjectsByKey(...objects) {
+  return objects.reduce((acc, obj) => {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        acc[key] = (acc[key] || 0) + obj[key];
+      }
+    }
+    return acc;
+  }, {});
+}
+
+/**
+ * reverse obj's values
+ * @param {Object} obj
+ * @returns object {(key: -obj.key)*num_of_obj_keys}
+ */
+function invertObjectValues(obj) {
+  const invertedObj = {};
+  for (const key in obj) {
+    invertedObj[key] = -obj[key];
+  }
+  return invertedObj;
+}

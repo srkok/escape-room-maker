@@ -75,6 +75,7 @@ const MAZE_WALL_VISUALIZATION_SETTINGS = {
     opacity: OPACITY_VALUE,
   },
 };
+
 let registry = {
   escapeRoomType: "maze",
   board: nullMatrix(INITIAL_GRID_ROWS, INITIAL_GRID_COLUMNS),

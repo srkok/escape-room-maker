@@ -14,26 +14,11 @@ AFRAME.registerSystem("track-cursor", {
 
 AFRAME.registerComponent("track-cursor", {
   init: function () {
-    // FIXME initMazeMakerに対応するように, 初期値をregistryに従い変更.
     this.targetEl = null; //element
     this.source = undefined; //string
     this.action = undefined;
     this.savedSlot = undefined; //number
     this.el.addEventListener("initMazeMaker", () => this.handleMouseUp());
-    /*
-    // row, columnの特定
-    if (this.el.getAttribute("geometry").primitive === "box") {
-      console.log(this.el.children[0].getAttribute("text").value);
-      if (this.el.children[0].getAttribute("text").value.includes("Wall")) {
-        // this.sourceはこの括弧内で正規表現により行けそう.
-        // this.savedSlotはこの括弧内で正規表現により行けそう.
-      } else if (
-        this.el.children[0].getAttribute("text").value.includes("Grid")
-      ) {
-        // this.sourceはこの括弧内で正規表現により行けそう.
-      }
-    }
-      /** */
     this.el.addEventListener("mousedown", (e) => {
       if (this.el.is("cursor-hovered")) {
         this.el.sceneEl.camera.el.setAttribute("look-controls", {

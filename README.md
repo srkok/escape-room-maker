@@ -16,13 +16,15 @@
   - 作業状態の load.
     - registry に従って object なり設定項目なりも湧くようにする.
     - registry を読んで initMazeMaker 動かすだけなので, すぐ終わりそう.
+- 多肢選択肢クイズ開発空間の改良.
+  - 矢印の color を, outerColorPicker に依存させた.
+- 迷路脱出室 playground の製作.
+  - grid, wall を, 動的に配置できた.
 
 やること：
 
-- 多肢選択肢クイズ開発空間の改良.
-  - 矢印が見にくいらしい.
-  - 矢印の color を, (現)red 固定 -> outerColorPicker に依存させる?
 - 迷路脱出室 playground の製作.
+  - object の配置, 機能の有効化
 
 やるかもしれないこと：
 

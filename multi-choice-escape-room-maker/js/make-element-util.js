@@ -118,7 +118,11 @@ async function setQuizBoard(selectGridEl) {
     );
     /** set arrows **/
     for (let target of registry[selectedGridIdx].influenceTargets) {
-      makeArrow(selectGridEl, Number(target));
+      makeArrow(
+        selectGridEl,
+        Number(target),
+        registry[selectedGridIdx].outerColor
+      ); //makeArrow(selectGridEl, Number(target));
     }
   }
   selectGridEl.appendChild(newQuizBoardEl);

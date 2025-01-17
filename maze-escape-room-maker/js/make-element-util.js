@@ -22,6 +22,11 @@ async function toggleVisible(element) {
   }
 }
 
+/**
+ * sum of obj's values each keys
+ * @param  {...any} objects
+ * @returns object {(key: obj1.key + obj2.key + ...)*num_of_obj_keys}
+ */
 function sumObjectsByKey(...objects) {
   return objects.reduce((acc, obj) => {
     for (const key in obj) {
@@ -43,7 +48,11 @@ function removeElementsByClass(className) {
   });
 }
 
-// 数値の反転を返却する関数
+/**
+ * reverse obj's values
+ * @param {Object} obj
+ * @returns object {(key: -obj.key)*num_of_obj_keys}
+ */
 function invertObjectValues(obj) {
   const invertedObj = {};
   for (const key in obj) {

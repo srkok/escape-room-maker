@@ -24,7 +24,7 @@ const ZER_VEC3_STRING = "0 0 0";
 const OPACITY_VALUE = 0.5;
 
 const ARROW_WIDTH = 0.8;
-const ARROW_COLOR = "red";
+//const ARROW_COLOR = "red";
 const ARROW_DISTANCE = 0.2;
 const ARROW_HEAD_SCALE = "1.7 1.2 1.2";
 const ARROW_POSITION_Z = [5, -1.25]; // 奇数なら下迂回、偶数なら上迂回

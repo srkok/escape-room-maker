@@ -4,7 +4,7 @@
  * @param {vec3} endGridIdx 矢印が指定する場所
  * @returns
  */
-async function makeArrow(startGridEl, endGridIdx) {
+async function makeArrow(startGridEl, endGridIdx, arrowColor) {
   await Promise.all([waitForObjectReady(startGridEl)]);
   const startGridIdx = startGridEl.object3D.position.x / QUIZ_GRID_OBJECT.width;
   if (startGridIdx === endGridIdx) return; // TODO 描かないのでなく、一周回るような矢印を描くようにする
@@ -12,7 +12,7 @@ async function makeArrow(startGridEl, endGridIdx) {
   let newArrowShaftEl = document.createElement("a-entity");
   newArrowShaftEl.setAttribute(
     "material",
-    `color: ${ARROW_COLOR}; side: double`
+    `color: ${arrowColor}; side: double`
   );
   const newArrowShaftRelativePosition = {
     x:
@@ -35,10 +35,7 @@ async function makeArrow(startGridEl, endGridIdx) {
   ); // 奇数なら下迂回、偶数なら上迂回
   /** 矢尻の構成 **/
   let newArrowHeadEl = document.createElement("a-entity");
-  newArrowHeadEl.setAttribute(
-    "material",
-    `color: ${ARROW_COLOR}; side: double`
-  );
+  newArrowHeadEl.setAttribute("material", `color: ${arrowColor}; side: double`);
   newArrowHeadEl.setAttribute("geometry", "primitive: triangle");
   newArrowHeadEl.setAttribute("scale", ARROW_HEAD_SCALE);
   const newArrowHeadRelativePosition = {
