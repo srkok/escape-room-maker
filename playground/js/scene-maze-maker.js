@@ -128,6 +128,22 @@ function sceneMazeMaker(dataObject) {
         )
       );
       // TODO set objects
+      if (settings.partsName === "octahedron") {
+        console.log(`set ${settings.partsName} into Grid ${i} ${j}`);
+      } else if (settings.partsName === "startportal") {
+        if (settings.isInitVisibility) {
+          newGridEl.appendChild(makeStartPortalModel(ZERO_VEC3_OBJECT));
+        }
+        document.getElementById("player").setAttribute("position", {
+          x: j * (MAZE_GRID_SETTINGS.object.width + MAZE_WALLGRID_WIDTH),
+          y: 1.6,
+          z: i * (MAZE_GRID_SETTINGS.object.height + MAZE_WALLGRID_WIDTH),
+        });
+      } else if (settings.partsName === "goalflag") {
+        console.log(`set ${settings.partsName} into Grid ${i} ${j}`);
+      } else if (settings.partsName === "spiketrap") {
+        console.log(`set ${settings.partsName} into Grid ${i} ${j}`);
+      }
       /** */
       mazeGrids.appendChild(newGridEl);
     }
