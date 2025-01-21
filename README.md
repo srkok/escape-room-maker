@@ -1,9 +1,9 @@
 # 仮想脱出室の作成を通したプログラミング教育システム
 
-![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 開発画面](imgs/スクリーンショット 2025-01-21 235642.png)
-![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 実行画面](imgs/スクリーンショット 2025-01-21 235805.png)
-![迷路空間 / Maze Escape Rooms 開発画面](imgs/スクリーンショット 2025-01-21 235829.png)
-![迷路空間 / Maze Escape Rooms 実行画面](imgs/スクリーンショット 2025-01-21 235902.png)
+![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 開発画面](imgs/quiz_edit.png)
+![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 実行画面](imgs/quiz_ex.png)
+![迷路空間 / Maze Escape Rooms 開発画面](imgs/maze_edit.png)
+![迷路空間 / Maze Escape Rooms 実行画面](imgs/maze_ex.png)
 
 ## 概要
 
@@ -20,7 +20,7 @@
 ## 実行方法
 
 以下サイトに遷移してください: このへんに glitch の URL  
-または, git がある場合, [https://github.com/srkok/escape-room-maker] から clone してください.
+または, git がある場合, https://github.com/srkok/escape-room-maker から clone してください.
 
 ```
 git clone https://github.com/srkok/escape-room-maker.git
