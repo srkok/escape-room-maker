@@ -45,6 +45,12 @@ async function toggleVisible(element) {
   } else {
     element.setAttribute("scale", ZERO_VEC3_OBJECT);
   }
+  /** XXX いらなさそう.
+  // recursive execution for child elements as well
+  for (const child of element.children) {
+    toggleVisible(child);
+  }
+  /** */
 }
 
 function isEqual(objA, objB) {

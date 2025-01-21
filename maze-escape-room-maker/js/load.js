@@ -28,15 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
         reader.onload = function (e) {
           try {
             const jsonData = JSON.parse(e.target.result);
-            // FIXME escapeRoomType: "multiChoice" でなければthrow new error
             if (jsonData.escapeRoomType !== "maze") {
-              throw new this.error("Invalid room type");
+              console.error("Invalid room type");
+            } else {
+              /** update registry */
+              registry = {};
+              Object.assign(registry, jsonData);
+              /** update scene */
+              loadProgress();
             }
-            /** update registry */
-            registry = {};
-            Object.assign(registry, jsonData);
-            /** update scene */
-            loadProgress();
           } catch (error) {
             console.error("Invalid JSON file");
           }

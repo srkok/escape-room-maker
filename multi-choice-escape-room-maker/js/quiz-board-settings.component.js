@@ -3,11 +3,35 @@
 let selectedGrid = null;
 
 AFRAME.registerComponent("show-quiz-board-settings-popup", {
+  init: function () {
+    this.name = this.el.getAttribute("position").x / QUIZ_GRID_OBJECT.width;
+    this.quizSettingsModal = document.getElementById("quizSettingsModal");
+    this.overlay = document.getElementById("overlay");
+    this.outerColorPicker = document.getElementById("outerColorPicker");
+    this.innerColorPicker = document.getElementById("innerColorPicker");
+    this.quizText = document.getElementById("quizText");
+    this.quizTextColorPicker = document.getElementById("quizTextColorPicker");
+    this.toggleVisibilityButton = document.getElementById(
+      "toggleVisibilityButton"
+    );
+  },
   events: {
-    click: function (evt) {
+    click: function () {
       selectedGrid = this.el;
-      quizSettingsModal.style.display = "block";
-      overlay.style.display = "block";
+      if (this.name in registry) {
+        // set up existing settings
+        this.outerColorPicker.value = registry[this.name].outerColor;
+        this.innerColorPicker.value = registry[this.name].innerColor;
+        this.quizText.value = registry[this.name].quizText;
+        this.quizTextColorPicker.value = registry[this.name].quizTextColor;
+        if (registry[this.name].isVisible) {
+          this.toggleVisibilityButton.textContent = "Show";
+        } else {
+          this.toggleVisibilityButton.textContent = "Hide";
+        }
+      }
+      this.quizSettingsModal.style.display = "block";
+      this.overlay.style.display = "block";
     },
   },
 });

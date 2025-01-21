@@ -1,6 +1,6 @@
 const EDITMODE_PARTS = {
   all: {
-    position: { x: 0, y: 5, z: 0 },
+    position: { x: 0, y: 0, z: 0 },
     rotation: { x: 0, y: 0, z: 0 },
   },
   octahedron: {
@@ -29,8 +29,8 @@ const EDITMODE_PARTS = {
     base: {
       geometry: { primitive: "cylinder", height: 0.5, radius: 0.8 },
       color: "gray",
-      position: { x: 6, y: 0, z: 0 },
-      rotation: { x: 0, y: 0, z: 0 },
+      position: { x: 0, y: 0, z: 0 },
+      rotation: { x: 90, y: 0, z: 0 },
     },
     pole: {
       geometry: { primitive: "cylinder", height: 4, radius: 0.2 },
@@ -49,8 +49,8 @@ const EDITMODE_PARTS = {
     base: {
       geometry: { primitive: "plane", height: 4, width: 4 },
       color: "gray",
-      position: { x: 10, y: 0.1, z: 0 },
-      rotation: { x: -90, y: 0, z: 0 },
+      position: { x: 0, y: 0.1, z: 0 },
+      rotation: { x: 0, y: 0, z: 0 },
     },
     spike: {
       geometry: { primitive: "cone" },
@@ -71,7 +71,6 @@ function makeOctahedronModel(position) {
     EDITMODE_PARTS.octahedron.rotation,
     true
   );
-  newOctahedronEl.classList.add("raycastable");
   newOctahedronEl.classList.add("octahedron");
   return newOctahedronEl;
 }

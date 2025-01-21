@@ -43,11 +43,11 @@ const MAZE_WALLGRID_SETTINGS = {
   position: {
     below: {
       x: 0,
-      y: -(MAZE_GRID_SETTINGS.object.width + MAZE_WALLGRID_WIDTH) / 2,
+      y: -MAZE_GRID_SETTINGS.object.width / 2, // -(MAZE_GRID_SETTINGS.object.width + MAZE_WALLGRID_WIDTH) / 2,
       z: 0,
     },
     right: {
-      x: (MAZE_GRID_SETTINGS.object.width + MAZE_WALLGRID_WIDTH) / 2,
+      x: MAZE_GRID_SETTINGS.object.width / 2, // (MAZE_GRID_SETTINGS.object.width + MAZE_WALLGRID_WIDTH) / 2,
       y: 0,
       z: 0,
     },
