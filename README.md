@@ -67,7 +67,7 @@ git clone https://github.com/srkok/escape-room-maker.git
 - 自らの環境にクローン/ダウンロードしましたが, オフラインで動きません.
 
   - 仕様です.
-  - オフラインで動かしたい場合, まず aframe のドキュメント [https://aframe.io/docs/1.6.0/introduction/installation.html] や GitHub リポジトリ [https://github.com/aframevr/aframe/] を適宜参照し, ローカルに「aframe.min.js」ファイルを保存してください. その後, 本プログラムの「index.html」ファイルを除くすべての html ファイルには`<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>`の記載がありますが, これらをローカルに保存した「aframe.min.js」ファイルへのパスに変更してください. 例えば「Downloads」フォルダに保存した場合は`<script src="C:\Users\(ユーザ名)\Downloads"></script>`と変更してください.
+  - オフラインで動かしたい場合, まず aframe のドキュメント https://aframe.io/docs/1.6.0/introduction/installation.html や GitHub リポジトリ https://github.com/aframevr/aframe/ を適宜参照し, ローカルに「aframe.min.js」ファイルを保存してください. その後, 本プログラムの「index.html」ファイルを除くすべての html ファイルには`<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>`の記載がありますが, これらをローカルに保存した「aframe.min.js」ファイルへのパスに変更してください. 例えば「Downloads」フォルダに保存した場合は`<script src="C:\Users\(ユーザ名)\Downloads"></script>`と変更してください.
 
 - 開発で, リロードすると, 作業中のものが全て消えました.
 
