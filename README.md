@@ -53,7 +53,7 @@ git clone https://github.com/srkok/escape-room-maker.git
 ### アンケート回答
 
 以下リンク先より, 本実験のアンケート回答をお願いします.  
-[questionnaire]  
+[アンケート回答リンク][questionnaire]  
 ご協力ありがとうございました.
 
 ## FAQ
