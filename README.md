@@ -128,6 +128,7 @@ git clone https://github.com/srkok/escape-room-maker.git
 [glitch]: https://www.google.com/
 [questionnaire]: https://www.google.com/
 
+<!--
 #### 自分用.
 
 やったこと：
@@ -171,3 +172,5 @@ git clone https://github.com/srkok/escape-room-maker.git
 - 迷路脱出室開発空間の製作.
   - 動作指定用ブロックビルディング環境の製作.
     - 入力後、矢印オブジェクトが発生するようにする?(future)
+
+-->
