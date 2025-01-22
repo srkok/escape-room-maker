@@ -136,7 +136,7 @@ git clone https://github.com/srkok/escape-room-maker.git
 
     </details>
 
-    - git がない場合, [GitHub リポジトリ][github]にて, 「sample_jsonfile」フォルダを押下後, 各ファイルに対して押下 -> 「Dounload raw file」ボタンを押下し, 任意の場所に保存してください.
+    - git がない場合, [GitHub リポジトリ][github]にて, 「sample_jsonfile」フォルダを押下後, 各ファイルに対して押下 -> 「Download raw file」ボタンを押下し, 任意の場所に保存してください.
 
 ### 多肢選択肢クイズ空間 / Multi-choice Escape Rooms
 
@@ -203,6 +203,8 @@ advanced と書かれているものは, 達成にそれなりに時間がかか
 - 何も表示されません.
 
   - 本プログラムは, 全て javascript にて動作しています. javascript を有効化しリロードしてください.
+  - 本プログラムは, PC での操作を想定しています.
+  - その他, 通信状態, ブラウザの再起動, PC の再起動などを確認してください.
 
 - 自らの環境にクローン/ダウンロードしましたが, オフラインで動きません.
 
