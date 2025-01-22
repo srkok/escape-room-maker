@@ -19,20 +19,20 @@
 
 ## 実行方法
 
-以下サイトに遷移してください: このへんに glitch の URL  
-または, git がある場合, https://github.com/srkok/escape-room-maker から clone してください.
+以下サイトに遷移してください: [glitch]  
+または, git がある場合, 本プログラムの [Github リポジトリ][github]から clone してください.
 
 ```
 git clone https://github.com/srkok/escape-room-maker.git
 ```
 
-または GitHub リポジトリ Web ページ上で, 緑色の「<> Code」ボタンを押下し, 「Download ZIP」によりダウンロードした zip ファイルを解凍し, そのフォルダ内の「index.html」ファイルを左クリックしてください.
+または [GitHub リポジトリ][github] Web ページ上で, 緑色の「<> Code」ボタンを押下し, 「Download ZIP」によりダウンロードした zip ファイルを解凍し, そのフォルダ内の「index.html」ファイルを左クリックしてください.
 
 ## 実験にご協力ください.
 
 - まず, [実行方法](#実行方法)から本プログラムを実行できる状態に移ってください.
 
-  - この際, GitHub リポジトリをクローン/ダウンロードしない場合, GitHub 内の「sample_jsonfile」フォルダ内のファイルを全てローカルに保存してください.
+  - この際, [GitHub リポジトリ][github]をクローン/ダウンロードしない場合, GitHub 内の「sample_jsonfile」フォルダ内のファイルを全てローカルに保存してください.
 
     - git がある場合, 以下を実行してください.
 
@@ -44,7 +44,7 @@ git clone https://github.com/srkok/escape-room-maker.git
     git checkout
     ```
 
-    - git がない場合, GitHub リポジトリにて, 「sample_jsonfile」フォルダを押下後, 各ファイルに対して押下 -> 「Dounload raw file」ボタンを押下し, 任意の場所に保存してください.
+    - git がない場合, [GitHub リポジトリ][github]にて, 「sample_jsonfile」フォルダを押下後, 各ファイルに対して押下 -> 「Dounload raw file」ボタンを押下し, 任意の場所に保存してください.
 
 ### 多肢選択肢クイズ空間 / Multi-choice Escape Rooms
 
@@ -53,7 +53,7 @@ git clone https://github.com/srkok/escape-room-maker.git
 ### アンケート回答
 
 以下リンク先より, 本実験のアンケート回答をお願いします.
-
+[questionnaire]
 ご協力ありがとうございました.
 
 ## FAQ
@@ -94,23 +94,23 @@ git clone https://github.com/srkok/escape-room-maker.git
 
 - 開発で, 新たに Grid を設定しようとした時, 前回の設定が menu に残っています.
 
-  - 既知の不具合です.
+  - 仕様です.
   - これを変更し apply しても, 前回設定した Grid への影響はありません.
 
 - 開発で, 設定済みの Grid を再設定する際, clickable menu が初期化されています.
 
-  - 既知の不具合です.
+  - 仕様です.
   - clickable menu の設定は, 開発する脱出室の全体像を掴んでからをお勧めします.
   - もし誤って設定済みの Grid をクリックした場合, 設定メニューの外部の適当な場所をクリックすれば, 変更をキャンセルします.
 
 ### 迷路空間 / Maze Escape Rooms
 
-- 開発で, 本来オブジェクトを配置するだろうところにテキストブロックが配置できてしまいます. / 本来テキストブロックを配置するだろうところにオブジェクトが配置できてしまいます.
+- 開発で, 本来オブジェクトを配置するであろう場所(Grid)にテキストブロックが配置できてしまいます. / 本来テキストブロックを配置するであろう場所(Grid)にオブジェクトが配置できてしまいます.
 
   - 既知の不具合です.
   - 配置できるだけで, 内部の脱出室空間構成用データには一切変更されないはずですが, 誤って配置してしまった場合は, 念の為本来配置したかったものを再度配置してください.
 
-- 開発で,一度オブジェクトの init visibility / action target を設定した後, オブジェクトを離すと, 配置したテキストブロックがその場に残り続けますが, 内部データとしてはどのような扱いですか.
+- 開発で,一度オブジェクトの init visibility / action target を設定した後, オブジェクトを離しても, 配置したテキストブロックがその場に残り続けますが, 内部データとしてはどのような扱いですか.
 
   - オブジェクトを離した時点で, 該当 Grid におけるオブジェクトの各種情報は全てリセットされます.
 
@@ -122,7 +122,11 @@ git clone https://github.com/srkok/escape-room-maker.git
 
 - 実行で, 壁が何故かクリックできます.
   - 仕様です. クリックしても何も起こりません.
-  - aframe の仕様で, クリック可能なオブジェクトの上に, クリック不可能なオブジェクトを配置しても, 奥にあるオブジェクトがクリックできてしまいます. 本プログラムではそれを回避するために, 壁をクリック可能としています.
+  - aframe の仕様で, クリック可能なオブジェクトの上に, クリック不可能なオブジェクトを配置しても, 奥にあるオブジェクトがクリックできてしまいます. 本プログラムではそれを回避するために, 壁をクリック可能とし, 奥にあるオブジェクトへのクリックイベントの発行を妨げています.
+
+[github]: https://github.com/srkok/escape-room-maker
+[glitch]: https://www.google.com/
+[questionnaire]: https://www.google.com/
 
 #### 自分用.
 
