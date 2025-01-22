@@ -19,7 +19,7 @@
 
 ## 実行方法
 
-以下サイトに遷移してください: [glitch]  
+以下サイトに遷移してください: [glitch_play]  
 または, git がある場合, 本プログラムの [Github リポジトリ][github]から clone してください.
 
 ```
@@ -36,7 +36,7 @@ git clone https://github.com/srkok/escape-room-maker.git
 
     - git がある場合, 以下を実行してください.
 
-    ```
+    ```bash
     git clone --no-checkout https://github.com/srkok/escape-room-maker.git
     cd escape-room-maker
     git sparse-checkout init --cone
@@ -125,8 +125,9 @@ git clone https://github.com/srkok/escape-room-maker.git
   - aframe の仕様で, クリック可能なオブジェクトの上に, クリック不可能なオブジェクトを配置しても, 奥にあるオブジェクトがクリックできてしまいます. 本プログラムではそれを回避するために, 壁をクリック可能とし, 奥にあるオブジェクトへのクリックイベントの発行を妨げています.
 
 [github]: https://github.com/srkok/escape-room-maker
-[glitch]: https://www.google.com/
-[questionnaire]: https://www.google.com/
+[glitch_edit]: https://glitch.com/edit/#!/ruddy-productive-muskmelon?path=README.md%3A1%3A0
+[glitch_play]: https://ruddy-productive-muskmelon.glitch.me/
+[questionnaire]: https://docs.google.com/forms/d/e/1FAIpQLScKFSN8pzPH__Wv6nZIR2P7HnQ4QtcoIB8SgbVyGSxqrXFL9w/viewform?usp=header
 
 <!--
 #### 自分用.
