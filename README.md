@@ -177,14 +177,15 @@ advanced と書かれているものは, 達成にそれなりに時間がかか
 
    - 自身の解答が正しくサンプルのように機能するかは, 完成した状態で「Download」ボタンを押下し保存後, サンプルの脱出室をプレイした際と同様の操作により確認できます.
    - 模範解答は, 「Upload JSON File」ボタンを押下し, json ファイル「multiChoice_registry_2024-10-09_05-53-26.json」を選択することで確認できます.
-   <details>
+     <details>
 
-   ![multiChoice_upload](./assets/gif/multiChoice_upload.gif)
+     ![multiChoice_upload](./assets/gif/multiChoice_upload.gif)
 
-   </details>
+     </details>
+
    - <details><summary>模範解答は, このようにして作成されました. </summary>
 
-   ![multiChoice_smpledit](./assets/gif/multiChoice_smpledit.gif)
+     ![multiChoice_smpledit](./assets/gif/multiChoice_smpledit.gif)
 
      </details>
 
