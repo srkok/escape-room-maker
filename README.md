@@ -175,7 +175,9 @@ advanced と書かれているものは, 達成にそれなりに時間がかか
    2. 空間内を[多肢選択肢クイズ空間 / Multi-choice Escape Rooms の機能説明](#機能説明)に従い,動かし, 先ほど動かしたサンプルの脱出室を作成してください.
    - 自身の解答が正しくサンプルのように機能するかは, 完成した状態で「Download」ボタンを押下し保存後, サンプルの脱出室をプレイした際と同様の操作により確認できます.
    - 模範解答は, 「Upload JSON File」ボタンを押下し, json ファイル「multiChoice_registry_2024-10-09_05-53-26.json」を選択することで確認できます.
-   - <details><summary>模範解答は, このようにして作成されました. </summary> ![multiChoice_smpledit](./assets/gif/multiChoice_smpledit.gif) </details>
+   - <details><summary>模範解答は, このようにして作成されました. </summary> 
+     ![multiChoice_smpledit](./assets/gif/multiChoice_smpledit.gif) 
+     </details>
 3. (advanced)自由な問題設定で, 脱出室空間を開発してください.
    - 特に思いつかない場合, 以下を開発するにはどうすればよいか考えてみてください.
      - 4 つの選択肢のうち, 2 つを解答する形式のクイズ空間.
