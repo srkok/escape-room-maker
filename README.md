@@ -1,7 +1,7 @@
 # 仮想脱出室の作成を通したプログラミング教育システム
 
-![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 開発画面](./assets/imgs/quiz_edit.png)
-![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 実行画面](./assets/imgs/quiz_ex.png)
+![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 開発画面](./assets/gif/multiChoice_smpledit.gif)
+![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 実行画面](./assets/gif/multiChoice_smpl.gif)
 ![迷路空間 / Maze Escape Rooms 開発画面](./assets/imgs/maze_edit.png)
 ![迷路空間 / Maze Escape Rooms 実行画面](./assets/imgs/maze_ex.png)
 
@@ -162,6 +162,7 @@ advanced と書かれているものは, 達成にそれなりに時間がかか
 アンケートに際し, 必ずしも全てを 100%達成しなければならない訳ではないため, いいところで区切りをつけて次に進んでもらっても構いません.
 
 1. サンプルの脱出室をプレイします.
+   - ![sample_scene](./assets/gif/multiChoice_smpl.gif)
    1. ファイル「index.html」内の, 「Let's escape!」リンクをクリックします.
    2. 文字列「JSON ファイルを選択してください」をクリックし, ローカルの json ファイル選択画面を開いてください.
    3. 事前にローカルにダウンロードした json ファイル「multiChoice_registry_2024-10-09_05-53-26.json」を選択してください.
@@ -174,9 +175,7 @@ advanced と書かれているものは, 達成にそれなりに時間がかか
    2. 空間内を[多肢選択肢クイズ空間 / Multi-choice Escape Rooms の機能説明](#機能説明)に従い,動かし, 先ほど動かしたサンプルの脱出室を作成してください.
    - 自身の解答が正しくサンプルのように機能するかは, 完成した状態で「Download」ボタンを押下し保存後, サンプルの脱出室をプレイした際と同様の操作により確認できます.
    - 模範解答は, 「Upload JSON File」ボタンを押下し, json ファイル「multiChoice_registry_2024-10-09_05-53-26.json」を選択することで確認できます.
-   <details><summary>模範解答は, このようにして作成されました. </summary>
-   ![multiChoice_smpledit](./assets/gif/multiChoice_smpledit.gif)
-   </details>
+   - <details><summary>模範解答は, このようにして作成されました. </summary> ![multiChoice_smpledit](./assets/gif/multiChoice_smpledit.gif) </details>
 3. (advanced)自由な問題設定で, 脱出室空間を開発してください.
    - 特に思いつかない場合, 以下を開発するにはどうすればよいか考えてみてください.
      - 4 つの選択肢のうち, 2 つを解答する形式のクイズ空間.
