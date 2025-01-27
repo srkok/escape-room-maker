@@ -140,7 +140,7 @@ git clone https://github.com/srkok/escape-room-maker.git
 
 - まず, [実行方法](#実行方法)から本プログラムを実行できる状態に移ってください.
 
-  - この際, [GitHub リポジトリ][github]をクローン/ダウンロードしない場合, GitHub 内の「sample_jsonfile」フォルダ内のファイルを全てローカルに保存してください.
+  - この際, [GitHub リポジトリ][github]をクローン/ダウンロードしない場合, GitHub 内の[「sample_jsonfile」フォルダ](https://github.com/srkok/escape-room-maker/tree/main/sample_jsonfile)内のファイルを全てローカルに保存してください.
 
     - git がある場合, 以下を実行してください.
 
@@ -153,7 +153,7 @@ git clone https://github.com/srkok/escape-room-maker.git
 
     ```
 
-    <details><summary>実行できない場合は, 以下を１行づつコピー&ペーストしてください.</summary>
+       <details><summary>実行できない場合は, 以下を１行づつコピー&ペーストしてください.</summary>
 
     ```
     git clone --no-checkout https://github.com/srkok/escape-room-maker.git
@@ -175,9 +175,9 @@ git clone https://github.com/srkok/escape-room-maker.git
     git checkout
     ```
 
-    </details>
+       </details>
 
-    - git がない場合, [GitHub リポジトリ][github]にて, 「sample_jsonfile」フォルダを押下後, 各ファイルに対して押下 -> 「Download raw file」ボタンを押下し, 任意の場所に保存してください.
+    - git がない場合, [GitHub リポジトリ][github]にて, [「sample_jsonfile」フォルダ](https://github.com/srkok/escape-room-maker/tree/main/sample_jsonfile)を押下後, 各ファイルに対して押下 -> 「Download raw file」ボタンを押下し, 任意の場所に保存してください.
 
 ### 多肢選択肢クイズ空間 / Multi-choice Escape Rooms
 
