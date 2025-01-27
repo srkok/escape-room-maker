@@ -1,9 +1,9 @@
 # 仮想脱出室の作成を通したプログラミング教育システム
 
-![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 開発画面](imgs/quiz_edit.png)
-![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 実行画面](imgs/quiz_ex.png)
-![迷路空間 / Maze Escape Rooms 開発画面](imgs/maze_edit.png)
-![迷路空間 / Maze Escape Rooms 実行画面](imgs/maze_ex.png)
+![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 開発画面](./assets/imgs/quiz_edit.png)
+![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 実行画面](./assets/imgs/quiz_ex.png)
+![迷路空間 / Maze Escape Rooms 開発画面](./assets/imgs/maze_edit.png)
+![迷路空間 / Maze Escape Rooms 実行画面](./assets/imgs/maze_ex.png)
 
 ## 目次
 
@@ -48,7 +48,7 @@
 #### 機能説明
 
 アクセスすると, 以下の状態となります.
-![多肢選択肢クイズ空間 / Multi-choice Escape Rooms アクセス時](imgs/quiz_edit_init.png)
+![多肢選択肢クイズ空間 / Multi-choice Escape Rooms アクセス時](./assets/imgs/quiz_edit_init.png)
 
 - 任意の Grid をクリックすると, ブロックの設定ができます. 既に設定済みのブロックについて変更を加えたい場合にも, Grid をクリックして設定してください.
 - 「Upload JSON File」ボタンでは, 前回作業した状態が保存してある json ファイルを読み込むことで, 作業状態を復元できます.
@@ -56,18 +56,18 @@
 - 最右 Grid では, この位置に脱出室の出口が設定されます. また, より多くの Grid を追加したい場合, この最右 Grid をクリックすることで追加されます.
 
 Grid をクリックすると, 以下のメニューが表示されます.
-![多肢選択肢クイズ空間 / Multi-choice Escape Rooms メニュー](imgs/quiz_edit_menu.png)
+![多肢選択肢クイズ空間 / Multi-choice Escape Rooms メニュー](./assets/imgs/quiz_edit_menu.png)
 
-| 設定項目             | 説明                                                                                                                                      |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| outer color          | ブロックの色を設定できます. <details>![multiChoice_outercolor](./assets/gif/multiChoice_outercolor.gif)</details>                         |
-| inner color          | テキストを表示する平面領域の色を設定できます.                                                                                             |
-| text                 | ブロックに表示するテキストを設定できます. アルファベット, 半角数字/記号のみ反映されます. 改行したい場合, 「\n」と入力してください.        |
-| text color           | ブロックに表示するテキスト文字色を設定できます.                                                                                           |
-| Show/Hide at startup | 起動時にブロックを表示するかどうかを選択できます. 「Show」では表示, 「Hide」では非表示となります.                                         |
-| Clickable at startup | ブロックをクリック可能にするか選択できます. 「UnClickable」ではクリック不可能, 「Clickable」ではクリック可能となります.                   |
-| color when selecting | マウスカーソルがブロック上に存在するときのブロック色を変更します. これにより, ブロックがクリック可能であるかどうかが分かりやすくなります. |
-| action target        | クリックしたときに可視性を反転させる対象を選択します. 複数選択したい場合, 「ctrl」キーを押しながら選択してください.                       |
+| 設定項目             | 説明                                                                                                                                                                                                                                    |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| outer color          | ブロックの色を設定できます. <details>![multiChoice_outercolor](./assets/gif/multiChoice_outercolor.gif)</details>                                                                                                                       |
+| inner color          | テキストを表示する平面領域の色を設定できます.<details>![multiChoice_innercolor](./assets/gif/multiChoice_innercolor.gif)</details>                                                                                                      |
+| text                 | ブロックに表示するテキストを設定できます. アルファベット, 半角数字/記号のみ反映されます. 改行したい場合, 「\n」と入力してください.<details>![multiChoice_text](./assets/gif/multiChoice_text.gif)</details>                             |
+| text color           | ブロックに表示するテキスト文字色を設定できます.<details>![multiChoice_textcolor](./assets/gif/multiChoice_textcolor.gif)</details>                                                                                                      |
+| Show/Hide at startup | 起動時にブロックを表示するかどうかを選択できます. 「Show」では表示, 「Hide」では非表示となります. <details>![multiChoice_visible](./assets/gif/multiChoice_visible.gif)</details>                                                       |
+| Clickable at startup | ブロックをクリック可能にするか選択できます. 「UnClickable」ではクリック不可能, 「Clickable」ではクリック可能となります.                                                                                                                 |
+| color when selecting | マウスカーソルがブロック上に存在するときのブロック色を変更します. これにより, ブロックがクリック可能であるかどうかが分かりやすくなります. <details>![multiChoice_selectingcolor](./assets/gif/multiChoice_selectingcolor.gif)</details> |
+| action target        | クリックしたときに可視性を反転させる対象を選択します. 複数選択したい場合, 「ctrl」キーを押しながら選択してください. <details>![multiChoice_actiontarget](./assets/gif/multiChoice_actiontarget.gif)</details>                           |
 
 - 選択後, 「apply」ボタンを押下すると, 設定が反映されたブロックが生成されます.
 - 「action target」を指定していた場合, 可視性反転対象ブロックへ矢印が示されます.
@@ -79,7 +79,7 @@ Grid をクリックすると, 以下のメニューが表示されます.
 #### 機能説明
 
 アクセスすると, 以下の状態となります.
-![迷路空間 / Maze Escape Rooms アクセス時](./imgs/maze_edit_init.png)
+![迷路空間 / Maze Escape Rooms アクセス時](./assets/imgs/maze_edit_init.png)
 
 - 各正方形 Grid の間には細長いグレーの Grid がありますが, これは迷路の壁を設定する Grid です. クリックすると, 脱出開始時に壁を設けるように設定されます. もう一度クリックすると解除されます.
 - 「add row/column」ボタンでは, 1 回押すごとに迷路の行数/列数を +1 できます.
@@ -98,7 +98,7 @@ Grid をクリックすると, 以下のメニューが表示されます.
 | Grid x y テキストブロック              | action target を設定するテキストブロックです. |
 
 - テキストブロック以外のオブジェクトは, 各正方形 Grid に配置できます. 配置すると, 追加の設定項目が設定可能となります.
-  ![迷路空間 / Maze Escape Rooms 追加設定項目](./imgs/maze_edit_addon.png)
+  ![迷路空間 / Maze Escape Rooms 追加設定項目](./assets/imgs/maze_edit_addon.png)
   - init visibility: 起動時にオブジェクトを表示するかどうかを選択できます. 「enable」では表示, 「disable」では非表示となります. 何も設定しなければ, 「disable」として扱われます.
   - action target: クリックしたときに可視性を反転させる対象を選択します. 2 つまでを対象として選択できます.
 
