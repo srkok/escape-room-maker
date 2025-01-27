@@ -88,12 +88,12 @@ Grid をクリックすると, 以下のメニューが表示されます.
 
 - 選択後, 「apply」ボタンを押下すると, 設定が反映されたブロックが生成されます.
 - 「action target」を指定していた場合, 可視性反転対象ブロックへ矢印が示されます.
-<details>
+   <details>
 
-![multiChoice_smpledit_action](./assets/gif/multiChoice_smpledit_action.gif)
-![multiChoice_smpl_action](./assets/gif/multiChoice_smpl_action.gif)
+  ![multiChoice_smpledit_action](./assets/gif/multiChoice_smpledit_action.gif)
+  ![multiChoice_smpl_action](./assets/gif/multiChoice_smpl_action.gif)
 
-</details>
+   </details>
 
 ### 迷路空間 / Maze Escape Rooms
 
