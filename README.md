@@ -51,24 +51,20 @@
 ![多肢選択肢クイズ空間 / Multi-choice Escape Rooms アクセス時](./assets/imgs/quiz_edit_init.png)
 
 - 任意の Grid をクリックすると, ブロックの設定ができます. 既に設定済みのブロックについて変更を加えたい場合にも, Grid をクリックして設定してください.
-<details>
+   <details>
+  ![multiChoice_addblock](./assets/gif/multiChoice_addblock.gif)
+   </details>
 
-![multiChoice_addblock](./assets/gif/multiChoice_addblock.gif)
-
-</details>
 - 「Upload JSON File」ボタンでは, 前回作業した状態が保存してある json ファイルを読み込むことで, 作業状態を復元できます.
-<details>
+   <details>
+  ![multiChoice_upload](./assets/gif/multiChoice_upload.gif)
+   </details>
 
-![multiChoice_upload](./assets/gif/multiChoice_upload.gif)
-
-</details>
 - 「Download」ボタンでは, 現在の作業状態を json ファイルとして保存できます.
 - 最右 Grid では, この位置に脱出室の出口が設定されます. また, より多くの Grid を追加したい場合, この最右 Grid をクリックすることで追加されます.
-<details>
-
-![multiChoice_addgrid](./assets/gif/multiChoice_addgrid.gif)
-
-</details>
+   <details>
+  ![multiChoice_addgrid](./assets/gif/multiChoice_addgrid.gif)
+   </details>
 
 Grid をクリックすると, 以下のメニューが表示されます.
 ![多肢選択肢クイズ空間 / Multi-choice Escape Rooms メニュー](./assets/imgs/quiz_edit_menu.png)
