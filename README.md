@@ -8,17 +8,15 @@
 ## 目次
 
 - [概要](#概要)
-- [操作方法](#操作方法)
-  - [基本操作](#基本操作)
-  - [多肢選択肢クイズ空間 / Multi-choice Escape Rooms](#多肢選択肢クイズ空間--multi-choice-escape-rooms)
-    - [機能説明](#機能説明)
-  - [迷路空間 / Maze Escape Rooms](#迷路空間--maze-escape-rooms)
-    - [機能説明](#機能説明-1)
-- [実行方法](#実行方法)
 - [実験にご協力ください.](#実験にご協力ください)
   - [多肢選択肢クイズ空間 / Multi-choice Escape Rooms](#多肢選択肢クイズ空間--multi-choice-escape-rooms-1)
   - [迷路空間 / Maze Escape Rooms](#迷路空間--maze-escape-rooms-1)
   - [アンケート回答](#アンケート回答)
+- [実行方法](#実行方法)
+- [操作方法](#操作方法)
+  - [基本操作](#基本操作)
+  - [多肢選択肢クイズ空間 / Multi-choice Escape Rooms](#多肢選択肢クイズ空間--multi-choice-escape-rooms)
+  - [迷路空間 / Maze Escape Rooms](#迷路空間--maze-escape-rooms)
 - [FAQ](#faq)
   - [共通](#共通)
   - [多肢選択肢クイズ空間 / Multi-choice Escape Rooms](#多肢選択肢クイズ空間--multi-choice-escape-rooms-2)
@@ -31,6 +29,146 @@
 
 - 多肢選択肢クイズ空間 / Multi-choice Escape Rooms: 「クリックすると, 対象の可視性を反転させる」機能のみを利用し, 「多肢選択肢クイズ空間」の開発を実行できます.
 - 迷路空間 / Maze Escape Rooms: 「クリックすると, 2 つまでの対象の可視性を反転させる」機能を利用し, 「迷路空間」の開発を実行できます.
+
+## 実験にご協力ください.
+
+- まず, [実行方法](#実行方法)から本プログラムを実行できる状態に移ってください.
+
+  - この際, [GitHub リポジトリ][github]をクローン/ダウンロードしない場合, GitHub 内の[「sample_jsonfile」フォルダ](https://github.com/srkok/escape-room-maker/tree/main/sample_jsonfile)内のファイルを全てローカルに保存してください.
+
+    - git がある場合, 以下を実行してください.
+
+    ```bash
+    git clone --no-checkout https://github.com/srkok/escape-room-maker.git
+    cd escape-room-maker
+    git sparse-checkout init --cone
+    git sparse-checkout set sample_jsonfile
+    git checkout
+
+    ```
+
+       <details><summary>実行できない場合は, 以下を１行づつコピー&ペーストしてください.</summary>
+
+    ```
+    git clone --no-checkout https://github.com/srkok/escape-room-maker.git
+    ```
+
+    ```
+    cd escape-room-maker
+    ```
+
+    ```
+    git sparse-checkout init --cone
+    ```
+
+    ```
+    git sparse-checkout set sample_jsonfile
+    ```
+
+    ```
+    git checkout
+    ```
+
+       </details>
+
+    - git がない場合, [GitHub リポジトリ][github]にて, [「sample_jsonfile」フォルダ](https://github.com/srkok/escape-room-maker/tree/main/sample_jsonfile)を押下後, 各ファイルに対して押下 -> 「Download raw file」ボタンを押下し, 任意の場所に保存してください.
+
+### 多肢選択肢クイズ空間 / Multi-choice Escape Rooms
+
+advanced と書かれているものは, 達成にそれなりに時間がかかると思われます.
+アンケートに際し, 必ずしも全てを 100%達成しなければならない訳ではないため, いいところで区切りをつけて次に進んでもらっても構いません.
+
+1. サンプルの脱出室をプレイします.
+   ![sample_scene_multiChoice](./assets/gif/multiChoice_smpl.gif)
+   1. ファイル「index.html」内の, 「Let's escape!」リンクをクリックします.
+   2. 文字列「JSON ファイルを選択してください」をクリックし, ローカルの json ファイル選択画面を開いてください.
+   3. 事前にローカルにダウンロードした json ファイル「multiChoice_registry_2024-10-09_05-53-26.json」を選択してください.
+   4. 実際に空間内を[基本操作](#基本操作)に従い, 移動可能なことを確認してください.
+   5. 空間内には, 最左ブロックにクイズの問題文が表示されています. 解答として正しい数値が書かれているブロックを空間内から選んでクリックしてください.
+   - 正しい解答のブロックをクリックすると, 「Correct!」と書かれたブロックと, その右に「Goal (改行) Step on this square!」と書かれた Grid が可視化されます.
+   6. 「Goal (改行) Step on this square!」と書かれた Grid の真上に来るよう移動すると, 脱出成功のメッセージが表示されることを確認してください.
+2. サンプルの脱出室を再現します.
+
+   1. ファイル「index.html」内の, 「Make Multi-choice Escape Room!」リンクをクリックします.
+   2. 空間内を[多肢選択肢クイズ空間 / Multi-choice Escape Rooms の機能説明](#多肢選択肢クイズ空間--multi-choice-escape-rooms)に従い,動かし, 先ほど動かしたサンプルの脱出室を再現してください.
+
+   - 自身の解答が正しくサンプルのように機能するかは, 完成した状態で「Download」ボタンを押下し保存後, サンプルの脱出室をプレイした際と同様の操作により確認できます.
+   - 模範解答は, 「Upload JSON File」ボタンを押下し, json ファイル「multiChoice_registry_2024-10-09_05-53-26.json」を選択することで確認できます.
+     <details>
+
+     ![multiChoice_upload](./assets/gif/multiChoice_upload.gif)
+
+     </details>
+
+   - <details><summary>模範解答は, このようにして作成されました. </summary>
+
+     ![multiChoice_smpledit](./assets/gif/multiChoice_smpledit.gif)
+
+     </details>
+
+3. (advanced)自由な問題設定で, 脱出室空間を開発してください.
+   - 特に思いつかない場合, 以下を開発するにはどうすればよいか考えてみてください.
+     - 4 つの選択肢のうち, 2 つを解答する形式のクイズ空間.
+       - e.g. Select two animals from the following that are classified as mammals. A: Penguin, B: Bat, C: Dolphin, D: Turtle
+     - 複数の選択肢のうち, 任意個数を解答する形式のクイズ空間.
+       - e.g. Select all the factors necessary for plant seed germination from the options below. A: Soil B: Water C: Light D: Air E: Temperature
+     - 解答として２桁の数値を指定する形式のクイズ空間.
+       - e.g. How many prefectures are there in Japan?
+
+### 迷路空間 / Maze Escape Rooms
+
+advanced と書かれているものは, 達成にそれなりに時間がかかると思われます.
+アンケートに際し, 必ずしも全てを 100%達成しなければならない訳ではないため, いいところで区切りをつけて次に進んでもらっても構いません.
+
+1. サンプルの脱出室をプレイします.
+   - ![sample_scene_maze](./assets/gif/maze_smpl.gif)
+   1. ファイル「index.html」内の, 「Let's escape!」リンクをクリックします.
+   2. 文字列「JSON ファイルを選択してください」をクリックし, ローカルの json ファイル選択画面を開いてください.
+   3. 事前にローカルにダウンロードした json ファイル「maze_registry_2025-01-21_11-38-06.json」を選択してください.
+   4. 実際に空間内を[基本操作](#基本操作)に従い, 移動可能なことを確認してください. また, 壁や円錐の密集(針罠)にぶつかると, それらを通り抜ける方向には動けないことを確認してください.
+   5. 空間内には, クリック可能な水晶のオブジェクトがいくつかあります. クリックし, 迷路がどのように変化したか確認してください.
+   6. 旗のようなオブジェクトにぶつかるように接近すると, 脱出成功のメッセージが表示されることを確認してください.
+2. サンプルの脱出室を再現します.
+
+   1. ファイル「index.html」内の, 「Make Maze Escape Room!」リンクをクリックします.
+   2. 空間内を[迷路空間 / Maze Escape Rooms の機能説明](#迷路空間--maze-escape-rooms)に従い,動かし, 先ほど動かしたサンプルの脱出室を再現してください.
+
+   - 自身の解答が正しくサンプルのように機能するかは, 完成した状態で「Download」ボタンを押下し保存後, サンプルの脱出室をプレイした際と同様の操作により確認できます.
+   - 模範解答は, 「Upload JSON File」ボタンを押下し, json ファイル「maze_registry_2025-01-21_11-38-06.json」を選択することで確認できます.
+      <details>
+
+     ![maze_upload](./assets/gif/maze_upload.gif)
+
+      </details>
+
+   - <details><summary>模範解答は, このようにして作成されました. </summary>
+
+     ![maze_smpledit](./assets/gif/maze_smpledit.gif)
+
+     </details>
+
+3. (advanced)自由な問題設定で, 脱出室空間を開発してください.
+   - 特に思いつかない場合, 以下を開発するにはどうすればよいか考えてみてください.
+     - 起動時にゴールが見える一方ですぐにはたどり着けず、オブジェクトは 3 つまでしかクリックできない状態で、適切に選択し正しい道を出現させる空間.
+     - 起動時に隅にあるゴールが壁 2 つと針罠 2 つに囲まれており, 水晶が大量に置かれている中で, 適切な順に適切な水晶をクリックすると脱出できる空間.
+     - 大きな空間が右と左にあり, よく似ているが少し違う 2 つの空間を, 全く同じにすると脱出できる空間.
+     - 2 人で協力して脱出する, 起動時に右と左に水晶オブジェクトがあり, それにより右ルートと左ルートで違う迷路を選択し脱出する空間.
+
+### アンケート回答
+
+以下リンク先より, 本実験のアンケート回答をお願いします.  
+[アンケート回答リンク][questionnaire]  
+ご協力ありがとうございました.
+
+## 実行方法
+
+以下サイトに遷移してください: [glitch_play]  
+または [このリンクをクリック](https://github.com/srkok/escape-room-maker/archive/refs/heads/main.zip)によりダウンロードした zip ファイルを解凍し, そのフォルダ内の「index.html」ファイルをダブルクリックしてください.  
+または, git がある場合, 本プログラムの [Github リポジトリ][github]から clone してください.
+
+```
+git clone https://github.com/srkok/escape-room-maker.git
+```
 
 ## 操作方法
 
@@ -47,8 +185,6 @@
 | 何もないところをクリックしたまま任意方向にドラッグ | カメラアングルが調整できます.           |
 
 ### 多肢選択肢クイズ空間 / Multi-choice Escape Rooms
-
-#### 機能説明
 
 アクセスすると, 以下の状態となります.
 ![多肢選択肢クイズ空間 / Multi-choice Escape Rooms アクセス時](./assets/img/quiz_edit_init.png)
@@ -99,8 +235,6 @@ Grid をクリックすると, 以下のメニューが表示されます.
    </details>
 
 ### 迷路空間 / Maze Escape Rooms
-
-#### 機能説明
 
 アクセスすると, 以下の状態となります.
 ![迷路空間 / Maze Escape Rooms アクセス時](./assets/img/maze_edit_init.png)
@@ -159,147 +293,6 @@ Grid をクリックすると, 以下のメニューが表示されます.
 ![maze_smpl_octahedron](./assets/gif/maze_smpl_octahedron.gif)
 
 </details>
-
-## 実行方法
-
-以下サイトに遷移してください: [glitch_play]  
-または, git がある場合, 本プログラムの [Github リポジトリ][github]から clone してください.
-
-```
-git clone https://github.com/srkok/escape-room-maker.git
-```
-
-または [GitHub リポジトリ][github] Web ページ上で, 緑色の「<> Code」ボタンを押下し, 「Download ZIP」によりダウンロードした zip ファイルを解凍し, そのフォルダ内の「index.html」ファイルを左クリックしてください.
-
-## 実験にご協力ください.
-
-- まず, [実行方法](#実行方法)から本プログラムを実行できる状態に移ってください.
-
-  - この際, [GitHub リポジトリ][github]をクローン/ダウンロードしない場合, GitHub 内の[「sample_jsonfile」フォルダ](https://github.com/srkok/escape-room-maker/tree/main/sample_jsonfile)内のファイルを全てローカルに保存してください.
-
-    - git がある場合, 以下を実行してください.
-
-    ```bash
-    git clone --no-checkout https://github.com/srkok/escape-room-maker.git
-    cd escape-room-maker
-    git sparse-checkout init --cone
-    git sparse-checkout set sample_jsonfile
-    git checkout
-
-    ```
-
-       <details><summary>実行できない場合は, 以下を１行づつコピー&ペーストしてください.</summary>
-
-    ```
-    git clone --no-checkout https://github.com/srkok/escape-room-maker.git
-    ```
-
-    ```
-    cd escape-room-maker
-    ```
-
-    ```
-    git sparse-checkout init --cone
-    ```
-
-    ```
-    git sparse-checkout set sample_jsonfile
-    ```
-
-    ```
-    git checkout
-    ```
-
-       </details>
-
-    - git がない場合, [GitHub リポジトリ][github]にて, [「sample_jsonfile」フォルダ](https://github.com/srkok/escape-room-maker/tree/main/sample_jsonfile)を押下後, 各ファイルに対して押下 -> 「Download raw file」ボタンを押下し, 任意の場所に保存してください.
-
-### 多肢選択肢クイズ空間 / Multi-choice Escape Rooms
-
-advanced と書かれているものは, 達成にそれなりに時間がかかると思われます.
-アンケートに際し, 必ずしも全てを 100%達成しなければならない訳ではないため, いいところで区切りをつけて次に進んでもらっても構いません.
-
-1. サンプルの脱出室をプレイします.
-   - ![sample_scene_multiChoice](./assets/gif/multiChoice_smpl.gif)
-   1. ファイル「index.html」内の, 「Let's escape!」リンクをクリックします.
-   2. 文字列「JSON ファイルを選択してください」をクリックし, ローカルの json ファイル選択画面を開いてください.
-   3. 事前にローカルにダウンロードした json ファイル「multiChoice_registry_2024-10-09_05-53-26.json」を選択してください.
-   4. 実際に空間内を[基本操作](#基本操作)に従い, 移動可能なことを確認してください.
-   5. 空間内には, 最左ブロックにクイズの問題文が表示されています. 解答として正しい数値が書かれているブロックを空間内から選んでクリックしてください.
-   - 正しい解答のブロックをクリックすると, 「Correct!」と書かれたブロックと, その右に「Goal (改行) Step on this square!」と書かれた Grid が可視化されます.
-   6. 「Goal (改行) Step on this square!」と書かれた Grid の真上に来るよう移動すると, 脱出成功のメッセージが表示されることを確認してください.
-2. サンプルの脱出室を再現します.
-
-   1. ファイル「index.html」内の, 「Make Multi-choice Escape Room!」リンクをクリックします.
-   2. 空間内を[多肢選択肢クイズ空間 / Multi-choice Escape Rooms の機能説明](#機能説明)に従い,動かし, 先ほど動かしたサンプルの脱出室を再現してください.
-
-   - 自身の解答が正しくサンプルのように機能するかは, 完成した状態で「Download」ボタンを押下し保存後, サンプルの脱出室をプレイした際と同様の操作により確認できます.
-   - 模範解答は, 「Upload JSON File」ボタンを押下し, json ファイル「multiChoice_registry_2024-10-09_05-53-26.json」を選択することで確認できます.
-     <details>
-
-     ![multiChoice_upload](./assets/gif/multiChoice_upload.gif)
-
-     </details>
-
-   - <details><summary>模範解答は, このようにして作成されました. </summary>
-
-     ![multiChoice_smpledit](./assets/gif/multiChoice_smpledit.gif)
-
-     </details>
-
-3. (advanced)自由な問題設定で, 脱出室空間を開発してください.
-   - 特に思いつかない場合, 以下を開発するにはどうすればよいか考えてみてください.
-     - 4 つの選択肢のうち, 2 つを解答する形式のクイズ空間.
-       - e.g. Select two animals from the following that are classified as mammals. A: Penguin, B: Bat, C: Dolphin, D: Turtle
-     - 複数の選択肢のうち, 任意個数を解答する形式のクイズ空間.
-       - e.g. Select all the factors necessary for plant seed germination from the options below. A: Soil B: Water C: Light D: Air E: Temperature
-     - 解答として２桁の数値を指定する形式のクイズ空間.
-       - e.g. How many prefectures are there in Japan?
-
-### 迷路空間 / Maze Escape Rooms
-
-advanced と書かれているものは, 達成にそれなりに時間がかかると思われます.
-アンケートに際し, 必ずしも全てを 100%達成しなければならない訳ではないため, いいところで区切りをつけて次に進んでもらっても構いません.
-
-1. サンプルの脱出室をプレイします.
-   - ![sample_scene_maze](./assets/gif/maze_smpl.gif)
-   1. ファイル「index.html」内の, 「Let's escape!」リンクをクリックします.
-   2. 文字列「JSON ファイルを選択してください」をクリックし, ローカルの json ファイル選択画面を開いてください.
-   3. 事前にローカルにダウンロードした json ファイル「maze_registry_2025-01-21_11-38-06.json」を選択してください.
-   4. 実際に空間内を[基本操作](#基本操作)に従い, 移動可能なことを確認してください. また, 壁や円錐の密集(針罠)にぶつかると, それらを通り抜ける方向には動けないことを確認してください.
-   5. 空間内には, クリック可能な水晶のオブジェクトがいくつかあります. クリックし, 迷路がどのように変化したか確認してください.
-   6. 旗のようなオブジェクトにぶつかるように接近すると, 脱出成功のメッセージが表示されることを確認してください.
-2. サンプルの脱出室を再現します.
-
-   1. ファイル「index.html」内の, 「Make Maze Escape Room!」リンクをクリックします.
-   2. 空間内を[迷路空間 / Maze Escape Rooms の機能説明](#機能説明-1)に従い,動かし, 先ほど動かしたサンプルの脱出室を再現してください.
-
-   - 自身の解答が正しくサンプルのように機能するかは, 完成した状態で「Download」ボタンを押下し保存後, サンプルの脱出室をプレイした際と同様の操作により確認できます.
-   - 模範解答は, 「Upload JSON File」ボタンを押下し, json ファイル「maze_registry_2025-01-21_11-38-06.json」を選択することで確認できます.
-      <details>
-
-     ![maze_upload](./assets/gif/maze_upload.gif)
-
-      </details>
-
-   - <details><summary>模範解答は, このようにして作成されました. </summary>
-
-     ![maze_smpledit](./assets/gif/maze_smpledit.gif)
-
-     </details>
-
-3. (advanced)自由な問題設定で, 脱出室空間を開発してください.
-   - 特に思いつかない場合, 以下を開発するにはどうすればよいか考えてみてください.
-     - 起動時にゴールが見える一方ですぐにはたどり着けず、オブジェクトは 3 つまでしかクリックできない状態で、適切に選択し正しい道を出現させる空間.
-     - 起動時に隅にあるゴールが壁 2 つと針罠 2 つに囲まれており, 水晶が大量に置かれている中で, 適切な順に適切な水晶をクリックすると脱出できる空間.
-     - 大きな空間が右と左にあり, よく似ているが少し違う 2 つの空間を, 全く同じにすると脱出できる空間.
-     - 2 人で協力して脱出する, 起動時に右と左に水晶オブジェクトがあり, それにより右ルートと左ルートで違う迷路を選択し脱出する空間.
-
-### アンケート回答
-
-以下リンク先より, 本実験のアンケート回答をお願いします.  
-[アンケート回答リンク][questionnaire]  
-ご協力ありがとうございました.
 
 ## FAQ
 
