@@ -264,13 +264,13 @@ Grid をクリックすると, 以下のメニューが表示されます.
 
 以下のオブジェクトは, ドラッグアンドドロップにより配置可能です. スタート位置オブジェクト以外は, 何個でも配置可能です. また, 正しい位置に配置することで迷路脱出室の設定ができます.
 
-| オブジェクトの種類                                                         | 説明                                                                                                        |
-| -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| 青水晶 <br> ![maze_octahedron](./assets/img/maze_octahedron.png)           | 脱出者は, これをクリックできます. クリックすると, action target で指定したオブジェクトの可視性が反転します. |
-| ポータル <br> ![maze_startportal](./assets/img/maze_startportal.png)       | 脱出者は, これを配置した場所からスタートします. 配置しなかった場合, Grid 0 0 からスタートします.            |
-| 旗 <br> ![maze_goalflag](./assets/img/maze_goalflag.png)                   | 脱出者は, これに触れると脱出成功です.                                                                       |
-| 針罠 <br> ![maze_spiketrap](./assets/img/maze_spiketrap.png)               | 脱出者は, この上を通れません. <details>![maze_spiketrap](./assets/gif/maze_spiketrap.gif) </details>        |
-| テキストブロック <br> ![maze_textblocks](./assets/img/maze_textblocks.png) | 脱出開始時のオブジェクトの有無を定義します.                                                                 |
+| オブジェクトの種類                                                         | 説明                                                                                                                                                                           |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 青水晶 <br> ![maze_octahedron](./assets/img/maze_octahedron.png)           | 脱出者は, これをクリックできます. クリックすると, action target で指定したオブジェクトの有無が反転します.                                                                      |
+| ポータル <br> ![maze_startportal](./assets/img/maze_startportal.png)       | 脱出者は, これを配置した場所からスタートします. 配置しなかった場合, Grid 0 0 からスタートします.                                                                               |
+| 旗 <br> ![maze_goalflag](./assets/img/maze_goalflag.png)                   | 脱出者は, これに触れると脱出成功です.                                                                                                                                          |
+| 針罠 <br> ![maze_spiketrap](./assets/img/maze_spiketrap.png)               | 脱出者は, この上を通れません. <details>![maze_spiketrap](./assets/gif/maze_spiketrap.gif) </details>                                                                           |
+| テキストブロック <br> ![maze_textblocks](./assets/img/maze_textblocks.png) | enable/disable テキストブロックは, 脱出開始時のオブジェクトの有無を定義します.<br>Grid x y ('s Right/Below Wall) テキストブロックは, 有無を反転させるオブジェクトを定義します. |
 
 テキストブロック以外のオブジェクトは, 各正方形 Grid に配置できます. 配置すると, 追加の設定項目が設定可能となります.
 
