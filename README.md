@@ -280,6 +280,8 @@ Grid をクリックすると, 以下のメニューが表示されます.
 
 </details>
 
+![maze_edit_addon](./assets/img/maze_edit_addon.png)
+
 - init visibility: 起動時にオブジェクトを表示するかどうかを選択できます. 「enable」では表示, 「disable」では非表示となります. 何も設定しなければ, 「disable」として扱われます.
 - action target: クリックしたときに可視性を反転させる対象を選択します. 2 つまでを対象として選択できます.
   - Grid x y テキストブロックを設定した場合, その Grid 上のオブジェクト(水晶, ポータル, 旗, 針罠)の有無を反転させます.
