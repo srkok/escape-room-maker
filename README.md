@@ -2,12 +2,13 @@
 
 ![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 開発画面](./assets/gif/multiChoice_smpledit.gif)
 ![多肢選択肢クイズ空間 / Multi-choice Escape Rooms 実行画面](./assets/gif/multiChoice_smpl.gif)
-![迷路空間 / Maze Escape Rooms 開発画面](./assets/imgs/maze_edit.png)
-![迷路空間 / Maze Escape Rooms 実行画面](./assets/imgs/maze_ex.png)
+![迷路空間 / Maze Escape Rooms 開発画面](./assets/gif/maze_smpledit.gif)
+![迷路空間 / Maze Escape Rooms 実行画面](./assets/gif/maze_smpl.gif)
 
 ## 目次
 
 - [概要](#概要)
+- [操作方法](#操作方法)
   - [基本操作](#基本操作)
   - [多肢選択肢クイズ空間 / Multi-choice Escape Rooms](#多肢選択肢クイズ空間--multi-choice-escape-rooms)
     - [機能説明](#機能説明)
@@ -28,10 +29,14 @@
 児童を対象とする, プログラミング学習の文脈において, 3D 脱出室の開発を通して, プログラミング的思考能力の養成を目指すシステムです.  
 具体的には, 以下の脱出室の開発を通して, プログラミング学習を行います.
 
-- 多肢選択肢クイズ空間 / Multi-choice Escape Rooms
-- 迷路空間 / Maze Escape Rooms
+- 多肢選択肢クイズ空間 / Multi-choice Escape Rooms: 「クリックすると, 対象の可視性を反転させる」機能のみを利用し, 「多肢選択肢クイズ空間」の開発を実行できます.
+- 迷路空間 / Maze Escape Rooms: 「クリックすると, 2 つまでの対象の可視性を反転させる」機能を利用し, 「迷路空間」の開発を実行できます.
+
+## 操作方法
 
 ### 基本操作
+
+以下の操作は, 脱出室開発空間と脱出室実行空間で共通の操作です.
 
 | 操作                                               | 説明                                    |
 | -------------------------------------------------- | --------------------------------------- |
@@ -42,8 +47,6 @@
 | 何もないところをクリックしたまま任意方向にドラッグ | カメラアングルが調整できます.           |
 
 ### 多肢選択肢クイズ空間 / Multi-choice Escape Rooms
-
-「クリックすると, 対象の可視性を反転させる」機能のみを利用し, 「多肢選択肢クイズ空間」の開発を実行できます.
 
 #### 機能説明
 
@@ -97,39 +100,58 @@ Grid をクリックすると, 以下のメニューが表示されます.
 
 ### 迷路空間 / Maze Escape Rooms
 
-「クリックすると, 2 つまでの対象の可視性を反転させる」機能を利用し, 「迷路空間」の開発を実行できます.
-
 #### 機能説明
 
 アクセスすると, 以下の状態となります.
 ![迷路空間 / Maze Escape Rooms アクセス時](./assets/imgs/maze_edit_init.png)
 
 - 各正方形 Grid の間には細長いグレーの Grid がありますが, これは迷路の壁を設定する Grid です. クリックすると, 脱出開始時に壁を設けるように設定されます. もう一度クリックすると解除されます.
-   <details>工事中.</details>
+   <details>
+   ![maze_wall](./assets/gif/maze_wall.gif)
+   </details>
 - 「add row/column」ボタンでは, 1 回押すごとに迷路の行数/列数を +1 できます.
-   <details>工事中.</details>
+   <details>
+   ![maze_addbutton](./assets/gif/maze_addbutton.gif)
+   </details>
 - 「Upload JSON File」ボタンでは, 前回作業した状態が保存してある json ファイルを読み込むことで, 作業状態を復元できます.
-   <details>工事中.</details>
+   <details>
+   ![maze_upload](./assets/gif/maze_upload.gif)
+   </details>
 - 「Download」ボタンでは, 現在の作業状態を json ファイルとして保存できます.
 
 以下のオブジェクトは, ドラッグアンドドロップにより配置可能です. スタート位置オブジェクト以外は, 何個でも配置可能です. また, 正しい位置に配置することで迷路脱出室の設定ができます.
 
-| オブジェクトの種類                                                                                                  | 説明                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| 青水晶 ![maze_octahedron](./assets/imgs/maze_octahedron.png)                                                        | クリックできます. クリックすると, action target で指定したオブジェクトの可視性が反転します.                                    |
-| 青円 ![maze_startportal](./assets/imgs/maze_startportal.png)                                                        | ここから脱出者はスタートします.                                                                                                |
-| 旗 ![maze_goalflag](./assets/imgs/maze_goalflag.png)                                                                | これに触れると脱出成功です.                                                                                                    |
-| 針罠 ![maze_spiketrap](./assets/imgs/maze_spiketrap.png)                                                            | 脱出者はこの上を通れません.                                                                                                    |
-| enable/disable テキストブロック ![maze_textblock_enable](./assets/imgs/maze_textblock_enable.png)                   | 脱出開始時のオブジェクトの可視性を定義します.                                                                                  |
-| Grid x y テキストブロック ![maze_textblock_gridname](./assets/imgs/maze_textblock_gridname.png)                     | action target を設定するテキストブロックです. これを設定した場合, Grid 上のオブジェクト(水晶, 旗, 針罠)の可視性を反転させます. |
-| Grid x y 's Right/Below Wall テキストブロック ![maze_textblock_wallname](./assets/imgs/maze_textblock_wallname.png) | action target を設定するテキストブロックです. これを設定した場合, この壁の有無を反転させます.                                  |
+| オブジェクトの種類                                                                                                       | 説明                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| 青水晶 <br> ![maze_octahedron](./assets/imgs/maze_octahedron.png)                                                        | 脱出者は, これをクリックできます. クリックすると, action target で指定したオブジェクトの可視性が反転します. |
+| ポータル <br> ![maze_startportal](./assets/imgs/maze_startportal.png)                                                    | 脱出者は, これを配置した場所からスタートします. 配置しなかった場合, Grid 0 0 からスタートします.            |
+| 旗 <br> ![maze_goalflag](./assets/imgs/maze_goalflag.png)                                                                | 脱出者は, これに触れると脱出成功です.                                                                       |
+| 針罠 <br> ![maze_spiketrap](./assets/imgs/maze_spiketrap.png)                                                            | 脱出者は, この上を通れません. <details>![maze_spiketrap](./assets/gif/maze_spiketrap.gif) </details>        |
+| enable/disable テキストブロック <br> ![maze_textblock_enable](./assets/imgs/maze_textblock_enable.png)                   | 脱出開始時のオブジェクトの有無を定義します.                                                                 |
+| Grid x y テキストブロック <br> ![maze_textblock_gridname](./assets/imgs/maze_textblock_gridname.png)                     | action target を設定するテキストブロックです.                                                               |
+| Grid x y 's Right/Below Wall テキストブロック <br> ![maze_textblock_wallname](./assets/imgs/maze_textblock_wallname.png) | action target を設定するテキストブロックです.                                                               |
 
-- テキストブロック以外のオブジェクトは, 各正方形 Grid に配置できます. 配置すると, 追加の設定項目が設定可能となります.
-   <details>工事中.</details>
-  - init visibility: 起動時にオブジェクトを表示するかどうかを選択できます. 「enable」では表示, 「disable」では非表示となります. 何も設定しなければ, 「disable」として扱われます.
-   <details>工事中.</details>
-  - action target: クリックしたときに可視性を反転させる対象を選択します. 2 つまでを対象として選択できます.
-   <details>工事中.</details>
+テキストブロック以外のオブジェクトは, 各正方形 Grid に配置できます. 配置すると, 追加の設定項目が設定可能となります.
+
+<details>
+
+![maze_dragndrop](./assets/gif/maze_dragndrop.gif)
+
+</details>
+- init visibility: 起動時にオブジェクトを表示するかどうかを選択できます. 「enable」では表示, 「disable」では非表示となります. 何も設定しなければ, 「disable」として扱われます.
+- action target: クリックしたときに可視性を反転させる対象を選択します. 2 つまでを対象として選択できます.
+  - Grid x y テキストブロックを設定した場合, そのGrid 上のオブジェクト(水晶, ポータル, 旗, 針罠)の有無を反転させます.
+  - Grid x y 's Right/Below テキストブロックを設定した場合, その壁の有無を反転させます.
+<details>
+以下のように設定すると:
+
+![maze_smpledit_octahedron](./assets/gif/maze_smpledit_octahedron.gif)
+
+以下のように動作します:
+
+![maze_smpl_octahedron](./assets/gif/maze_smpl_octahedron.gif)
+
+</details>
 
 ## 実行方法
 
@@ -191,7 +213,7 @@ advanced と書かれているものは, 達成にそれなりに時間がかか
 アンケートに際し, 必ずしも全てを 100%達成しなければならない訳ではないため, いいところで区切りをつけて次に進んでもらっても構いません.
 
 1. サンプルの脱出室をプレイします.
-   - ![sample_scene](./assets/gif/multiChoice_smpl.gif)
+   - ![sample_scene_multiChoice](./assets/gif/multiChoice_smpl.gif)
    1. ファイル「index.html」内の, 「Let's escape!」リンクをクリックします.
    2. 文字列「JSON ファイルを選択してください」をクリックし, ローカルの json ファイル選択画面を開いてください.
    3. 事前にローカルにダウンロードした json ファイル「multiChoice_registry_2024-10-09_05-53-26.json」を選択してください.
@@ -233,17 +255,32 @@ advanced と書かれているものは, 達成にそれなりに時間がかか
 アンケートに際し, 必ずしも全てを 100%達成しなければならない訳ではないため, いいところで区切りをつけて次に進んでもらっても構いません.
 
 1. サンプルの脱出室をプレイします.
+   - ![sample_scene_maze](./assets/gif/maze_smpl.gif)
    1. ファイル「index.html」内の, 「Let's escape!」リンクをクリックします.
    2. 文字列「JSON ファイルを選択してください」をクリックし, ローカルの json ファイル選択画面を開いてください.
    3. 事前にローカルにダウンロードした json ファイル「maze_registry_2025-01-21_11-38-06.json」を選択してください.
    4. 実際に空間内を[基本操作](#基本操作)に従い, 移動可能なことを確認してください. また, 壁や円錐の密集(針罠)にぶつかると, それらを通り抜ける方向には動けないことを確認してください.
    5. 空間内には, クリック可能な水晶のオブジェクトがいくつかあります. クリックし, 迷路がどのように変化したか確認してください.
    6. 旗のようなオブジェクトにぶつかるように接近すると, 脱出成功のメッセージが表示されることを確認してください.
-2. サンプルの脱出室を作成します.
+2. サンプルの脱出室を再現します.
+
    1. ファイル「index.html」内の, 「Make Maze Escape Room!」リンクをクリックします.
-   2. 空間内を[迷路空間 / Maze Escape Rooms の機能説明](#機能説明-1)に従い,動かし, 先ほど動かしたサンプルの脱出室を作成してください.
+   2. 空間内を[迷路空間 / Maze Escape Rooms の機能説明](#機能説明-1)に従い,動かし, 先ほど動かしたサンプルの脱出室を再現してください.
+
    - 自身の解答が正しくサンプルのように機能するかは, 完成した状態で「Download」ボタンを押下し保存後, サンプルの脱出室をプレイした際と同様の操作により確認できます.
    - 模範解答は, 「Upload JSON File」ボタンを押下し, json ファイル「maze_registry_2025-01-21_11-38-06.json」を選択することで確認できます.
+      <details>
+
+     ![maze_upload](./assets/gif/maze_upload.gif)
+
+      </details>
+
+   - <details><summary>模範解答は, このようにして作成されました. </summary>
+
+     ![maze_smpledit](./assets/gif/maze_smpledit.gif)
+
+     </details>
+
 3. (advanced)自由な問題設定で, 脱出室空間を開発してください.
    - 特に思いつかない場合, 以下を開発するにはどうすればよいか考えてみてください.
      - 起動時にゴールが見える一方ですぐにはたどり着けず、オブジェクトは 3 つまでしかクリックできない状態で、適切に選択し正しい道を出現させる空間.
